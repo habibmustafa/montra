@@ -32,9 +32,8 @@ const SetupPin = ({ navigation }) => {
                      dispatch(setPin(enteredPin));
                      if (!userDb.accounts) {
                         navigation.navigate("SetupAccount");
-                     }
-                     else {
-                        navigation.navigate("Root");
+                     } else {
+                        navigation.navigate("Tab");
                      }
                   } else {
                      setRegisterPin("");
@@ -42,27 +41,24 @@ const SetupPin = ({ navigation }) => {
                         title: "The entered PINs do not match. Please try again",
                         placement: "top",
                         duration: 2000,
-                        backgroundColor: 'red.500',
+                        backgroundColor: "red.500",
                      });
                   }
                }
             } else {
                if (enteredPin == pin) {
-                  // console.log("Success");
                   if (!userDb.accounts) {
                      navigation.navigate("SetupAccount");
-                  }
-                  else {
-                     navigation.navigate("Root");
+                  } else {
+                     navigation.navigate("Tab");
                   }
                } else {
-                  // console.log("Failed");
                   setError(true);
                   toast.show({
                      title: "Pin code is incorrect",
                      placement: "top",
                      duration: 1700,
-                     backgroundColor: 'red.500',
+                     backgroundColor: "red.500",
                   });
                }
             }
@@ -75,7 +71,11 @@ const SetupPin = ({ navigation }) => {
 
    return (
       <>
-         <StatusBar backgroundColor="#7F3DFF" animated={true} barStyle="light-content" />
+         <StatusBar
+            backgroundColor="#7F3DFF"
+            animated={true}
+            barStyle="light-content"
+         />
 
          <SafeAreaView className="bg-violet-100 flex-1 items-center">
             <Text className="pt-20 pb-16 text-light-100 font-bold text-xl mini:pt-12 mini:pb-12 mini:text-lg">

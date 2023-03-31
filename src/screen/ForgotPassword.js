@@ -6,9 +6,6 @@ import { Formik } from "formik";
 import { passwordReset } from "../firebaseConfig/auth";
 
 const ForgotPassword = ({ navigation }) => {
-   const handleSubmit = async () => {
-      navigation.navigate("ForgotPasswordEmailSent");
-   };
 
    return (
       <View className="px-4 bg-white h-full">

@@ -16,8 +16,7 @@ const Login = ({ navigation }) => {
             onSubmit={async (values, { setErrors, resetForm }) => {
                const user = await login(values.email, values.password);
                if (user) {
-                  console.log(user);
-                  navigation.navigate("SetupPin");
+                  // navigation.navigate("SetupPin");
                   resetForm();
                } else {
                   setErrors({
@@ -96,10 +95,6 @@ const Login = ({ navigation }) => {
                      onPress={async () => {
                         // ToastAndroid.showWithGravity("Not active yet", 200, 10);
                         const user = await signInWithGoogle();
-                        if (user) {
-                           navigation.navigate("SetupPin");
-                        }
-                        console.log(user);
                      }}
                   />
                </View>

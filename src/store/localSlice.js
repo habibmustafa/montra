@@ -28,24 +28,3 @@ export const localSlice = createSlice({
 export const { setUser, removeUser, setPin } = localSlice.actions;
 
 export default localSlice.reducer;
-
-
-// if (!pin) {
-//    if (!registerPin.first) {
-//       setRegisterPin({ ...pin, first: enteredPin });
-//    } else {
-//       setRegisterPin({ ...pin, second: enteredPin });
-
-//       if (registerPin.first == registerPin.second) {
-//          dispatch(setPin(registerPin.second));
-//       } else {
-//          setRegisterPin({ first: "", second: "" });
-//       }
-//    }
-// } 
-
-// else {
-
-// const [registerPin, setRegisterPin] = useState({ first: "", second: "" });
-// {"Let’s  setup your PIN"}
-//                {registerPin.second && "Ok. Re type your PIN again."}

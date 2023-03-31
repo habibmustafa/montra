@@ -16,8 +16,6 @@ const Onboarding = ({ navigation }) => {
       e.preventDefault();
    };
 
-   console.log(Dimensions.get("window").width);
-
    useEffect(() => {
       navigation.addListener("beforeRemove", beforeRemove);
       return () => {

@@ -1,7 +1,8 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-   userDb: false
+   userDb: false,
+   allAccountBalance: null
 };
 
 export const userSlice = createSlice({
@@ -10,6 +11,10 @@ export const userSlice = createSlice({
    reducers: {
       setUserDb: (state, action) => {
          state.userDb = action.payload
+
+         // allAccountBalance
+         const balances = Object.values(action.payload.accounts).map(account => account.balance);
+         state.allAccountBalance = balances.reduce((acc, curr) => acc + curr, 0);
       } 
    },
 });

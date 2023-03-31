@@ -16,7 +16,7 @@ const Profile = ({navigation}) => {
             titleColor="white"
             onPress={async () => {
                await logout(user);
-               navigation.navigate("Onboarding");
+               // navigation.navigate("Onboarding");
             }}
          />
       </View>

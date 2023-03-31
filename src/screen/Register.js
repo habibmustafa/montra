@@ -22,8 +22,7 @@ const Register = ({ navigation }) => {
                   values.name.trim()
                );
                if (user) {
-                  console.log(user);
-                  navigation.navigate("SetupPin");
+                  // navigation.navigate("SetupPin");
                }
                resetForm();
             }}
@@ -127,10 +126,6 @@ const Register = ({ navigation }) => {
                onPress={ async () => {
                   // ToastAndroid.showWithGravity("Not active yet", 200, 10);
                   const user = await signInWithGoogle()
-                  if(user) {
-                     navigation.navigate("SetupPin")
-                  }
-                  console.log(user);
                }}
             />
             <Text className="font-medium text-base text-light-20 text-center mt-8 mini:mt-6 mini:text-sm mini:mb-6">

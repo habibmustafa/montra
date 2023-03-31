@@ -66,9 +66,8 @@ export const signInWithGoogle = async () => {
 // !Logout
 export const logout = async (user) => {
    try {
-      // off(ref(montraDB, `users/${user.uid}`), 'value')
       database().ref(`users/${user.uid}`).off('value')
-      store.dispatch(removeUser());
+      console.log("Logout");
       return await auth().signOut();
    } catch (err) {
       console.log(err.code);
@@ -78,9 +77,10 @@ export const logout = async (user) => {
 // !User state changed
 auth().onAuthStateChanged((user) => {
    if (user) {
-      console.log(1);
+      console.log("StateChanged: ",user);
       store.dispatch(setUser(user));
    } else {
+      store.dispatch(removeUser());
       console.log("User is signed out");
    }
 });
