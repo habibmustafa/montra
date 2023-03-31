@@ -14,8 +14,7 @@ const getIconColor = (focused) => ({
    tintColor: focused ? "blue" : "#000",
 });
 
-const TabsNavigator = () => {
-   const { opened, toggleOpened } = useState(true);
+const TabNavigator = () => {
    return (
       <Tab.Navigator
          initialRouteName="Home"
@@ -61,9 +60,6 @@ const TabsNavigator = () => {
                   </View>
                ),
             }}
-            listeners={{
-               tabPress: (e) => opened && e.preventDefault(),
-            }}
          />
          <Tab.Screen
             name="Transaction"
@@ -105,9 +101,6 @@ const TabsNavigator = () => {
                   </View>
                ),
             }}
-            listeners={{
-               tabPress: (e) => opened && e.preventDefault(),
-            }}
          />
          <Tab.Screen
             name="Add"
@@ -116,9 +109,7 @@ const TabsNavigator = () => {
                tabBarItemStyle: {
                   height: 0,
                },
-               tabBarButton: () => (
-                  <AddButton opened={opened} toggleOpened={toggleOpened} />
-               ),
+               tabBarButton: () => <AddButton />,
             }}
          />
          <Tab.Screen
@@ -157,9 +148,6 @@ const TabsNavigator = () => {
                   </View>
                ),
             }}
-            listeners={{
-               tabPress: (e) => opened && e.preventDefault(),
-            }}
          />
          <Tab.Screen
             name="Profile"
@@ -196,9 +184,6 @@ const TabsNavigator = () => {
                      </Text>
                   </View>
                ),
-            }}
-            listeners={{
-               tabPress: (e) => opened && e.preventDefault(),
             }}
          />
       </Tab.Navigator>
@@ -239,4 +224,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default TabsNavigator;
+export default TabNavigator;
