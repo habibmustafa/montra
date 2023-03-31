@@ -13,8 +13,8 @@ const ForgotPassword = ({ navigation }) => {
    return (
       <View className="px-4 bg-white h-full">
          {/* Text */}
-         <View className="pt-16">
-            <Text className="font-semibold text-3xl text-dark-25">
+         <View className="pt-16 mini:pt-10">
+            <Text className="font-semibold text-3xl text-dark-25 mini:text-xl">
                Don’t worry.{"\n"}Enter your email and we’ll send you a link to
                reset your password.
             </Text>
@@ -24,9 +24,9 @@ const ForgotPassword = ({ navigation }) => {
          <Formik
             initialValues={{ email: "" }}
             onSubmit={async (values, { resetForm }) => {
-               
-               const res = await passwordReset(values.email)
-               console.log(res);
+               navigation.navigate("ForgotPasswordEmailSent");
+               // const res = await passwordReset(values.email)
+               // console.log(res);
                // resetForm();
 
             }}
@@ -54,7 +54,7 @@ const ForgotPassword = ({ navigation }) => {
                      error={errors.email}
                   />
                   {/* Button */}
-                  <View className="mt-12">
+                  <View className="mt-12 mini:mt-10">
                      <MaterialButton
                         onPress={handleSubmit}
                         title="Continue"

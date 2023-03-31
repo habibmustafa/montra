@@ -12,14 +12,13 @@ import { useEffect } from "react";
 import SetupPin from "./screen/SetupPin";
 import { NativeBaseProvider } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
-import { onValue, ref } from "firebase/database";
-import { montraDB } from "./firebaseConfig/montraDB";
 import { setUserDb } from "./store/userSlice";
 import SetupAccount from "./screen/SetupAccount";
 import AddAccount from "./screen/AddAccount";
 import Success from "./screen/Success";
 import TabsNavigator from "./navigations/TabsNavigator";
 import SplashScreen from "react-native-splash-screen";
+import database from "@react-native-firebase/database";
 
 export default function App() {
    // Router stack
@@ -31,17 +30,21 @@ export default function App() {
 
    user = JSON.parse(user);
 
+   console.log(isLoggedIn);
+
    useEffect(() => {
       console.log("isLoggedIn: ", isLoggedIn);
-		
-      if (isLoggedIn) {
-         onValue(ref(montraDB, `users/${user.uid}`), (snapshot) => {
-            const data = snapshot.val();
 
-            if (snapshot.exists()) {
-               dispatch(setUserDb(data));
-            }
-         });
+      if (isLoggedIn) {
+         database()
+            .ref(`users/${user.uid}`)
+            .on("value", (snapshot) => {
+               const data = snapshot.val();
+
+               if (snapshot.exists()) {
+                  dispatch(setUserDb(data));
+               }
+            });
       }
    }, [isLoggedIn]);
 
@@ -66,7 +69,6 @@ export default function App() {
                         animation: "default",
                         headerTitleAlign: "center",
                         headerShadowVisible: false,
-                        
                      }}
                   >
                      {isLoggedIn ? (
@@ -84,7 +86,6 @@ export default function App() {
                            component={Onboarding}
                            options={{
                               headerShown: false,
-                              // animation: "default",
                            }}
                         />
                      )}

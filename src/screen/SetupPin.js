@@ -75,10 +75,10 @@ const SetupPin = ({ navigation }) => {
 
    return (
       <>
-         <StatusBar backgroundColor="#7F3DFF" animated={true} barStyle="default" />
+         <StatusBar backgroundColor="#7F3DFF" animated={true} barStyle="light-content" />
 
          <SafeAreaView className="bg-violet-100 flex-1 items-center">
-            <Text className="pt-20 pb-16 text-light-100 font-bold text-xl">
+            <Text className="pt-20 pb-16 text-light-100 font-bold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
                {!pin && !registerPin && "Let’s  setup your PIN"}
                {registerPin && "Ok. Re type your PIN again."}
                {pin && "Enter PIN"}
@@ -89,9 +89,9 @@ const SetupPin = ({ navigation }) => {
                {input.map((item, index) => (
                   <View
                      key={index}
-                     className={`w-5 h-5 rounded-full ${
+                     className={`w-5 h-5 rounded-full mini:w-4 mini:h-4 ${
                         enteredPin.toString().length < index + 1
-                           ? `border-4 border-[#EEE5FF] opacity-40`
+                           ? `border-4 border-[#EEE5FF] opacity-40 mini:border-[3px]`
                            : "bg-light-100"
                      }`}
                   ></View>
@@ -99,11 +99,11 @@ const SetupPin = ({ navigation }) => {
             </View>
 
             {/* Keyboard */}
-            <View className="input flex-row flex-wrap w-11/12 mb-3 justify-center items-center">
+            <View className="input flex-row flex-wrap w-11/12 mb-3 justify-center items-center mini:w-10/12">
                {keyboard.map((item, index) => (
                   <View
                      key={index}
-                     className="h-[90px] basis-1/3 justify-center items-center"
+                     className="h-[90px] basis-1/3 justify-center items-center mini:h-[78px] mini:basis-1/3"
                   >
                      <TouchableRipple
                         onPress={() => {
@@ -117,11 +117,11 @@ const SetupPin = ({ navigation }) => {
                         rippleColor="#B18AFF"
                         disabled={index == 9 && true}
                         borderless={true}
-                        className={`rounded-full h-20 w-20 border-violet-100 justify-center items-center`}
+                        className={`rounded-full h-20 w-20 border-violet-100 justify-center items-center mini:w-16 mini:h-16`}
                      >
                         <>
                            {index == 11 || (
-                              <Text className="text-light-100 text-5xl justify-center mt-3">
+                              <Text className="text-light-100 text-5xl justify-center mt-3 mini:text-3xl mini:mt-1.5">
                                  {item}
                               </Text>
                            )}

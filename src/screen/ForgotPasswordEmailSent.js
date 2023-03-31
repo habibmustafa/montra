@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import MaterialButton from "../components/MaterialButton";
+import { openInbox } from "react-native-email-link";
 
 const ForgotPasswordEmailSent = ({ navigation }) => {
    return (
@@ -25,9 +26,10 @@ const ForgotPasswordEmailSent = ({ navigation }) => {
          <View className="mb-5">
             <MaterialButton
                onPress={() => {
+                  openInbox()
                   navigation.navigate("Login");
                }}
-               title="Back to Login"
+               title="Go to Gmail"
                titleColor="#fff"
             />
          </View>

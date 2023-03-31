@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Dimensions } from "react-native";
 import { SelectList as SelectListD } from "react-native-dropdown-select-list";
-import { HelperText, TouchableRipple } from "react-native-paper";
+import { HelperText } from "react-native-paper";
 
 const SelectList = ({ data, setSelected, label, error }) => {
    return (
@@ -12,17 +12,17 @@ const SelectList = ({ data, setSelected, label, error }) => {
             placeholder={label}
             search={false}
             boxStyles={{
-               marginTop: 16,
+               marginTop: Dimensions.get("window").width < 385 ? 14 : 16,
                borderWidth: 1,
                borderRadius: 16,
                borderColor: "#F1F1FA",
                alignItems: "center",
                
             }}
-            inputStyles={{ fontSize: 16, paddingVertical: 8, color: '#212325' }}
+            inputStyles={Dimensions.get("window").width < 385 ? { fontSize: 14, paddingVertical: 4, color: '#212325' } : { fontSize: 16, paddingVertical: 8, color: '#212325' }}
             dropdownStyles={{borderWidth: 1, borderRadius: 16, borderColor: "#F1F1FA" }}
-            dropdownItemStyles={{ paddingVertical: 12}}
-            dropdownTextStyles={{fontSize: 16}}
+            dropdownItemStyles={{ paddingVertical: Dimensions.get("window").width < 385 ? 8 : 12}}
+            dropdownTextStyles={{fontSize: Dimensions.get("window").width < 385 ? 14 : 16}}
             save="value"
             
          />

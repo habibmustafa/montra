@@ -1,9 +1,11 @@
 import { Formik } from "formik";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions, Image } from "react-native";
 import Input from "../components/Input";
 import MaterialButton from "../components/MaterialButton";
 import { login } from "../firebaseConfig/auth";
+import { signInWithGoogle } from "../firebaseConfig/auth";
+
 
 const Login = ({ navigation }) => {
    return (
@@ -15,7 +17,7 @@ const Login = ({ navigation }) => {
                const user = await login(values.email, values.password);
                if (user) {
                   console.log(user);
-                  navigation.navigate("SetupPin")
+                  navigation.navigate("SetupPin");
                   resetForm();
                } else {
                   setErrors({
@@ -44,7 +46,7 @@ const Login = ({ navigation }) => {
             }}
          >
             {({ handleSubmit, handleChange, handleBlur, values, errors }) => (
-               <View className="inputs pt-14">
+               <View className="inputs pt-14 mini:pt-8">
                   <Input
                      label="Email"
                      textContentType="emailAddress"
@@ -56,7 +58,10 @@ const Login = ({ navigation }) => {
                   <Input
                      label="Password"
                      textContentType="password"
-                     style={{ marginTop: 24 }}
+                     style={{
+                        marginTop:
+                           Dimensions.get("window").width < 385 ? 20 : 24,
+                     }}
                      value={values.password}
                      onChangeText={handleChange("password")}
                      onBlur={handleBlur("password")}
@@ -67,7 +72,35 @@ const Login = ({ navigation }) => {
                      onPress={handleSubmit}
                      title="Login"
                      titleColor="#fff"
-                     style={{ marginTop: 40 }}
+                     style={{
+                        marginTop:
+                           Dimensions.get("window").width < 385 ? 32 : 40,
+                     }}
+                  />
+
+                  {/* Google */}
+                  <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
+                     Or with
+                  </Text>
+                  <MaterialButton
+                     leading={
+                        <Image
+                           style={{ width: 32, height: 32 }}
+                           source={require("../assets/google.png")}
+                        />
+                     }
+                     title="Sign Up with Google"
+                     titleColor="#212325"
+                     color="#fff"
+                     style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
+                     onPress={async () => {
+                        // ToastAndroid.showWithGravity("Not active yet", 200, 10);
+                        const user = await signInWithGoogle();
+                        if (user) {
+                           navigation.navigate("SetupPin");
+                        }
+                        console.log(user);
+                     }}
                   />
                </View>
             )}
@@ -79,11 +112,11 @@ const Login = ({ navigation }) => {
                onPress={() => {
                   navigation.navigate("ForgotPassword");
                }}
-               className="my-11 text-center font-semibold text-lg text-violet-100"
+               className="my-10 text-center font-semibold text-lg text-violet-100 mini:my-8 mini:text-base"
             >
                Forgot Password?
             </Text>
-            <Text className="font-medium text-base text-light-20 text-center">
+            <Text className="font-medium text-base text-light-20 text-center mini:text-sm">
                Don’t have an account yet?{" "}
                <Text
                   onPress={() => {

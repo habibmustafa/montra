@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, Text } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
 
@@ -22,11 +22,8 @@ const Input = ({
             // label={<Text className="text-dark-25 bg-white pb-12">{!placeholder && label}</Text>}
             placeholder={placeholder ? label : false}
             placeholderTextColor="#91919F"
-            
+            className="text-base py-1 bg-white mini:py-0 mini:text-sm"
             style={{
-               fontSize: 16,
-               paddingVertical: 4,
-               backgroundColor: "#fff",
                ...style,
             }}
             outlineStyle={{
@@ -46,7 +43,8 @@ const Input = ({
             onBlur={onBlur}
          />
          <HelperText
-            style={{ position: "absolute", bottom: -22, color: '#FD3C4A' }}
+            style={{ position: "absolute", color: '#FD3C4A' }}
+            className="text-xs -bottom-[22px] mini:text-[10px] mini:-bottom-[19px]"
             type="error"
             visible={error}
          >
@@ -56,4 +54,4 @@ const Input = ({
    );
 };
 
-export default Input;
+export default memo(Input);

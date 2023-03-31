@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import MaterialButton from "../components/MaterialButton";
 import { logout } from "../firebaseConfig/auth";
 
-const Profile = ({ navigation }) => {
+const Profile = ({navigation}) => {
+   
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
 

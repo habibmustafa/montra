@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, Image, ToastAndroid } from "react-native";
+import { View, Text, Image, Dimensions, ScrollView } from "react-native";
 import Input from "../components/Input";
 import { Checkbox } from "react-native-paper";
 import MaterialButton from "../components/MaterialButton";
-import { register } from "../firebaseConfig/auth";
+import { register, signInWithGoogle } from "../firebaseConfig/auth";
 import { Formik } from "formik";
 
 const Register = ({ navigation }) => {
    const [checked, setChecked] = useState(true);
 
    return (
-      <View className="px-4 bg-white h-full">
+      <ScrollView className="px-4 bg-white h-full">
          {/* Inputs */}
          <Formik
             initialValues={{ name: "", email: "", password: "" }}
@@ -23,7 +23,7 @@ const Register = ({ navigation }) => {
                );
                if (user) {
                   console.log(user);
-                  navigation.navigate("Dashboard")
+                  navigation.navigate("SetupPin");
                }
                resetForm();
             }}
@@ -54,7 +54,7 @@ const Register = ({ navigation }) => {
             }}
          >
             {({ handleSubmit, handleChange, handleBlur, values, errors }) => (
-               <View className="inputs pt-14 pb-6">
+               <View className="inputs pt-14 mini:pt-8">
                   <Input
                      label="Name"
                      textContentType="name"
@@ -66,7 +66,7 @@ const Register = ({ navigation }) => {
                   <Input
                      label="Email"
                      textContentType="emailAddress"
-                     style={{ marginTop: 24 }}
+                     style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
                      value={values.email}
                      onChangeText={handleChange("email")}
                      onBlur={handleBlur("email")}
@@ -75,7 +75,7 @@ const Register = ({ navigation }) => {
                   <Input
                      label="Password"
                      textContentType="password"
-                     style={{ marginTop: 24 }}
+                     style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
                      value={values.password}
                      onChangeText={handleChange("password")}
                      onBlur={handleBlur("password")}
@@ -84,14 +84,14 @@ const Register = ({ navigation }) => {
                   />
 
                   {/* Terms of Service */}
-                  <View className="flex-row my-7">
+                  <View className="flex-row my-7 mini:mb-5">
                      <Checkbox
                         status={checked ? "checked" : "unchecked"}
                         onPress={() => {
                            setChecked(!checked);
                         }}
                      />
-                     <Text className="ml-2.5 mr-4 text-sm font-medium">
+                     <Text className="ml-2.5 mr-4 text-sm font-medium mini:text-[13px]">
                         By signing up, you agree to the{" "}
                         <Text className="text-[#7F3DFF]">
                            Terms of Service and Privacy Policy
@@ -110,7 +110,7 @@ const Register = ({ navigation }) => {
 
          {/* Sign up with Google */}
          <View>
-            <Text className="my-3 text-center font-bold text-light-20">
+            <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
                Or with
             </Text>
             <MaterialButton
@@ -124,11 +124,16 @@ const Register = ({ navigation }) => {
                titleColor="#212325"
                color="#fff"
                style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
-               onPress={() => {
-                  ToastAndroid.showWithGravity("Not active yet", 200, 10);
+               onPress={ async () => {
+                  // ToastAndroid.showWithGravity("Not active yet", 200, 10);
+                  const user = await signInWithGoogle()
+                  if(user) {
+                     navigation.navigate("SetupPin")
+                  }
+                  console.log(user);
                }}
             />
-            <Text className="font-medium text-base text-light-20 text-center mt-8">
+            <Text className="font-medium text-base text-light-20 text-center mt-8 mini:mt-6 mini:text-sm mini:mb-6">
                Already have an account?{" "}
                <Text
                   onPress={() => {
@@ -140,7 +145,7 @@ const Register = ({ navigation }) => {
                </Text>
             </Text>
          </View>
-      </View>
+      </ScrollView>
    );
 };
 

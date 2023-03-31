@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { TouchableRipple, Text } from "react-native-paper";
 
 const MaterialButton = ({
@@ -16,14 +16,9 @@ const MaterialButton = ({
          borderless={true}
          onPress={onPress}
          rippleColor="#434c5445"
+         className="h-14 rounded-2xl justify-center items-center flex-row mini:h-12"
          style={{
             backgroundColor: color,
-            height: 56,
-            paddingVertical: 10,
-            borderRadius: 16,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
             ...style,
          }}
       >
@@ -32,9 +27,9 @@ const MaterialButton = ({
             <Text
                style={{
                   color: titleColor,
-                  fontSize: size,
                   fontWeight: "700",
                }}
+               className="text-lg  mini:text-base"
             >
                {title}
             </Text>
@@ -44,4 +39,4 @@ const MaterialButton = ({
    );
 };
 
-export default MaterialButton;
+export default memo(MaterialButton);

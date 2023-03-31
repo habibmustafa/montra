@@ -1,35 +1,27 @@
-import { app } from "./";
-import {
-   getAuth,
-   createUserWithEmailAndPassword,
-   signInWithEmailAndPassword,
-   signOut,
-   updateProfile,
-   onAuthStateChanged,
-   GoogleAuthProvider,
-   signInWithPopup,
-   sendPasswordResetEmail
-} from "firebase/auth";
 import { setUser, removeUser } from "../store/localSlice";
 import { ToastAndroid } from "react-native";
 import { store } from "../store";
-import { createAccount, montraDB } from "./montraDB";
-import { off, ref } from "firebase/database";
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider()
+import { createAccount } from "./montraDB";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
+import database from "@react-native-firebase/database";
+
+GoogleSignin.configure({
+   webClientId:
+      "281862918534-476ol4ntpqj7n4us57t4t9kkad0d0oeh.apps.googleusercontent.com",
+});
 
 // !Register
 export const register = async (email, password, username) => {
    try {
-      const { user } = await createUserWithEmailAndPassword(
-         auth,
+      const { user } = await auth().createUserWithEmailAndPassword(
          email,
          password
       );
-      await updateProfile(auth.currentUser, {
-         displayName: username,
-      });
-      createAccount(user.uid)
+      // await updateProfile(auth.currentUser, {
+      //    displayName: username,
+      // });
+      await createAccount(user.uid);
       return user;
    } catch (err) {
       console.log(err.code);
@@ -40,7 +32,7 @@ export const register = async (email, password, username) => {
 // !Login
 export const login = async (email, password) => {
    try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await auth().signInWithEmailAndPassword(email, password);
       return user;
    } catch (err) {
       console.log(err.code);
@@ -51,36 +43,43 @@ export const login = async (email, password) => {
 // !With Google
 export const signInWithGoogle = async () => {
    try {
-      const { user } = await signInWithPopup(auth, provider)
-      // GoogleAuthProvider.credentialFromResult(result)
-      // const token = credential.accessToken
+      await GoogleSignin.hasPlayServices({
+         showPlayServicesUpdateDialog: true,
+      });
+      const { idToken } = await GoogleSignin.signIn();
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      console.log(user);
+      const user = await auth().signInWithCredential(googleCredential);
+      if (user.additionalUserInfo.isNewUser) {
+         await createAccount(user.user.uid);
+      }
 
-
-
-   } catch(err) {
+      // Sign-in the user with the credential
+      return user.user;
+   } catch (err) {
       console.log(err.code);
       ToastAndroid.show(err.code, 200);
    }
-}
+};
 
 // !Logout
 export const logout = async (user) => {
    try {
-      off(ref(montraDB, `users/${user.uid}`), 'value')
-      store.dispatch(removeUser())
-      return await signOut(auth);
+      // off(ref(montraDB, `users/${user.uid}`), 'value')
+      database().ref(`users/${user.uid}`).off('value')
+      store.dispatch(removeUser());
+      return await auth().signOut();
    } catch (err) {
       console.log(err.code);
    }
 };
 
 // !User state changed
-onAuthStateChanged(auth, async (user) => {
+auth().onAuthStateChanged((user) => {
    if (user) {
       console.log(1);
-      store.dispatch(setUser(user))
+      store.dispatch(setUser(user));
    } else {
       console.log("User is signed out");
    }
@@ -89,9 +88,9 @@ onAuthStateChanged(auth, async (user) => {
 // !passwordReset
 export const passwordReset = async (email) => {
    try {
-      await sendPasswordResetEmail(auth, email)
+      await sendPasswordResetEmail(auth, email);
       return "Gonderildi";
-   } catch(err) {
+   } catch (err) {
       console.log(err.code);
    }
-}
+};

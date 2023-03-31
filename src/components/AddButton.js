@@ -219,13 +219,16 @@ const styles = StyleSheet.create({
    container: {
       alignItems: "center",
       flex: 1,
-      height: 0,
+      height: 70,
    },
    box: {
       position: "relative",
-      width: 60,
-      height: 60,
-      marginTop: -18,
+      width: "100%",
+      alignItems: 'center',
+      height: 70,
+      marginTop: -9,
+      borderRadius: 999,
+
    },
    addButton: {
       shadowColor: "black",
@@ -234,13 +237,14 @@ const styles = StyleSheet.create({
          width: 0,
          height: 2,
       },
+      
    },
    addButtonInner: {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: "#7F3DFF",
-      width: 57,
-      height: 57,
+      width: 58,
+      height: 58,
       borderRadius: 999,
    },
    addButtonIcon: {
@@ -250,8 +254,6 @@ const styles = StyleSheet.create({
    },
    item: {
       position: "absolute",
-      top: 5,
-      left: 5,
       alignItems: "center",
       justifyContent: "center",
       width: 57,

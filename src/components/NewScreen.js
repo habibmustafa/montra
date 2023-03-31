@@ -45,32 +45,24 @@ const NewScreen = ({color, text, children, input} ) => {
          <View className="input flex-1 px-4" style={{backgroundColor: color}}>
             <View className="flex-1"></View>
 
-            <Text className="text-light-80 font-semibold text-lg mb-3">{text}</Text>
+            <Text className="text-light-80 font-semibold text-lg mb-3 mini:text-base">{text}</Text>
 
             <View className="flex-row items-center">
-               <Text className="text-7xl text-light-40 font-medium">₼</Text>
+               <Text className="text-7xl text-light-40 font-medium mini:text-5xl">₼</Text>
                <TextInput
                   keyboardType="numeric"
-                  style={{
-                     backgroundColor: "transparent",
-                     fontSize: 64,
-                     marginBottom: 8,
-                     width: "100%",
-                     color: "#FCFCFC",
-                     height: 85
-                  }}
-                  className="font-medium"
+                  className="font-medium bg-transparent text-[64px] mb-2 w-full text-light-80 h-[85px] mini:text-5xl"
                   placeholder="0"
                   placeholderTextColor="#F2F4F5"
                   value={amount}
                   onChangeText={handleAmountChange}
-                  onKeyPress={(e) => {e.nativeEvent.key == "2" ? false : true}}
                   caretHidden
+
                />
             </View>
          </View>
 
-         <View className="enter bg-white rounded-tl-[32px] rounded-tr-[32px] pt-6 pb-5 px-4">
+         <View className="enter bg-white rounded-tl-[32px] rounded-tr-[32px] pt-6 pb-5 px-4 mini:pt-4 mini:pb-4">
             {children}
 
             

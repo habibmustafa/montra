@@ -1,12 +1,28 @@
-import React from "react";
-import { Text, View, Dimensions, ScrollView, StatusBar } from "react-native";
+import React, { useEffect } from "react";
+import { Text, View, Dimensions, ScrollView, StatusBar, BackHandler } from "react-native";
 import { Avatar } from "react-native-paper";
 import Svg, { Path } from "react-native-svg";
 import { LineChart } from "react-native-chart-kit";
 import LinearGradient from "react-native-linear-gradient"
+import { useSelector } from "react-redux";
 
-const Home = () => {
+const Home = ({navigation}) => {
    const [value, setValue] = React.useState("");
+
+   const {userDb} = useSelector(state=> state.user)
+
+   const beforeRemove = (e) => {
+      BackHandler.exitApp()
+      e.preventDefault();
+   }
+
+   useEffect(() => {
+      navigation.addListener("beforeRemove", beforeRemove );
+      return () => {
+      navigation.removeListener("beforeRemove", beforeRemove );
+
+      }
+   }, [])
 
    return (
       <ScrollView showsVerticalScrollIndicator={false} className="">
@@ -68,7 +84,7 @@ const Home = () => {
                         Account Balance
                      </Text>
                      <Text className="font-semibold text-[40px] text-dark-75">
-                        ₼9400
+                        ₼{Object.values(userDb.accounts)[0].balance}
                      </Text>
                   </View>
 
@@ -172,7 +188,7 @@ const Home = () => {
                         },
                      ],
                   }}
-                  width={Dimensions.get("window").width + 155} // from react-native
+                  width={Dimensions.get("window").width + 165} // from react-native
                   height={185}
                   // yAxisLabel="$"
                   // yAxisSuffix="k"
