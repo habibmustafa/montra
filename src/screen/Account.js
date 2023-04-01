@@ -5,6 +5,7 @@ import {
    Image,
    ScrollView,
    TouchableHighlight,
+   TouchableNativeFeedback
 } from "react-native";
 import React from "react";
 import Svg, { Path } from "react-native-svg";
@@ -23,7 +24,7 @@ const Account = ({ navigation }) => {
          />
 
          {/* Account balance */}
-         <View className="account-balance justify-center items-center h-40 mt-2.5">
+         <View className="account-balance justify-center items-center h-[216px] mt-2.5">
             <Image
                className="h-full w-full absolute"
                style={{ resizeMode: "cover" }}
@@ -42,10 +43,9 @@ const Account = ({ navigation }) => {
          {/* Accounts */}
          <ScrollView className="accounts flex-1 my-4">
             {Object.values(userDb.accounts).map((account) => (
-               <TouchableHighlight
+               <TouchableNativeFeedback
                   key={account.id}
-                  activeOpacity={0.99}
-                  underlayColor="#eee"
+                  background={TouchableNativeFeedback.Ripple("#eee")}
                   onPress={() => {
                      navigation.navigate("Account");
                   }}
@@ -77,7 +77,7 @@ const Account = ({ navigation }) => {
                         ₼{account.balance}
                      </Text>
                   </View>
-               </TouchableHighlight>
+               </TouchableNativeFeedback>
             ))}
          </ScrollView>
 

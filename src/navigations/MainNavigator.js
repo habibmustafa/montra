@@ -12,6 +12,8 @@ import AddAccount from "../screen/AddAccount";
 import Success from "../screen/Success";
 import TabNavigator from "./TabNavigator";
 import Account from "../screen/Account";
+import Income from "../screen/Income";
+import Expense from "../screen/Expense";
 
 export default function MainNavigator() {
    // Router stack
@@ -74,8 +76,21 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="Account"
                      component={Account}
+                  />
+                  <Stack.Screen
+                     name="Income"
+                     component={Income}
                      options={{
-                        headerShown: true,
+                        headerStyle: { backgroundColor: "#00A86B" },
+                        headerTintColor: "#FFF",
+                     }}
+                  />
+                  <Stack.Screen
+                     name="Expense"
+                     component={Expense}
+                     options={{
+                        headerStyle: { backgroundColor: "#FD3C4A" },
+                        headerTintColor: "#FFF",
                      }}
                   />
                </>

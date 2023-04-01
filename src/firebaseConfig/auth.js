@@ -21,7 +21,7 @@ export const register = async (email, password, username) => {
       // await updateProfile(auth.currentUser, {
       //    displayName: username,
       // });
-      await createAccount(user.uid);
+      await createAccount();
       return user;
    } catch (err) {
       console.log(err.code);
@@ -52,7 +52,7 @@ export const signInWithGoogle = async () => {
 
       const user = await auth().signInWithCredential(googleCredential);
       if (user.additionalUserInfo.isNewUser) {
-         await createAccount(user.user.uid);
+         await createAccount();
       }
 
       // Sign-in the user with the credential

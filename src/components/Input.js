@@ -11,7 +11,8 @@ const Input = ({
    onBlur,
    value,
    error,
-   placeholder=true
+   placeholder=true,
+   text = false
 }) => {
 
 
@@ -24,6 +25,7 @@ const Input = ({
             placeholderTextColor="#91919F"
             className="text-base py-1 bg-white mini:py-0 mini:text-sm"
             style={{
+               height: text && 44,
                ...style,
             }}
             outlineStyle={{

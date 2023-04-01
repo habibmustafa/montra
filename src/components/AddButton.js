@@ -6,10 +6,12 @@ import {
    Animated,
 } from "react-native";
 import Svg, { Path, Mask } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
 
 const AddButton = () => {
    const animation = React.useRef(new Animated.Value(0)).current;
    const [opened, setOpened] = useState(false);
+   const navigation = useNavigation()
 
    React.useEffect(() => {
       Animated.timing(animation, {
@@ -30,7 +32,7 @@ const AddButton = () => {
    return (
       <View style={styles.container}>
          <View style={styles.box}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => {navigation.navigate("Income"); setOpened(false)}}>
                <Animated.View
                   style={[
                      styles.item,
@@ -120,7 +122,7 @@ const AddButton = () => {
                   </Svg>
                </Animated.View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => {navigation.navigate("Expense"); setOpened(false)}}>
                <Animated.View
                   style={[
                      styles.item,

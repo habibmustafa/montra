@@ -45,13 +45,13 @@ const NewScreen = ({color, text, children, input} ) => {
          <View className="input flex-1 px-4" style={{backgroundColor: color}}>
             <View className="flex-1"></View>
 
-            <Text className="text-light-80 font-semibold text-lg mb-3 mini:text-base">{text}</Text>
+            <Text className="text-light-80 font-semibold text-lg mb-1.5 mini:text-base">{text}</Text>
 
             <View className="flex-row items-center">
-               <Text className="text-7xl text-light-40 font-medium mini:text-5xl">₼</Text>
+               <Text className="text-[64px] text-light-40 font-medium mini:text-5xl">₼</Text>
                <TextInput
                   keyboardType="numeric"
-                  className="font-medium bg-transparent text-[64px] mb-2 w-full text-light-80 h-[85px] mini:text-5xl"
+                  className="font-medium text-[64px] w-full text-light-80 p-0 mini:text-5xl"
                   placeholder="0"
                   placeholderTextColor="#F2F4F5"
                   value={amount}
