@@ -35,7 +35,7 @@ const Account = ({ navigation }) => {
                   Account Balance
                </Text>
                <Text className="font-semibold text-[40px] text-dark-75">
-                  ₼{allAccountBalance}
+                  ₼{allAccountBalance.toFixed(2)}
                </Text>
             </View>
          </View>
@@ -74,7 +74,7 @@ const Account = ({ navigation }) => {
                         {account.name}
                      </Text>
                      <Text className="font-semibold text-lg text-dark-50 mr-2">
-                        ₼{account.balance}
+                        ₼{account.balance.toFixed(2)}
                      </Text>
                   </View>
                </TouchableNativeFeedback>

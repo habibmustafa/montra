@@ -34,6 +34,11 @@ const Home = ({ navigation }) => {
       };
    }, []);
 
+   const date = (params = false) => {
+      const dateTime = new Date(params).getDate();
+      return dateTime;
+   };
+
    if (!userDb) {
       return (
          <View className="h-full bg-white justify-center items-center">
@@ -105,7 +110,7 @@ const Home = ({ navigation }) => {
                            Account Balance
                         </Text>
                         <Text className="font-semibold text-[40px] text-dark-75">
-                           ₼{allAccountBalance}
+                           ₼{allAccountBalance.toFixed(2)}
                         </Text>
                      </View>
 
@@ -150,7 +155,8 @@ const Home = ({ navigation }) => {
                                           transaction.type == "income"
                                     )
                                     .map((transaction) => transaction.amount)
-                                    .reduce((acc, curr) => acc + curr, 0)}
+                                    .reduce((acc, curr) => acc + curr, 0)
+                                    .toFixed(2)}
                               </Text>
                            </View>
                         </View>
@@ -194,7 +200,8 @@ const Home = ({ navigation }) => {
                                           transaction.type == "expense"
                                     )
                                     .map((transaction) => transaction.amount)
-                                    .reduce((acc, curr) => acc + curr, 0)}
+                                    .reduce((acc, curr) => acc + curr, 0)
+                                    .toFixed(2)}
                               </Text>
                            </View>
                         </View>
@@ -295,12 +302,14 @@ const Home = ({ navigation }) => {
 
                   {/* transactions */}
                   <View>
-                     {transactions.map((transaction) => (
-                        <TransactionItem
-                           key={transaction.id}
-                           {...transaction}
-                        />
-                     ))}
+                     {transactions.map((transaction) =>
+                        date(transaction.timestamp) == date() || (
+                           <TransactionItem
+                              key={transaction.id}
+                              {...transaction}
+                           />
+                        )
+                     )}
                   </View>
                </View>
             </LinearGradient>
