@@ -5,7 +5,7 @@ const Success = ({navigation}) => {
 
    useEffect(() => {
       let nav = setTimeout(() => {
-         navigation.navigate("Root")
+         navigation.navigate("Tab")
       }, 2000)
 
       return () => {

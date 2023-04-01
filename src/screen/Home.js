@@ -30,14 +30,14 @@ const Home = ({navigation}) => {
    }, [])
 
    return (
-      <ScrollView showsVerticalScrollIndicator={false} className="">
+      <ScrollView showsVerticalScrollIndicator={false}>
+         <StatusBar backgroundColor="#FFF7E6" animated={true} barStyle="dark-content" />
+
          <LinearGradient
             // Background Linear Gradient
             colors={["#FFF7E6", "#FFFFFF", "#FFFFFF"]}
             className="pb-24"
          >
-            <StatusBar backgroundColor="#FFF7E6" animated={true} barStyle="dark-content" />
-
             <View className="bg-[#FFF7E6] pb-6 mb-3 rounded-bl-[32px] rounded-br-[32px]">
                {/* Head */}
                <View className="head py-3 my-2 px-4">

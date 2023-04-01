@@ -24,6 +24,7 @@ const AddAccount = ({ navigation }) => {
    const ref = useRef()
 
    let { user } = useSelector((state) => state.local);
+   let { userDb } = useSelector((state) => state.user);
    user = JSON.parse(user);
 
    const handleAddAccount = async () => {
@@ -36,7 +37,12 @@ const AddAccount = ({ navigation }) => {
             selectedList,
             Number(amount)
          );
-         navigation.navigate("Success");
+         
+         if(Object.keys(userDb.accounts).length <= 1) {
+            navigation.navigate("Success");
+         } else {
+            navigation.navigate("Account")
+         }
       } else {
          toast.show({
             title: "Choose a minimum 3-character name and type for the account",

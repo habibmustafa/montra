@@ -11,6 +11,7 @@ import SetupAccount from "../screen/SetupAccount";
 import AddAccount from "../screen/AddAccount";
 import Success from "../screen/Success";
 import TabNavigator from "./TabNavigator";
+import Account from "../screen/Account";
 
 export default function MainNavigator() {
    // Router stack
@@ -68,6 +69,13 @@ export default function MainNavigator() {
                      component={Success}
                      options={{
                         headerShown: false,
+                     }}
+                  />
+                  <Stack.Screen
+                     name="Account"
+                     component={Account}
+                     options={{
+                        headerShown: true,
                      }}
                   />
                </>
