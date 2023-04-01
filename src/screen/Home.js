@@ -117,7 +117,7 @@ const Home = ({ navigation }) => {
                      {/* transaction amount */}
                      <View className="flex-row justify-between items-center">
                         {/* Income */}
-                        <View className="bg-green-100 rounded-[28px] flex-row w-[45%] justify-center items-center py-4 px-2.5">
+                        <View className="bg-green-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
                            {/* svg */}
                            <View className="bg-light-80 justify-center items-center w-12 h-12 rounded-2xl mr-2.5">
                               <Svg
@@ -162,7 +162,7 @@ const Home = ({ navigation }) => {
                         </View>
 
                         {/* Expense */}
-                        <View className="bg-red-100 rounded-[28px] flex-row w-[45%] justify-center items-center py-4 px2">
+                        <View className="bg-red-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
                            {/* svg */}
                            <View className="bg-light-80 justify-center items-center w-12 h-12 rounded-2xl mr-2.5">
                               <Svg
