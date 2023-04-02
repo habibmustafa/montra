@@ -22,15 +22,17 @@ const SetupPin = ({ navigation }) => {
    const keyboard = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, ">"];
 
    useEffect(() => {
-      const timer = setTimeout(() => {
-         if (enteredPin.toString().length == 4) {
+      let timer;
+      if (enteredPin.toString().length == 4) {
+
+      timer = setTimeout(() => {
             if (!pin) {
                if (!registerPin) {
                   setRegisterPin(enteredPin);
                } else {
                   if (registerPin == enteredPin) {
                      dispatch(setPin(enteredPin));
-                     if (!userDb.accounts) {
+                     if (userDb && !userDb.accounts) {
                         navigation.navigate("SetupAccount");
                      } else {
                         navigation.navigate("Tab");
@@ -47,7 +49,7 @@ const SetupPin = ({ navigation }) => {
                }
             } else {
                if (enteredPin == pin) {
-                  if (!userDb.accounts) {
+                  if (userDb && !userDb.accounts) {
                      navigation.navigate("SetupAccount");
                   } else {
                      navigation.navigate("Tab");
@@ -63,8 +65,10 @@ const SetupPin = ({ navigation }) => {
                }
             }
             setEnteredPin("");
-         }
+            clearTimeout(timer);
       }, 1);
+   }
+
 
       return () => clearTimeout(timer);
    }, [enteredPin]);
