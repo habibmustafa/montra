@@ -14,6 +14,7 @@ import TabNavigator from "./TabNavigator";
 import Account from "../screen/Account";
 import Income from "../screen/Income";
 import Expense from "../screen/Expense";
+import Transfer from "../screen/Transfer";
 
 export default function MainNavigator() {
    // Router stack
@@ -90,6 +91,14 @@ export default function MainNavigator() {
                      component={Expense}
                      options={{
                         headerStyle: { backgroundColor: "#FD3C4A" },
+                        headerTintColor: "#FFF",
+                     }}
+                  />
+                  <Stack.Screen
+                     name="Transfer"
+                     component={Transfer}
+                     options={{
+                        headerStyle: { backgroundColor: "#0077FF" },
                         headerTintColor: "#FFF",
                      }}
                   />

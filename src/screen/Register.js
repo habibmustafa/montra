@@ -22,7 +22,7 @@ const Register = ({ navigation }) => {
                   values.name.trim()
                );
                if (user) {
-                  // navigation.navigate("SetupPin");
+                  navigation.navigate("SetupPin");
                }
                resetForm();
             }}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import {
    TouchableWithoutFeedback,
    View,
@@ -78,7 +78,7 @@ const AddButton = () => {
                   </Svg>
                </Animated.View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => {navigation.navigate("Transfer"); setOpened(false)}}>
                <Animated.View
                   style={[
                      styles.item,
@@ -269,4 +269,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default AddButton;
+export default memo(AddButton);

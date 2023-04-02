@@ -21,7 +21,7 @@ const Transaction = () => {
          } else if (dateTime == new Date().getDate() - 1) {
             return "Yesterday";
          } else {
-            return dateTime;
+            return new Date(params).toDateString();
          }
       } else {
          return dateTime;

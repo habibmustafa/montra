@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { View, Dimensions, ScrollView } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const SelectList = ({ items, selectedList, setSelectedList, label }) => {
+const SelectList = ({ items, selectedList, setSelectedList, label, style }) => {
    const [open, setOpen] = useState(false);
 
    return (
@@ -15,7 +15,7 @@ const SelectList = ({ items, selectedList, setSelectedList, label }) => {
          setValue={setSelectedList}
          placeholder={label}
          placeholderStyle={{ color: "#91919F" }}
-         style={{ borderRadius: 16, borderColor: "#F1F1FA", height: 56 }}
+         style={{ borderRadius: 16, borderColor: "#F1F1FA", height: 56, ...style }}
          textStyle={{ marginHorizontal: 4, fontSize: 16 }}
          dropDownContainerStyle={{
             paddingVertical: 4,
@@ -23,6 +23,7 @@ const SelectList = ({ items, selectedList, setSelectedList, label }) => {
             borderColor: "#F1F1FA",
          }}
          listItemContainerStyle={{borderBottomWidth: 1, borderBottomColor: '#F1F1FA', height: 45}}
+         disabledItemLabelStyle={{color: "#bbb"}}
          listMode="FLATLIST"
          scrollViewProps={{
             nestedScrollEnabled: true,
@@ -31,7 +32,7 @@ const SelectList = ({ items, selectedList, setSelectedList, label }) => {
    );
 };
 
-export default SelectList;
+export default memo(SelectList);
 
 {
    /* <SelectListD

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
@@ -16,7 +16,7 @@ const TransactionItem = ({
          onPress={() => {
             console.log(1);
          }}
-         className="flex-row justify-between items-center p-4 bg-light-80 rounded-3xl mb-2"
+         className={`flex-row justify-between items-center p-4 bg-light-80 rounded-3xl mb-2`}
       >
          <>
             {/* SVG */}
@@ -52,11 +52,11 @@ const TransactionItem = ({
             {/* Amount and Time */}
             <View>
                <Text
-                  className={`font-semibold text-base ${
-                     type == "income" ? " text-green-100" : " text-red-100"
+                  className={`font-semibold text-base text-blue-100 ${
+                     type == "income" && " text-green-100"} ${type == "expense" && "text-red-100"
                   } mb-3 text-right`}
                >
-                  {type == "income" ? "+" : "-"} ₼{amount.toFixed(2)}
+                  {type == "income" && "+"}{type == "expense" && "-"} ₼{amount.toFixed(2)}
                </Text>
                <Text className="font-medium text-[13px] text-light-20 text-right">
                   {new Date(timestamp).toTimeString().slice(0, 5)}
@@ -67,4 +67,4 @@ const TransactionItem = ({
    );
 };
 
-export default TransactionItem;
+export default memo(TransactionItem);

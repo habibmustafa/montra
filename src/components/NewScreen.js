@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, View, TextInput } from "react-native";
 
 const NewScreen = ({ color, text, children, input }) => {
@@ -75,4 +75,4 @@ const NewScreen = ({ color, text, children, input }) => {
    );
 };
 
-export default NewScreen;
+export default memo(NewScreen);

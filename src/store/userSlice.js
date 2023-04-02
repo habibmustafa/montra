@@ -32,6 +32,7 @@ export const userSlice = createSlice({
                Object.values(item).map((item2) => transaction.push(item2));
             }
          });
+         Object.values(action.payload.transfers).forEach(transfer => transaction.push(transfer))
          state.transactions = transaction.sort(
             (a, b) => b.timestamp - a.timestamp
          );
