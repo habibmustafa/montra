@@ -49,16 +49,13 @@ const Income = ({ navigation }) => {
    };
 
    const data = [
-      { label: "Food and Drink", value: "Food and Drink" },
-      { label: "Transportation", value: "Transportation" },
-      { label: "Entertainment", value: "Entertainment" },
-      { label: "Personal care", value: "Personal care" },
-      { label: "Travel", value: "Travel" },
-      { label: "Housing", value: "Housing" },
-      { label: "Health", value: "Health" },
-      { label: "Gifts and donations", value: "Gifts and donations" },
-      { label: "Education", value: "Education" },
-      { label: "Savings and investments", value: "Savings and investments" },
+      { label: "Salary", value: "Salary" },
+      { label: "Sales", value: "Sales" },
+      { label: "Scholarship", value: "Scholarship" },
+      { label: "Passive Income", value: "Passive Income" },
+      { label: "Tips", value: "Tips" },
+      { label: "Prize or Award", value: "Prize or Award" },
+      { label: "Refunds", value: "Refunds" },
    ];
    return (
       <View className="h-full">

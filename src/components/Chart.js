@@ -13,9 +13,7 @@ const Chart = ({data}) => {
             // labels: Array.from({ length: 5 }, (_, i) => i + 1),
             datasets: [
                {
-                  data: [
-                     0, 32, 53, 11, 44,43,24,35,12,34,75,12
-                  ],
+                  data: data,
                },
             ],
          }}
@@ -33,7 +31,7 @@ const Chart = ({data}) => {
             //    strokeWidth: "10",
             //    stroke: "#ffa726",
             // },
-            strokeWidth: 5,
+            strokeWidth: 4,
             fillShadowGradientOpacity: 0.25,
             fillShadowGradientTo: "#FFFFFF",
             fillShadowGradientToOffset: 0.8,

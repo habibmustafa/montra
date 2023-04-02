@@ -1,17 +1,15 @@
 import React, { memo, useState } from "react";
-import { View, Text, Dimensions, TouchableHighlight } from "react-native";
-import { LineChart } from "react-native-chart-kit";
+import { View, Text, TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
 import { prettyPrint } from "../prettyPrint";
 import Chart from "./Chart";
+import { lastSpendFilter } from "../utils/filter";
 
 const SpendFrequency = () => {
    const [button, setButton] = useState({
       elements: [
-         { id: 1, value: "Today" },
-         { id: 2, value: "Week" },
-         { id: 3, value: "Month" },
-         { id: 4, value: "Year" },
+         { id: 1, label: "Short", value: 8 },
+         { id: 2, label: "Wide", value: 12 },
       ],
       isActive: 1,
    });
@@ -23,6 +21,14 @@ const SpendFrequency = () => {
 
    // labels: Array.from({ length: transactions.length }, (_, i) => i + 1),
    // data: transactions.map(transaction => transaction.amount),
+   const arr = lastSpendFilter(transactions, button.elements[button.isActive-1].value )
+   console.log(arr);
+
+   while (arr.length < 12) {
+      arr.unshift(0);
+    }
+   prettyPrint(arr);
+   
 
    return (
       <View>
@@ -31,10 +37,10 @@ const SpendFrequency = () => {
          </Text>
 
          {/* Chart */}
-         <Chart />
+         <Chart data={arr} />
 
          {/* Segmented buttons */}
-         <View className="flex-row mx-4 justify-between border-[1px] border-violet-20 rounded-2xl -mt-1">
+         <View className="flex-row mx-4 justify-between border-2 border-light-80 rounded-2xl -mt-1">
             {button.elements.map((element) => (
                <TouchableHighlight
                   activeOpacity={0.99}
@@ -46,7 +52,7 @@ const SpendFrequency = () => {
                   key={element.id}
                   className={`${
                      element.id == button.isActive && "bg-yellow-20"
-                  } py-2 px-6 basis-1/4  rounded-2xl justify-center items-center`}
+                  } py-2 px-6 basis-1/2  rounded-2xl justify-center items-center`}
                >
                   <Text
                      className={`font-medium text-light-20 ${
@@ -54,7 +60,7 @@ const SpendFrequency = () => {
                         "font-bold text-yellow-100"
                      }`}
                   >
-                     {element.value}
+                     {element.label}
                   </Text>
                </TouchableHighlight>
             ))}

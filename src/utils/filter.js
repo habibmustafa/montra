@@ -30,3 +30,9 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
 };
 
 // .filter((transaction) => transaction.type === "expense")
+
+export const lastSpendFilter = (transactions, num) => {
+   let value = transactions.filter(transaction => transaction.type == "expense").map(transaction => transaction.amount).slice(-num)
+
+   return value
+}

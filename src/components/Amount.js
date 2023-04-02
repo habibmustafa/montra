@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { transactionsBalanceFilter } from "../utils/filter";
 
 
-const Amount = () => {
+const Amount = ({month, year}) => {
    const { allAccountBalance, transactions } = useSelector((state) => state.user);
 
    return (
@@ -54,7 +54,7 @@ const Amount = () => {
                      Income
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
-                     ₼{transactionsBalanceFilter(transactions, "income")}
+                     ₼{transactionsBalanceFilter(transactions, "income", month, year)}
                   </Text>
                </View>
             </View>
@@ -91,7 +91,7 @@ const Amount = () => {
                      Expense
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
-                     ₼{transactionsBalanceFilter(transactions, "expense")}
+                     ₼{transactionsBalanceFilter(transactions, "expense", month, year)}
                   </Text>
                </View>
             </View>

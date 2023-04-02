@@ -1,10 +1,5 @@
 import React from "react";
-import {
-   StatusBar,
-   Text,
-   TouchableHighlight,
-   View,
-} from "react-native";
+import { StatusBar, Text, TouchableHighlight, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { logout } from "../firebaseConfig/auth";
@@ -13,6 +8,10 @@ import Svg, { Path, Rect } from "react-native-svg";
 const Profile = ({ navigation }) => {
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
+
+   const arr = [2, 4, 5, 2, 5, 2, 5];
+   const lastThree = arr.slice(-3);
+   console.log(lastThree);
 
    return (
       <View className="h-full px-4 bg-[#F7F7F7]">
@@ -30,7 +29,7 @@ const Profile = ({ navigation }) => {
                   Username
                </Text>
                <Text className="font-semibold text-2xl text-dark-75">
-                  Habib Mustafa
+                  {user.displayName}
                </Text>
             </View>
             <Svg
@@ -65,7 +64,7 @@ const Profile = ({ navigation }) => {
                underlayColor="#eee"
                style={{ borderRadius: 24 }}
                onPress={() => {
-                  navigation.navigate("Account")
+                  navigation.navigate("Account");
                }}
             >
                <View className="flex-row items-center px-4 py-3.5 border-b-[1px] border-[#F7F7F7]">

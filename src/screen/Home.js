@@ -19,8 +19,9 @@ import Amount from "../components/Amount";
 
 const Home = ({ navigation }) => {
    const [modal, setModal] = useState(false);
-   const [date, setDate] = useState("2023 08");
+   const [date, setDate] = useState(new Date().toISOString().slice(0,7).split("-").join(" "));
    const { userDb } = useSelector((state) => state.user);
+   const { user } = useSelector((state) => state.local);
 
    const beforeRemove = (e) => {
       BackHandler.exitApp();
@@ -118,8 +119,8 @@ const Home = ({ navigation }) => {
                      >
                         <DatePicker
                            mode="monthYear"
-                           selectorStartingYear={2023}
-                           minimumDate="2023-02-10"
+                           minimumDate={new Date(JSON.parse(user).metadata.creationTime).toISOString().slice(0,10)}
+                           maximumDate={new Date().toISOString().slice(0,10)}
                            onMonthYearChange={(selectedDate) => {
                               setDate(selectedDate);
                               setModal(false);
@@ -128,13 +129,13 @@ const Home = ({ navigation }) => {
                            options={{
                               backgroundColor: "transparent",
                            }}
-                           current="23"
+                           current={`${date.split(' ').join('/')}/01`}
                         />
                      </Modal>
                   </Portal>
 
                   {/* Amount */}
-                  <Amount />
+                  <Amount year={date.split(' ')[0]} month={date.split(' ')[1].replace(/^0+/, "")-1} />
                </View>
 
                {/* Chart */}
