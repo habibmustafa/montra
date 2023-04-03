@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screen/Home";
 import Transaction from "../screen/Transaction";
@@ -22,7 +22,7 @@ const TabNavigator = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: styles.tabBar,
-            lazy: true,
+            lazy: false,
          }}
       >
          <Tab.Screen

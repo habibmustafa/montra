@@ -34,6 +34,23 @@ export const addAccount = async (id, name, type, balance) => {
    }
 };
 
+// !Edit Account
+export const editAccount = async (id, name, type, balance) => {
+   try {
+      const res = await database()
+         .ref("users/" + user_uid + "/accounts/" + id)
+         .update({
+            name,
+            type,
+            balance,
+         });
+
+      return res;
+   } catch (err) {
+      console.log(err.code);
+   }
+};
+
 // !Add Transaction
 export const addTransaction = async (accounts_id, transaction_id, type, amount, description, category, balance) => {
    try {

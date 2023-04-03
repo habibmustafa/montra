@@ -53,7 +53,7 @@ export default NotificationRight = () => {
                }}
                title="Mark all read"
             />
-            <Divider />
+            <Divider style={{backgroundColor: '#91919F', opacity: 0.2, height: 1}} />
             <Menu.Item
                titleStyle={{ color: "#000" }}
                onPress={() => {

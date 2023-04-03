@@ -1,8 +1,8 @@
 import React, { memo, useState } from "react";
 import { Text, View, TextInput } from "react-native";
 
-const NewScreen = ({ color, text, children, input }) => {
-   const [amount, setAmount] = useState("");
+const NewScreen = ({ color, text, children, input, value="" }) => {
+   const [amount, setAmount] = useState(value);
    const dotIndexRef = React.useRef(-1);
    const commaIndexRef = React.useRef(-1);
    const regex = /^[0-9]*(?:[\.\,][0-9]*)?$/;

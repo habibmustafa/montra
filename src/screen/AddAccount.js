@@ -34,7 +34,7 @@ const AddAccount = ({ navigation }) => {
          if (Object.keys(userDb.accounts).length <= 1) {
             navigation.navigate("Success");
          } else {
-            navigation.navigate("Account");
+            navigation.navigate("Tab");
          }
       } else {
          toast.show({
@@ -68,6 +68,7 @@ const AddAccount = ({ navigation }) => {
             input={(value) => {
                setAmount(value);
             }}
+            // value="67"
          >
             <Input
                label="Name"
