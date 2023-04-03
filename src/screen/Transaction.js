@@ -5,6 +5,7 @@ import {
    View,
    StatusBar,
    TouchableHighlight,
+   FlatList,
 } from "react-native";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useSelector } from "react-redux";
@@ -35,9 +36,9 @@ const Transaction = () => {
             animated={true}
             barStyle="dark-content"
          />
-         <ScrollView className="h-full bg-white px-4" stickyHeaderIndices={[0]}>
+         <View className="h-full bg-white">
             {/* Header */}
-            <View className="header py-4 flex-row justify-between items-center bg-white">
+            <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
                <TouchableHighlight
                   activeOpacity={0.99}
                   underlayColor="#eee"
@@ -109,8 +110,7 @@ const Transaction = () => {
             </View>
 
             {/* Financial Report */}
-
-            <View className="financial-report flex-row justify-between items-center my-2 bg-[#EEE5FF] rounded-lg px-4 py-3.5 ">
+            <View className="financial-report mx-4 my-2 px-4 py-3.5 flex-row justify-between items-center bg-[#EEE5FF] rounded-lg ">
                <Text className="text-base text-violet-100">
                   See your financial report
                </Text>
@@ -132,26 +132,46 @@ const Transaction = () => {
             </View>
 
             {/* transactions */}
-            <View className="pb-20">
-               {transactions && transactions.map((transaction, index) => (
-                  <View key={transaction.id}>
-                     {/* Time */}
-                     {(index === 0 ||
-                        date(transactions[index - 1].timestamp) !==
-                           date(transaction.timestamp)) && (
-                        <View className="time pt-1.5 pb-3.5">
-                           <Text className="font-semibold text-lg text-dark-100">
-                              {date(transaction.timestamp, true)}
-                           </Text>
-                        </View>
-                     )}
-                     <TransactionItem {...transaction} />
-                  </View>
-               ))}
-            </View>
-         </ScrollView>
+            {transactions && (
+               <FlatList
+                  data={transactions}
+                  keyExtractor={(item) => item.id}
+                  className="mb-20 px-4"
+                  renderItem={({ item, index }) => (
+                     <>
+                        {(index === 0 ||
+                           date(transactions[index - 1].timestamp) !==
+                              date(item.timestamp)) && (
+                           <View className="time pt-1.5 pb-3.5">
+                              <Text className="font-semibold text-lg text-dark-100">
+                                 {date(item.timestamp, true)}
+                              </Text>
+                           </View>
+                        )}
+                        <TransactionItem {...item} />
+                     </>
+                  )}
+               />
+            )}
+         </View>
       </>
    );
 };
 
 export default Transaction;
+
+// transactions && transactions.map((transaction, index) => (
+//    <View key={transaction.id}>
+//       {/* Time */}
+//       {(index === 0 ||
+//          date(transactions[index - 1].timestamp) !==
+//             date(transaction.timestamp)) && (
+//          <View className="time pt-1.5 pb-3.5">
+//             <Text className="font-semibold text-lg text-dark-100">
+//                {date(transaction.timestamp, true)}
+//             </Text>
+//          </View>
+//       )}
+//       <TransactionItem {...transaction} />
+//    </View>
+// ))

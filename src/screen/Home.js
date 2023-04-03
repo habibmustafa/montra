@@ -6,6 +6,7 @@ import {
    StatusBar,
    BackHandler,
    TouchableHighlight,
+   TouchableWithoutFeedback,
 } from "react-native";
 import { ActivityIndicator, Avatar, Modal, Portal } from "react-native-paper";
 import Svg, { Path } from "react-native-svg";
@@ -48,8 +49,9 @@ const Home = ({ navigation }) => {
 
    if (!userDb) {
       return (
-         <View className="h-full bg-white justify-center items-center">
-            <ActivityIndicator animating={true} color="#7F3DFF" size="large" />
+         <View className="h-full pb-[70px] bg-[#F7F7F7] justify-center items-center flex-row gap-x-2">
+            <ActivityIndicator animating={true} color="#7F3DFF" size="small" />
+            <Text className="text-base">Loading</Text>
          </View>
       );
    } else
@@ -70,7 +72,13 @@ const Home = ({ navigation }) => {
                   {/* Head */}
                   <View className="head py-3 my-2 px-4">
                      <View className="title flex-row justify-between items-center">
-                        <Avatar.Text size={34} label="HM" />
+                        <TouchableWithoutFeedback
+                           onPress={() => {
+                              navigation.navigate("Profile");
+                           }}
+                        >
+                           <Avatar.Text size={34} label="HM" />
+                        </TouchableWithoutFeedback>
 
                         <TouchableHighlight
                            activeOpacity={0.99}
