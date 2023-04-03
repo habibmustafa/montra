@@ -3,10 +3,12 @@ import { View, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
 import { transactionsBalanceFilter } from "../utils/filter";
+import { prettyPrint } from "../prettyPrint";
 
-
-const Amount = ({month, year}) => {
-   const { allAccountBalance, transactions } = useSelector((state) => state.user);
+const Amount = ({ month, year }) => {
+   const { allAccountBalance, transactions } = useSelector(
+      (state) => state.user
+   );
 
    return (
       <View className="amount px-4">
@@ -16,7 +18,14 @@ const Amount = ({month, year}) => {
                Account Balance
             </Text>
             <Text className="font-semibold text-[40px] text-dark-75">
-               ₼{allAccountBalance.toFixed(2)}
+               ₼
+               {transactionsBalanceFilter(
+                  transactions,
+                  "all",
+                  month,
+                  year,
+                  allAccountBalance
+               )}
             </Text>
          </View>
 
@@ -54,7 +63,13 @@ const Amount = ({month, year}) => {
                      Income
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
-                     ₼{transactionsBalanceFilter(transactions, "income", month, year)}
+                     ₼
+                     {transactionsBalanceFilter(
+                        transactions,
+                        "income",
+                        month,
+                        year
+                     )}
                   </Text>
                </View>
             </View>
@@ -91,7 +106,13 @@ const Amount = ({month, year}) => {
                      Expense
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
-                     ₼{transactionsBalanceFilter(transactions, "expense", month, year)}
+                     ₼
+                     {transactionsBalanceFilter(
+                        transactions,
+                        "expense",
+                        month,
+                        year
+                     )}
                   </Text>
                </View>
             </View>
