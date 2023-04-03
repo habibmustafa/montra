@@ -30,7 +30,7 @@ const Account = ({ navigation }) => {
                style={{ resizeMode: "cover" }}
                source={require("../assets/account.png")}
             />
-            <View>
+            <View className="items-center">
                <Text className="font-medium text-sm text-light-20">
                   Account Balance
                </Text>

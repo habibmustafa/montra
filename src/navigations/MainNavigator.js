@@ -15,6 +15,8 @@ import Account from "../screen/Account";
 import Income from "../screen/Income";
 import Expense from "../screen/Expense";
 import Transfer from "../screen/Transfer";
+import Notification from "../screen/Notification";
+import NotificationRight from "../components/NotificationRight";
 
 export default function MainNavigator() {
    // Router stack
@@ -77,7 +79,7 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="Account"
                      component={Account}
-                     options={{animation:'slide_from_right'}}
+                     options={{ animation: "slide_from_right" }}
                   />
                   <Stack.Screen
                      name="Income"
@@ -101,6 +103,14 @@ export default function MainNavigator() {
                      options={{
                         headerStyle: { backgroundColor: "#0077FF" },
                         headerTintColor: "#FFF",
+                     }}
+                  />
+                  <Stack.Screen
+                     name="Notification"
+                     component={Notification}
+                     options={{
+                        animation: "slide_from_right",
+                        headerRight: NotificationRight,
                      }}
                   />
                </>
