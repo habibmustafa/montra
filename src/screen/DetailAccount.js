@@ -1,9 +1,9 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
-import { View, ScrollView, Text, TouchableWithoutFeedback } from "react-native";
+import { View, ScrollView, Text, TouchableWithoutFeedback, Dimensions } from "react-native";
 import TransactionItem from "../components/TransactionItem";
-import { prettyPrint } from "../prettyPrint";
 import { useNavigation } from "@react-navigation/native";
+import { Divider } from "react-native-paper";
 
 const date = (params = false, render = false) => {
    const dateTime = new Date(params).getDate();
@@ -30,9 +30,9 @@ export const DetailAccountRight = (props) => {
          }}
       >
          <Svg
-            width="20"
-            height="20"
-            viewBox="0 0 23 23"
+            width="26"
+            height="26"
+            viewBox="0 0 28 28"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
          >
@@ -69,7 +69,7 @@ const DetailAccount = ({ route, navigation }) => {
    return (
       <ScrollView className="bg-white px-4">
          {/* Header */}
-         <View className="header mt-12 items-center">
+         <View className="header mt-12 pb-5 items-center">
             {/* svg */}
             <View className="p-2 bg-light-60 rounded-2xl mb-2">
                <Svg
@@ -97,9 +97,11 @@ const DetailAccount = ({ route, navigation }) => {
             </Text>
          </View>
 
+         <Divider style={{height:1.5, backgroundColor: "#91919F", opacity: 0.1}} />
+
          {/* transactions */}
-         <View className="pt-12 pb-3">
-            {transactions &&
+         <View className="pt-7 pb-3">
+            {transactions ?
                transactions.map((transaction, index) => (
                   <View key={transaction.id}>
                      {/* Time */}
@@ -114,7 +116,7 @@ const DetailAccount = ({ route, navigation }) => {
                      )}
                      <TransactionItem {...transaction} />
                   </View>
-               ))}
+               )) : <Text className="font-medium text-sm text-light-20 self-center mt-56">No money transaction</Text>}
          </View>
       </ScrollView>
    );

@@ -31,7 +31,7 @@ export default function MainNavigator() {
    return (
       <NavigationContainer>
          <Stack.Navigator
-            initialRouteName="Tab"
+            initialRouteName="SetupPin"
             screenOptions={{
                headerShown: true,
                animation: "default",
