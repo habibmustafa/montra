@@ -133,7 +133,7 @@ const Transaction = () => {
 
             {/* transactions */}
             <View className="pb-20">
-               {transactions.map((transaction, index) => (
+               {transactions && transactions.map((transaction, index) => (
                   <View key={transaction.id}>
                      {/* Time */}
                      {(index === 0 ||

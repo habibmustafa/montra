@@ -77,6 +77,7 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="Account"
                      component={Account}
+                     options={{animation:'slide_from_right'}}
                   />
                   <Stack.Screen
                      name="Income"

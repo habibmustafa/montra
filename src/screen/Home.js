@@ -17,9 +17,20 @@ import DatePicker from "react-native-modern-datepicker";
 import RecentTransaction from "../components/RecentTransaction";
 import Amount from "../components/Amount";
 
+function getMonthName(monthNumber) {
+   const date = new Date();
+   date.setMonth(monthNumber - 1);
+
+   return date.toLocaleString("en-US", {
+      month: "long",
+   });
+}
+
 const Home = ({ navigation }) => {
    const [modal, setModal] = useState(false);
-   const [date, setDate] = useState(new Date().toISOString().slice(0,7).split("-").join(" "));
+   const [date, setDate] = useState(
+      new Date().toISOString().slice(0, 7).split("-").join(" ")
+   );
    const { userDb } = useSelector((state) => state.user);
    const { user } = useSelector((state) => state.local);
 
@@ -61,29 +72,35 @@ const Home = ({ navigation }) => {
                      <View className="title flex-row justify-between items-center">
                         <Avatar.Text size={34} label="HM" />
 
-                        <View
-                           onTouchStart={() => {
+                        <TouchableHighlight
+                           activeOpacity={0.99}
+                           underlayColor="#FCEED4"
+                           onPress={() => {
                               setModal(!modal);
                            }}
                            className="flex-row justify-center items-center px-4 py-2 border-[1px] border-light-60 rounded-[40px]"
                         >
-                           <Svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                           >
-                              <Path
-                                 d="M12.009 14.5575L12.0001 15.3075L11.9912 14.5575C11.2017 14.5669 10.4405 14.2647 9.87244 13.7166L6.2345 10.0401L9.87976 13.6853L9.88672 13.6923L9.89386 13.6991C10.4624 14.2385 11.2163 14.5393 12.0001 14.5393C12.7839 14.5393 13.5378 14.2385 14.1063 13.6991L14.1135 13.6923L14.1204 13.6853L17.7657 10.0401L14.1277 13.7166C13.5597 14.2647 12.7985 14.5669 12.009 14.5575Z"
-                                 fill="black"
-                                 stroke="#7F3DFF"
-                                 stroke-width="1.5"
-                              />
-                           </Svg>
+                           <>
+                              <Svg
+                                 width="24"
+                                 height="24"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 xmlns="http://www.w3.org/2000/svg"
+                              >
+                                 <Path
+                                    d="M12.009 14.5575L12.0001 15.3075L11.9912 14.5575C11.2017 14.5669 10.4405 14.2647 9.87244 13.7166L6.2345 10.0401L9.87976 13.6853L9.88672 13.6923L9.89386 13.6991C10.4624 14.2385 11.2163 14.5393 12.0001 14.5393C12.7839 14.5393 13.5378 14.2385 14.1063 13.6991L14.1135 13.6923L14.1204 13.6853L17.7657 10.0401L14.1277 13.7166C13.5597 14.2647 12.7985 14.5669 12.009 14.5575Z"
+                                    fill="black"
+                                    stroke="#7F3DFF"
+                                    stroke-width="1.5"
+                                 />
+                              </Svg>
 
-                           <Text className="font-medium ml-1">October</Text>
-                        </View>
+                              <Text className="font-medium ml-1">
+                                 {getMonthName(date.split(" ").splice(-1))}
+                              </Text>
+                           </>
+                        </TouchableHighlight>
                         <Svg
                            width="32"
                            height="32"
@@ -119,8 +136,12 @@ const Home = ({ navigation }) => {
                      >
                         <DatePicker
                            mode="monthYear"
-                           minimumDate={new Date(JSON.parse(user).metadata.creationTime).toISOString().slice(0,10)}
-                           maximumDate={new Date().toISOString().slice(0,10)}
+                           minimumDate={new Date(
+                              JSON.parse(user).metadata.creationTime
+                           )
+                              .toISOString()
+                              .slice(0, 10)}
+                           maximumDate={new Date().toISOString().slice(0, 10)}
                            onMonthYearChange={(selectedDate) => {
                               setDate(selectedDate);
                               setModal(false);
@@ -129,13 +150,16 @@ const Home = ({ navigation }) => {
                            options={{
                               backgroundColor: "transparent",
                            }}
-                           current={`${date.split(' ').join('/')}/01`}
+                           current={`${date.split(" ").join("/")}/01`}
                         />
                      </Modal>
                   </Portal>
 
                   {/* Amount */}
-                  <Amount year={date.split(' ')[0]} month={date.split(' ')[1].replace(/^0+/, "")-1} />
+                  <Amount
+                     year={date.split(" ")[0]}
+                     month={date.split(" ")[1].replace(/^0+/, "") - 1}
+                  />
                </View>
 
                {/* Chart */}

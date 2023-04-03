@@ -18,9 +18,9 @@ export const register = async (email, password, username) => {
          email,
          password
       );
-      // await updateProfile(auth.currentUser, {
-      //    displayName: username,
-      // });
+      await auth().currentUser.updateProfile({
+         displayName: username,
+      });
       await createAccount();
       return user;
    } catch (err) {
@@ -66,7 +66,7 @@ export const signInWithGoogle = async () => {
 // !Logout
 export const logout = async (user) => {
    try {
-      database().ref(`users/${user.uid}`).off('value')
+      database().ref(`users/${user.uid}`).off("value");
       console.log("Logout");
       return await auth().signOut();
    } catch (err) {
@@ -77,7 +77,7 @@ export const logout = async (user) => {
 // !User state changed
 auth().onAuthStateChanged((user) => {
    if (user) {
-      console.log("StateChanged: ",user);
+      console.log("StateChanged: ", user);
       store.dispatch(setUser(user));
    } else {
       store.dispatch(removeUser());

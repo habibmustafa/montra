@@ -21,14 +21,14 @@ const SpendFrequency = () => {
 
    // labels: Array.from({ length: transactions.length }, (_, i) => i + 1),
    // data: transactions.map(transaction => transaction.amount),
-   const arr = lastSpendFilter(transactions, button.elements[button.isActive-1].value )
-   console.log(arr);
+   const arr = lastSpendFilter(
+      transactions,
+      button.elements[button.isActive - 1].value
+   );
 
    while (arr.length < 12) {
       arr.unshift(0);
-    }
-   prettyPrint(arr);
-   
+   }
 
    return (
       <View>

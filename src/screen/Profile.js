@@ -9,10 +9,6 @@ const Profile = ({ navigation }) => {
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
 
-   const arr = [2, 4, 5, 2, 5, 2, 5];
-   const lastThree = arr.slice(-3);
-   console.log(lastThree);
-
    return (
       <View className="h-full px-4 bg-[#F7F7F7]">
          <StatusBar
