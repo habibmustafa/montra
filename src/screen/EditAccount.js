@@ -4,7 +4,7 @@ import {
    StatusBar,
    Keyboard,
    Dimensions,
-   TouchableWithoutFeedback
+   TouchableWithoutFeedback,
 } from "react-native";
 import NewScreen from "../components/NewScreen";
 import Input from "../components/Input";
@@ -14,9 +14,9 @@ import { addAccount, editAccount } from "../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import Svg, { Path } from "react-native-svg";
+import Modal from "../components/Modal";
 
 export const EditAccountRight = () => {
-
    return (
       <TouchableWithoutFeedback
          onPress={() => {
@@ -40,10 +40,14 @@ export const EditAccountRight = () => {
 };
 
 const EditAccount = ({ navigation, route }) => {
-
-   const [selectedList, setSelectedList] = React.useState(route.params.props.type);
-   const [amount, setAmount] = React.useState(route.params.props.balance.toFixed(2).toString());
+   const [selectedList, setSelectedList] = React.useState(
+      route.params.props.type
+   );
+   const [amount, setAmount] = React.useState(
+      route.params.props.balance.toFixed(2).toString()
+   );
    const [name, setName] = React.useState(route.params.props.name);
+   const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
    let { user } = useSelector((state) => state.local);
@@ -52,10 +56,13 @@ const EditAccount = ({ navigation, route }) => {
 
    const handleEditAccount = async () => {
       if (/.{3,}/.test(name.trim()) && selectedList) {
-         await editAccount(route.params.props.id, name.trim(), selectedList, Number(amount));
-         
-         navigation.goBack();
-
+         await editAccount(
+            route.params.props.id,
+            name.trim(),
+            selectedList,
+            Number(amount)
+         );
+         setVisible(true)
       } else {
          toast.show({
             title: "Choose a minimum 3-character name and type for the account",
@@ -66,6 +73,20 @@ const EditAccount = ({ navigation, route }) => {
          });
       }
    };
+
+   React.useEffect(() => {
+      let timeOut;
+
+      if (visible) {
+         timeOut = setTimeout(() => {
+            navigation.goBack();
+         }, 1500);
+      }
+
+      return () => {
+         clearTimeout(timeOut);
+      };
+   }, [visible]);
 
    const items = [
       { label: "Cash", value: "Cash" },
@@ -78,9 +99,9 @@ const EditAccount = ({ navigation, route }) => {
 
    React.useLayoutEffect(() => {
       navigation.setOptions({
-         headerRight: () => <EditAccountRight />
-      })
-   }, [navigation])
+         headerRight: () => <EditAccountRight />,
+      });
+   }, [navigation]);
 
    return (
       <View className="h-full bg-red-20">
@@ -123,7 +144,6 @@ const EditAccount = ({ navigation, route }) => {
                      setSelectedList(val);
                   }}
                />
-
             </View>
             <MaterialButton
                onPress={handleEditAccount}
@@ -134,6 +154,11 @@ const EditAccount = ({ navigation, route }) => {
                }}
             />
          </NewScreen>
+
+         <Modal
+            visible={visible}
+            text="Account has been successfully updated"
+         />
       </View>
    );
 };

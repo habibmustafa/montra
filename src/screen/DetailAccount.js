@@ -1,9 +1,16 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
-import { View, ScrollView, Text, TouchableWithoutFeedback, Dimensions } from "react-native";
+import {
+   View,
+   ScrollView,
+   Text,
+   TouchableWithoutFeedback,
+   Dimensions,
+} from "react-native";
 import TransactionItem from "../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
+import Modal from "../components/Modal";
 
 const date = (params = false, render = false) => {
    const dateTime = new Date(params).getDate();
@@ -97,11 +104,13 @@ const DetailAccount = ({ route, navigation }) => {
             </Text>
          </View>
 
-         <Divider style={{height:1.5, backgroundColor: "#91919F", opacity: 0.1}} />
+         <Divider
+            style={{ height: 1.5, backgroundColor: "#91919F", opacity: 0.1 }}
+         />
 
          {/* transactions */}
          <View className="pt-7 pb-3">
-            {transactions ?
+            {transactions ? (
                transactions.map((transaction, index) => (
                   <View key={transaction.id}>
                      {/* Time */}
@@ -116,7 +125,12 @@ const DetailAccount = ({ route, navigation }) => {
                      )}
                      <TransactionItem {...transaction} />
                   </View>
-               )) : <Text className="font-medium text-sm text-light-20 self-center mt-56">No money transaction</Text>}
+               ))
+            ) : (
+               <Text className="font-medium text-sm text-light-20 self-center mt-56">
+                  No money transaction
+               </Text>
+            )}
          </View>
       </ScrollView>
    );

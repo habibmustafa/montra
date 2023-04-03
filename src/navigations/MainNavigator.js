@@ -34,7 +34,7 @@ export default function MainNavigator() {
             initialRouteName="SetupPin"
             screenOptions={{
                headerShown: true,
-               animation: "default",
+               animation: "fade_from_bottom",
                headerTitleAlign: "center",
                headerShadowVisible: false,
             }}
@@ -82,7 +82,7 @@ export default function MainNavigator() {
                      name="Account"
                      component={Account}
                      options={{
-                        animation: "slide_from_right",
+                        // animation: "fade_from_bottom",
                      }}
                   />
                   <Stack.Screen
@@ -90,7 +90,7 @@ export default function MainNavigator() {
                      component={DetailAccount}
                      options={{
                         headerTitle: "Detail account",
-                        animation: "slide_from_right",
+                        // animation: "fade_from_bottom",
                      }}
                   />
                   <Stack.Screen
