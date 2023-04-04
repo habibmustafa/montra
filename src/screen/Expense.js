@@ -1,10 +1,5 @@
 import React from "react";
-import {
-   View,
-   StatusBar,
-   Keyboard,
-   Dimensions,
-} from "react-native";
+import { View, StatusBar, Keyboard, Dimensions } from "react-native";
 import NewScreen from "../components/NewScreen";
 import Input from "../components/Input";
 import DropdownPicker from "../components/DropdownPicker";
@@ -13,30 +8,37 @@ import { addTransaction } from "../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
+import Modal from "../components/Modal";
 
 const Expense = ({ navigation }) => {
    const [category, setCategory] = React.useState("");
    const [account, setAccount] = React.useState("");
    const [amount, setAmount] = React.useState(0);
    const [description, setDescription] = React.useState("");
+   const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
    let { userDb } = useSelector((state) => state.user);
 
    const handleAddAccount = async () => {
-      if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
+      if (
+         /.{3,}/.test(description.trim()) &&
+         category &&
+         account &&
+         Number(amount)
+      ) {
          let id = uuid.v4();
          await addTransaction(
             account,
             id,
-            type = "expense",
+            (type = "expense"),
             Number(amount),
             description.trim(),
             category,
-            balance = userDb.accounts[account].balance
+            (balance = userDb.accounts[account].balance)
          );
 
-         navigation.navigate("Tab");
+         setVisible(true);
       } else {
          toast.show({
             title: "Choose a minimum 3-character name and type for the account",
@@ -47,6 +49,20 @@ const Expense = ({ navigation }) => {
          });
       }
    };
+
+   React.useEffect(() => {
+      let timeOut;
+
+      if (visible) {
+         timeOut = setTimeout(() => {
+            navigation.goBack();
+         }, 1700);
+      }
+
+      return () => {
+         clearTimeout(timeOut);
+      };
+   }, [visible]);
 
    const data = [
       { label: "Food and Drink", value: "Food and Drink" },
@@ -128,6 +144,10 @@ const Expense = ({ navigation }) => {
                }}
             />
          </NewScreen>
+         <Modal
+            visible={visible}
+            text="Transaction has been successfully added"
+         />
       </View>
    );
 };

@@ -15,12 +15,14 @@ import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Svg, { Path } from "react-native-svg";
 import { addTransfer } from "../firebaseConfig/montraDB";
+import Modal from "../components/Modal";
 
 const Transfer = ({ navigation }) => {
    const [from, setFrom] = React.useState("");
    const [to, setTo] = React.useState("");
    const [amount, setAmount] = React.useState(0);
    const [description, setDescription] = React.useState("");
+   const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
    let { userDb } = useSelector((state) => state.user);
@@ -38,7 +40,7 @@ const Transfer = ({ navigation }) => {
             userDb.accounts[to].balance
          );
 
-         navigation.navigate("Tab");
+         setVisible(true)
       } else {
          toast.show({
             title: "Choose a minimum 3-character name and type for the account",
@@ -49,6 +51,20 @@ const Transfer = ({ navigation }) => {
          });
       }
    };
+
+   React.useEffect(() => {
+      let timeOut;
+
+      if (visible) {
+         timeOut = setTimeout(() => {
+            navigation.goBack();
+         }, 1700);
+      }
+
+      return () => {
+         clearTimeout(timeOut);
+      };
+   }, [visible]);
 
    return (
       <View className="h-full">
@@ -160,6 +176,10 @@ const Transfer = ({ navigation }) => {
                }}
             />
          </NewScreen>
+         <Modal
+            visible={visible}
+            text="Transaction has been successfully added"
+         />
       </View>
    );
 };
