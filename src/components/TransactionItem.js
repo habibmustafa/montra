@@ -1,20 +1,18 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { memo } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-const TransactionItem = ({
-   category,
-   description,
-   type,
-   amount,
-   timestamp,
-}) => {
+const TransactionItem = (props) => {
+   const {category, description, type, amount, timestamp, account_id} = props
+
+   const navigation = useNavigation()
    return (
       <TouchableHighlight 
          activeOpacity={0.99}
          underlayColor="#eee"
          onPress={() => {
-            console.log(1);
+            navigation.navigate("DetailTransaction", {...props})
          }}
          className={`flex-row justify-between items-center p-4 bg-light-80 rounded-3xl mb-2`}
       >

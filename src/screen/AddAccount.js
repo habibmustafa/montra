@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import {
    View,
-   Text,
-   ScrollView,
    StatusBar,
    Keyboard,
    Dimensions,
@@ -28,8 +26,13 @@ const AddAccount = ({ navigation }) => {
 
    const handleAddAccount = async () => {
       if (/.{3,}/.test(name.trim()) && selectedList) {
-         let id = uuid.v4();
-         await addAccount(id, name.trim(), selectedList, Number(amount));
+         const data = {
+            id: uuid.v4(),
+            name: name.trim(),
+            type: selectedList,
+            balance: Number(amount),
+         };
+         await addAccount(data);
 
          if (Object.keys(userDb.accounts).length <= 1) {
             navigation.navigate("Success");

@@ -14,13 +14,6 @@ const RecentTransaction = () => {
    const navigation = useNavigation();
    const { transactions } = useSelector((state) => state.user);
 
-   console.log(
-      Boolean(
-         transactions.find(
-            (transaction) => date(transaction.timestamp) == date()
-         )
-      )
-   );
    return (
       <View className="recent-transaction px-4 mt-7">
          {/* header */}

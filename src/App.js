@@ -19,15 +19,13 @@ export default function App() {
    useEffect(() => {
 
       if (isLoggedIn) {
-         database()
-            .ref(`users/${user.uid}`)
-            .on("value", (snapshot) => {
-               const data = snapshot.val();
+         database().ref(`users/${user.uid}`).on("value", (snapshot) => {
+            const data = snapshot.val();
 
-               if (snapshot.exists()) {
-                  dispatch(setUserDb(data));
-               }
-            });
+            if (snapshot.exists()) {
+               dispatch(setUserDb(data));
+            }
+         });
       }
    }, [isLoggedIn]);
 
@@ -38,12 +36,12 @@ export default function App() {
    return (
       <NativeBaseProvider>
          <PaperProvider>
-            <SafeAreaView className="h-full">
-            <StatusBar
-               backgroundColor="#fff"
-               animated={true}
-               barStyle="dark-content"
-            />
+            <SafeAreaView className="h-full ">
+               <StatusBar
+                  backgroundColor="#fff"
+                  animated={true}
+                  barStyle="dark-content"
+               />
                <MainNavigator />
             </SafeAreaView>
          </PaperProvider>

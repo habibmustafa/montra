@@ -1,102 +1,105 @@
 import database from "@react-native-firebase/database";
 import { store } from "../store";
 
-
 const user_uid = JSON.parse(store.getState().local.user).uid;
-
 
 // !Create User Account
 export const createAccount = async () => {
-   const res = await database().ref("users/" + user_uid).set({
-      accounts: false,
-      transfers: false,
-   })
+   await database().ref(`users/${user_uid}`).set({
+      accounts: false, transfers: false,
+   });
 
-   return res;
+   return true;
 };
 
 // !Add Account
-export const addAccount = async (id, name, type, balance) => {
+export const addAccount = async (data) => {
    try {
-      const res = await database()
-         .ref("users/" + user_uid + "/accounts/" + id)
-         .update({
-            id,
-            name,
-            type,
-            balance,
-            transactions: false,
-         });
+      await database().ref(`users/${user_uid}/accounts/${data.id}`).set({
+         ...data,
+         transactions: false,
+      });
 
-      return res;
+      return true;
    } catch (err) {
       console.log(err.code);
    }
 };
 
 // !Edit Account
-export const editAccount = async (id, name, type, balance) => {
+export const editAccount = async (data) => {
    try {
-      const res = await database()
-         .ref("users/" + user_uid + "/accounts/" + id)
-         .update({
-            name,
-            type,
-            balance,
-         });
+      await database().ref(`users/${user_uid}/accounts/${data.id}`).update({
+         name: data.name,
+         type: data.type,
+         balance: data.balance,
+      });
 
-      return res;
+      return true;
    } catch (err) {
       console.log(err.code);
    }
 };
 
 // !Add Transaction
-export const addTransaction = async (accounts_id, transaction_id, type, amount, description, category, balance) => {
+export const addTransaction = async (data) => {
    try {
-      const res = await database().ref("users/" + user_uid + "/accounts/" + accounts_id + "/transactions/" + transaction_id).set({
-         id: transaction_id,
-         type,
-         amount,
-         description,
-         category,
-         timestamp: new Date().getTime()
-      })
+      if (data.type !== "transfer") {
+         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
+         const updates = {};
+         // await database().ref(accountRef + `transactions/${data.id}`).set({
+         //    ...data, timestamp: new Date().getTime(),
+         // });
+         updates[accountRef + `transactions/${data.id}`] = {
+            ...data, timestamp: new Date().getTime(),
+         };
+         updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? data.amount : -data.amount);
+         await database().ref().update(updates);
 
-      await database().ref("users/" + user_uid + "/accounts/" + accounts_id).update({
-         balance: type == "income" ? balance + amount : balance - amount
-      })
+         return true;
+      } else {
+         const updates = {};
+         // await database().ref(`users/${user_uid}/transfers/${data.id}`).set({
+         //    ...data, timestamp: new Date().getTime(),
+         // });
+         updates[`users/${user_uid}/transfers/${data.id}`] = {
+            ...data, timestamp: new Date().getTime(),
+         };
+         updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(-data.amount);
+         updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount);
+         await database().ref().update(updates);
 
-      return res
-   } catch(err) {
+         return true;
+      }
+   } catch (err) {
       console.log(err.code);
    }
-}
+};
 
-
-// !Add Transfer
-export const addTransfer = async ( transfer_id, from, to, amount, description, from_balance, to_balance) => {
+// !Remove Transaction
+export const removeTransaction = async (data) => {
    try {
-      const res = await database().ref("users/" + user_uid + "/transfers/" + transfer_id).set({
-         id: transfer_id,
-         from,
-         to,
-         type: "transfer",
-         category: "Transfer",
-         amount,
-         description,
-         timestamp: new Date().getTime()
-      })
+      if (data.type !== "transfer") {
+         const updates = {};
+         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
 
-      await database().ref("users/" + user_uid + "/accounts/" + from).update({
-         balance: from_balance - amount
-      })
-      await database().ref("users/" + user_uid + "/accounts/" + to).update({
-         balance: to_balance + amount
-      })
+         await database().ref(accountRef + `transactions/${data.id}`).remove();
+         updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? -data.amount : data.amount);
+         await database().ref().update(updates);
+         return true;
+      } else {
+         const updates = {};
+         const fromAccountRef = `users/${user_uid}/accounts/${data.from}/balance`;
+         const toAccountRef = `users/${user_uid}/accounts/${data.to}/balance`;
 
-      return res
-   } catch(err) {
+         await database().ref(`users/${user_uid}/transfers/${data.id}`).remove();
+         updates[fromAccountRef] = database.ServerValue.increment(-data.amount);
+         updates[toAccountRef] = database.ServerValue.increment(data.amount);
+         await database().ref().update(updates);
+
+         return true;
+      }
+   } catch (err) {
       console.log(err.code);
    }
-}
+};

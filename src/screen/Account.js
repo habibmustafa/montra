@@ -5,7 +5,7 @@ import {
    Image,
    ScrollView,
    TouchableHighlight,
-   TouchableNativeFeedback
+   TouchableNativeFeedback,
 } from "react-native";
 import React from "react";
 import Svg, { Path } from "react-native-svg";
@@ -47,7 +47,7 @@ const Account = ({ navigation }) => {
                   key={account.id}
                   background={TouchableNativeFeedback.Ripple("#eee")}
                   onPress={() => {
-                     navigation.navigate("DetailAccount", {account});
+                     navigation.navigate("DetailAccount", { ...account });
                   }}
                >
                   <View className="flex-row justify-between items-center p-4 border-b-[1px] border-[#F7F7F7] ">

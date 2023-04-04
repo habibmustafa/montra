@@ -15,11 +15,11 @@ import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Modal from "../components/Modal";
 
-const Income = ({ navigation }) => {
-   const [category, setCategory] = React.useState("");
-   const [account, setAccount] = React.useState("");
+const Income = ({ navigation, route }) => {
+   const [category, setCategory] = React.useState(route.params?.category);
+   const [account, setAccount] = React.useState(route.params?.account_id);
    const [amount, setAmount] = React.useState(0);
-   const [description, setDescription] = React.useState("");
+   const [description, setDescription] = React.useState(route.params?.description);
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
@@ -27,18 +27,17 @@ const Income = ({ navigation }) => {
 
    const handleAddAccount = async () => {
       if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
-         let id = uuid.v4();
-         await addTransaction(
-            account,
-            id,
-            type = "income",
-            Number(amount),
-            description.trim(),
+         const data = {
+            id: uuid.v4(),
+            account_id: account,
+            amount: Number(amount),
+            description: description.trim(),
             category,
-            balance = userDb.accounts[account].balance
-         );
+            type: "income",
+         };
+         await addTransaction(data);
 
-         setVisible(true)
+         setVisible(true);
       } else {
          toast.show({
             title: "Choose a minimum 3-character name and type for the account",
@@ -86,6 +85,7 @@ const Income = ({ navigation }) => {
             input={(value) => {
                setAmount(value);
             }}
+            value={route.params?.amount.toFixed(2).toString()}
          >
             {/* Category */}
             <View

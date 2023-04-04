@@ -6,7 +6,6 @@ import MaterialButton from "../components/MaterialButton";
 import { login } from "../firebaseConfig/auth";
 import { signInWithGoogle } from "../firebaseConfig/auth";
 
-
 const Login = ({ navigation }) => {
    return (
       <View className="px-4 bg-white h-full">
@@ -14,7 +13,8 @@ const Login = ({ navigation }) => {
          <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={async (values, { setErrors, resetForm }) => {
-               const user = await login(values.email, values.password);
+               const data = { ...values }
+               const user = await login(data);
                if (user) {
                   // navigation.navigate("SetupPin");
                   resetForm();

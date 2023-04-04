@@ -12,14 +12,14 @@ GoogleSignin.configure({
 });
 
 // !Register
-export const register = async (email, password, username) => {
+export const register = async (data) => {
    try {
       const { user } = await auth().createUserWithEmailAndPassword(
-         email,
-         password
+         data.email,
+         data.password
       );
       await auth().currentUser.updateProfile({
-         displayName: username,
+         displayName: data.name,
       });
       await createAccount();
       return user;
@@ -30,9 +30,9 @@ export const register = async (email, password, username) => {
 };
 
 // !Login
-export const login = async (email, password) => {
+export const login = async (data) => {
    try {
-      const { user } = await auth().signInWithEmailAndPassword(email, password);
+      const { user } = await auth().signInWithEmailAndPassword(data.email, data.password);
       return user;
    } catch (err) {
       console.log(err.code);

@@ -9,34 +9,31 @@ import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Modal from "../components/Modal";
+import { prettyPrint } from "../prettyPrint";
 
-const Expense = ({ navigation }) => {
-   const [category, setCategory] = React.useState("");
-   const [account, setAccount] = React.useState("");
+const Expense = ({ navigation, route }) => {
+   const [category, setCategory] = React.useState(route.params?.category);
+   const [account, setAccount] = React.useState(route.params?.account_id);
    const [amount, setAmount] = React.useState(0);
-   const [description, setDescription] = React.useState("");
+   const [description, setDescription] = React.useState(route.params?.description);
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
    let { userDb } = useSelector((state) => state.user);
 
    const handleAddAccount = async () => {
-      if (
-         /.{3,}/.test(description.trim()) &&
-         category &&
-         account &&
-         Number(amount)
-      ) {
-         let id = uuid.v4();
-         await addTransaction(
-            account,
-            id,
-            (type = "expense"),
-            Number(amount),
-            description.trim(),
+      if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
+
+         const data = {
+            id: uuid.v4(),
+            account_id: account,
+            amount: Number(amount),
+            description: description.trim(),
             category,
-            (balance = userDb.accounts[account].balance)
-         );
+            type: "expense",
+         };
+         const res = await addTransaction(data)
+         console.log("RES: ", res);
 
          setVisible(true);
       } else {
@@ -65,17 +62,19 @@ const Expense = ({ navigation }) => {
    }, [visible]);
 
    const data = [
-      { label: "Food and Drink", value: "Food and Drink" },
-      { label: "Transportation", value: "Transportation" },
-      { label: "Entertainment", value: "Entertainment" },
-      { label: "Personal care", value: "Personal care" },
-      { label: "Travel", value: "Travel" },
-      { label: "Housing", value: "Housing" },
-      { label: "Health", value: "Health" },
-      { label: "Gifts and donations", value: "Gifts and donations" },
-      { label: "Education", value: "Education" },
-      { label: "Savings and investments", value: "Savings and investments" },
-   ];
+      { label: "Food and Drink", value: "Food and Drink" }, {
+         label: "Transportation",
+         value: "Transportation",
+      }, { label: "Entertainment", value: "Entertainment" }, {
+         label: "Personal care",
+         value: "Personal care",
+      }, { label: "Travel", value: "Travel" }, { label: "Housing", value: "Housing" }, {
+         label: "Health",
+         value: "Health",
+      }, { label: "Gifts and donations", value: "Gifts and donations" }, {
+         label: "Education",
+         value: "Education",
+      }, { label: "Savings and investments", value: "Savings and investments" }];
    return (
       <View className="h-full">
          <StatusBar
@@ -89,6 +88,7 @@ const Expense = ({ navigation }) => {
             input={(value) => {
                setAmount(value);
             }}
+            value={route.params?.amount.toFixed(2).toString()}
          >
             {/* Category */}
             <View
@@ -148,8 +148,7 @@ const Expense = ({ navigation }) => {
             visible={visible}
             text="Transaction has been successfully added"
          />
-      </View>
-   );
+      </View>);
 };
 
 export default Expense;

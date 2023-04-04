@@ -10,7 +10,7 @@ import NewScreen from "../components/NewScreen";
 import Input from "../components/Input";
 import DropdownPicker from "../components/DropdownPicker";
 import MaterialButton from "../components/MaterialButton";
-import { addAccount, editAccount } from "../firebaseConfig/montraDB";
+import { editAccount } from "../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import Svg, { Path } from "react-native-svg";
@@ -56,12 +56,13 @@ const EditAccount = ({ navigation, route }) => {
 
    const handleEditAccount = async () => {
       if (/.{3,}/.test(name.trim()) && selectedList) {
-         await editAccount(
-            route.params.props.id,
-            name.trim(),
-            selectedList,
-            Number(amount)
-         );
+         const data = {
+            id: route.params.props.id,
+            name: name.trim(),
+            type: selectedList,
+            balance: Number(amount)
+         }
+         await editAccount(data);
          setVisible(true)
       } else {
          toast.show({

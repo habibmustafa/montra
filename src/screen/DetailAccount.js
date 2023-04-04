@@ -11,13 +11,15 @@ import TransactionItem from "../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 import Modal from "../components/Modal";
+import { useSelector } from "react-redux";
+import { accountTransactions } from "../utils/filter";
 
 const date = (params = false, render = false) => {
    const dateTime = new Date(params).getDate();
    if (render) {
-      if (dateTime == new Date().getDate()) {
+      if (dateTime === new Date().getDate()) {
          return "Today";
-      } else if (dateTime == new Date().getDate() - 1) {
+      } else if (dateTime === new Date().getDate() - 1) {
          return "Yesterday";
       } else {
          return new Date(params).toDateString();
@@ -56,9 +58,8 @@ export const DetailAccountRight = (props) => {
 };
 
 const DetailAccount = ({ route, navigation }) => {
-   let { id, name, balance, type, transactions } = route.params.account;
-
-   transactions = transactions && Object.values(transactions);
+   let { id, name, balance, type } = route.params;
+   const { userDb } = useSelector(state => state.user);
 
    React.useLayoutEffect(() => {
       navigation.setOptions({
@@ -110,13 +111,13 @@ const DetailAccount = ({ route, navigation }) => {
 
          {/* transactions */}
          <View className="pt-7 pb-3">
-            {transactions ? (
-               transactions.map((transaction, index) => (
+            {accountTransactions(userDb, id) ? (
+               accountTransactions(userDb, id).map((transaction, index) => (
                   <View key={transaction.id}>
                      {/* Time */}
                      {(index === 0 ||
-                        date(transactions[index - 1].timestamp) !==
-                           date(transaction.timestamp)) && (
+                        date(accountTransactions(userDb, id)[index - 1].timestamp) !==
+                        date(transaction.timestamp)) && (
                         <View className="time pt-1.5 pb-3.5">
                            <Text className="font-semibold text-lg text-dark-100">
                               {date(transaction.timestamp, true)}

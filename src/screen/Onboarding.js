@@ -33,7 +33,7 @@ const Onboarding = ({ navigation }) => {
          <View className="illustration my-8 flex-1 mini:my-2 mini:mb-0">
             <Swiper
                loadMinimal={true}
-               autoplay={false}
+               autoplay={true}
                autoplayTimeout={6}
                activeDotStyle={
                   Dimensions.get("window").width < 385

@@ -19,6 +19,7 @@ import Notification from "../screen/Notification";
 import NotificationRight from "../components/NotificationRight";
 import DetailAccount from "../screen/DetailAccount";
 import EditAccount from "../screen/EditAccount";
+import DetailTransaction from "../screen/DetailTransaction";
 
 export default function MainNavigator() {
    // Router stack
@@ -123,6 +124,14 @@ export default function MainNavigator() {
                      component={Transfer}
                      options={{
                         headerStyle: { backgroundColor: "#0077FF" },
+                        headerTintColor: "#FFF",
+                     }}
+                  />
+                  <Stack.Screen
+                     name="DetailTransaction"
+                     component={DetailTransaction}
+                     options={{
+                        headerTitle: "Detail Transaction",
                         headerTintColor: "#FFF",
                      }}
                   />
