@@ -5,51 +5,59 @@ import { useSelector } from "react-redux";
 import { prettyPrint } from "../prettyPrint";
 
 const Chart = ({data}) => {
-   // labels: Array.from({ length: transactions.length }, (_, i) => i + 1),
-   // data: transactions.map(transaction => transaction.amount),
+
    return (
       <LineChart
          data={{
-            // labels: Array.from({ length: 5 }, (_, i) => i + 1),
+            labels: Array.from({ length: 5 }, (_, i) => i + 1),
             datasets: [
                {
-                  data: data,
+                  data: data
                },
             ],
          }}
-         width={Dimensions.get("window").width+105} // from react-native
+         width={Dimensions.get("window").width-4} // from react-native
          height={185}
 
          yAxisInterval={10} // optional, defaults to 1
          chartConfig={{
             backgroundColor: "#e26a00",
-            decimalPlaces: 0, // optional, defaults to 2dp
+            backgroundGradientFrom: '#ddd',
+            backgroundGradientTo: '#ddd',
+            decimalPlaces: 1, // optional, defaults to 2dp
             color: (opacity = 1) => `#7F3DFF`,
             style: {},
+            propsForBackgroundLines: {
+               stroke: '#c3c3d4',
+            },
+            propsForLabels: {
+               stroke: '#292B2D',
+               fontWeight: '100',
+               fontSize: 10,
+            },
             // propsForDots: {
             //    r: "6",
             //    strokeWidth: "10",
             //    stroke: "#ffa726",
             // },
             strokeWidth: 4,
-            fillShadowGradientOpacity: 0.25,
-            fillShadowGradientTo: "#FFFFFF",
-            fillShadowGradientToOffset: 0.8,
+            fillShadowGradientOpacity: 0.40,
+            fillShadowGradientTo: "#B18AFF",
+            fillShadowGradientToOffset: 0.4,
             // fillShadowGradientFrom: "#FDFCFF",
             fillShadowGradientToOpacity: 0.1,
          }}
-         withHorizontalLabels={false}
+         // withHorizontalLabels={false}
          withVerticalLabels={false}
-         withOuterLines={false}
-         withInnerLines={false}
-         fromZero
+         // withOuterLines={false}
+         // withInnerLines={false}
          withDots={false}
          transparent
          bezier
          style={{
             marginTop: 10,
             borderRadius: 16,
-            marginLeft: -65,
+            marginLeft: -16,
          }}
       />
    );

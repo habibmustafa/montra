@@ -46,8 +46,7 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
 export const lastSpendFilter = (transactions, num) => {
    let value = transactions
       .filter((transaction) => transaction.type === "expense")
-      .map((transaction) => transaction.amount)
-      .slice(-num);
+      .map((transaction) => transaction.amount).sort(a => -1).slice(-num);
 
    return value;
 };

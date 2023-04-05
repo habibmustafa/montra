@@ -1,39 +1,22 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import {
    View, Text, StatusBar, Image, Dimensions, TouchableWithoutFeedback,
 } from "react-native";
 import MaterialButton from "../components/MaterialButton";
 import { useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
-import { removeTransaction } from "../firebaseConfig/montraDB";
-import { useNavigation } from "@react-navigation/native";
-import Modal from "../components/Modal";
+import RemoveDialog from "../components/RemoveDialog";
 
 export const DetailTransactionRight = (params) => {
-   const navigation = useNavigation();
-   const [visible, setVisible] = useState(false);
-
-   React.useEffect(() => {
-      let timeOut;
-
-      if (visible) {
-         timeOut = setTimeout(() => {
-            navigation.goBack();
-         }, 1700);
-      }
-
-      return () => {
-         clearTimeout(timeOut);
-      };
-   }, [visible]);
+   const [show, setShow] = useState(false)
+   const actionSheetRef = useRef(null)
 
    return (
       <>
          <TouchableWithoutFeedback
-            onPress={async () => {
-               await removeTransaction(params);
-               setVisible(true);
-               console.log("silindi:");
+            onPress={() => {
+               actionSheetRef.current?.show();
+               setShow(true)
             }}
          >
             <Svg
@@ -49,10 +32,7 @@ export const DetailTransactionRight = (params) => {
                />
             </Svg>
          </TouchableWithoutFeedback>
-         <Modal
-            visible={visible}
-            text="Transaction has been successfully removed"
-         />
+         <RemoveDialog ref={actionSheetRef} data={params} />
       </>
    );
 };
@@ -89,93 +69,94 @@ const DetailTransaction = ({ navigation, route }) => {
       });
    }, [navigation]);
 
-   return (<View className="h-full bg-white">
-      <StatusBar
-         backgroundColor={color}
-         animated={true}
-         barStyle="light-content"
-      />
+   return (
+      <View className="h-full bg-white">
+         <StatusBar
+            backgroundColor={color}
+            animated={true}
+            barStyle="light-content"
+         />
 
-      {/* Header */}
-      <View
-         style={{ backgroundColor: color }}
-         className="h-1/4 rounded-bl-3xl rounded-br-3xl justify-center items-center"
-      >
-         <View className="items-center mb-2">
-            <Text className="text-light-80 font-bold text-5xl text-center mb-1">
-               ₼{amount.toFixed(2)}
-            </Text>
-            {type === "transfer" || (<Text className="text-light-80 font-medium text-base">
-               {category}
-            </Text>)}
-         </View>
-         <View className="flex-row gap-x-3 mb-5">
-            <Text className="text-light-60 font-medium text-center text-[13px] leading-4">
-               {new Date(timestamp).toDateString()}
-            </Text>
-            <Text className="text-light-60 font-medium text-center text-[13px] leading-4">
-               {new Date(timestamp).toTimeString().slice(0, 5)}
-            </Text>
-         </View>
-
-         {/* Absolute */}
+         {/* Header */}
          <View
-            className="bg-white border border-light-60 rounded-xl px-6 py-3 flex-row justify-between absolute -bottom-10"
-            style={{ width: Dimensions.get("screen").width - 32 }}
+            style={{ backgroundColor: color }}
+            className="h-1/4 rounded-bl-3xl rounded-br-3xl justify-center items-center"
          >
-            <View className="items-center">
-               <Text className="text-light-20 font-medium text-sm mb-2">Type</Text>
-               <Text className="text-dark-100 font-semibold text-base capitalize">
-                  {type}
+            <View className="items-center mb-2">
+               <Text className="text-light-80 font-bold text-5xl text-center mb-1">
+                  ₼{amount.toFixed(2)}
+               </Text>
+               {type === "transfer" || (<Text className="text-light-80 font-medium text-base">
+                  {category}
+               </Text>)}
+            </View>
+            <View className="flex-row gap-x-3 mb-5">
+               <Text className="text-light-60 font-medium text-center text-[13px] leading-4">
+                  {new Date(timestamp).toDateString()}
+               </Text>
+               <Text className="text-light-60 font-medium text-center text-[13px] leading-4">
+                  {new Date(timestamp).toTimeString().slice(0, 5)}
                </Text>
             </View>
-            <View className="items-center">
-               <Text className="text-light-20 font-medium text-sm mb-2">
-                  {type === "transfer" ? "From" : "Category"}
-               </Text>
-               <Text className="text-dark-100 font-semibold text-base">
-                  {type === "transfer" ? userDb.accounts[from].name : category}
-               </Text>
-            </View>
-            <View className="items-center">
-               <Text className="text-light-20 font-medium text-sm mb-2">
-                  {type === "transfer" ? "To" : "Wallet"}
-               </Text>
-               <Text className="text-dark-100 font-semibold text-base">
-                  {type === "transfer" ? userDb.accounts[to].name : (account_id && userDb.accounts[account_id].name) || "Wallet"}
-               </Text>
+
+            {/* Absolute */}
+            <View
+               className="bg-white border border-light-60 rounded-xl px-6 py-3 flex-row justify-between absolute -bottom-10"
+               style={{ width: Dimensions.get("screen").width - 32 }}
+            >
+               <View className="items-center">
+                  <Text className="text-light-20 font-medium text-sm mb-2">Type</Text>
+                  <Text className="text-dark-100 font-semibold text-base capitalize">
+                     {type}
+                  </Text>
+               </View>
+               <View className="items-center">
+                  <Text className="text-light-20 font-medium text-sm mb-2">
+                     {type === "transfer" ? "From" : "Category"}
+                  </Text>
+                  <Text className="text-dark-100 font-semibold text-base">
+                     {type === "transfer" ? userDb.accounts[from].name : category}
+                  </Text>
+               </View>
+               <View className="items-center">
+                  <Text className="text-light-20 font-medium text-sm mb-2">
+                     {type === "transfer" ? "To" : "Wallet"}
+                  </Text>
+                  <Text className="text-dark-100 font-semibold text-base">
+                     {type === "transfer" ? userDb.accounts[to].name : (account_id && userDb.accounts[account_id].name) || "Wallet"}
+                  </Text>
+               </View>
             </View>
          </View>
-      </View>
 
-      {/* Content */}
-      <View className="flex-1 pt-3.5 mx-4 mt-14 border-t-2 border-dashed border-light-40">
-         {/* Description */}
-         <View className="mb-8">
-            <Text className="text-light-20 font-semibold text-base mb-3.5">
-               Description
-            </Text>
-            <Text className="text-dark-100 font-medium text-base">
-               {description}
-            </Text>
-         </View>
+         {/* Content */}
+         <View className="flex-1 pt-3.5 mx-4 mt-14 border-t-2 border-dashed border-light-40">
+            {/* Description */}
+            <View className="mb-8">
+               <Text className="text-light-20 font-semibold text-base mb-3.5">
+                  Description
+               </Text>
+               <Text className="text-dark-100 font-medium text-base">
+                  {description}
+               </Text>
+            </View>
 
-         {/* Attachment */}
-         <View className="w-full">
-            <Image
-               className="h-80 mb-10 w-10/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
-               source={require("../assets/onboarding2.png")}
+            {/* Attachment */}
+            <View className="w-full">
+               <Image
+                  className="h-80 mb-10 w-10/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
+                  source={require("../assets/onboarding2.png")}
+               />
+            </View>
+
+            <MaterialButton
+               style={{ position: "absolute", width: "100%", bottom: 20 }}
+               title="Edit"
+               titleColor="#FCFCFC"
+               onPress={handleEdit}
             />
          </View>
-
-         <MaterialButton
-            style={{ position: "absolute", width: "100%", bottom: 20 }}
-            title="Edit"
-            titleColor="#FCFCFC"
-            onPress={handleEdit}
-         />
-      </View>
-   </View>);
+      </View>);
 };
 
 export default DetailTransaction;

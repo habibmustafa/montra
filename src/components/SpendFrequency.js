@@ -23,16 +23,16 @@ const SpendFrequency = () => {
    // data: transactions.map(transaction => transaction.amount),
    const arr = lastSpendFilter(
       transactions,
-      button.elements[button.isActive - 1].value
+      button.elements[button.isActive - 1].value,
    );
 
-   while (arr.length < 12) {
+   while (arr.length < 6) {
       arr.unshift(0);
    }
 
    return (
       <View>
-         <Text className="px-4 font-semibold text-lg text-dark-100">
+         <Text className="px-4 font-semibold text-lg text-dark-100 mb-1">
             Spend Frequency
          </Text>
 

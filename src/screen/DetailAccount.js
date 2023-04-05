@@ -111,7 +111,7 @@ const DetailAccount = ({ route, navigation }) => {
 
          {/* transactions */}
          <View className="pt-7 pb-3">
-            {accountTransactions(userDb, id) ? (
+            {accountTransactions(userDb, id).length ? (
                accountTransactions(userDb, id).map((transaction, index) => (
                   <View key={transaction.id}>
                      {/* Time */}
