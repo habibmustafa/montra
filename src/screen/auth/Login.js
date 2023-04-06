@@ -1,10 +1,10 @@
 import { Formik } from "formik";
 import React from "react";
 import { View, Text, Dimensions, Image } from "react-native";
-import Input from "../components/Input";
-import MaterialButton from "../components/MaterialButton";
-import { login } from "../firebaseConfig/auth";
-import { signInWithGoogle } from "../firebaseConfig/auth";
+import Input from "../../components/Input";
+import MaterialButton from "../../components/MaterialButton";
+import { login } from "../../firebaseConfig/auth";
+import { signInWithGoogle } from "../../firebaseConfig/auth";
 
 const Login = ({ navigation }) => {
    return (
@@ -85,7 +85,7 @@ const Login = ({ navigation }) => {
                      leading={
                         <Image
                            style={{ width: 32, height: 32 }}
-                           source={require("../assets/google.png")}
+                           source={require("../../assets/google.png")}
                         />
                      }
                      title="Sign Up with Google"

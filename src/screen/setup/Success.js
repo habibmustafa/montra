@@ -17,7 +17,7 @@ const Success = ({navigation}) => {
       <View className="bg-white flex-1 justify-center items-center">
          <StatusBar backgroundColor="#fff" animated={true} barStyle="default" />
          <View className="justify-center items-center">
-            <Image className="w-32 h-32" source={require("../assets/success.png")} />
+            <Image className="w-32 h-32" source={require("../../assets/success.png")} />
             <Text className="font-medium text-2xl text-dark-50">You are set!</Text>
          </View>
       </View>

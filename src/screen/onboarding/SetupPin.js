@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useToast } from "native-base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { setPin } from "../store/localSlice";
+import { setPin } from "../../store/localSlice";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SetupPin = ({ navigation }) => {
    const [enteredPin, setEnteredPin] = useState("");
@@ -69,18 +70,19 @@ const SetupPin = ({ navigation }) => {
       }, 1);
    }
 
-
       return () => clearTimeout(timer);
    }, [enteredPin]);
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBackgroundColor("#7F3DFF")
+         StatusBar.setBarStyle("light-content")
+      }, [])
+   )
+
+
    return (
       <>
-         <StatusBar
-            backgroundColor="#7F3DFF"
-            animated={true}
-            barStyle="light-content"
-         />
-
          <SafeAreaView className="bg-violet-100 flex-1 items-center">
             <Text className="pt-20 pb-16 text-light-100 font-bold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
                {!pin && !registerPin && "Let’s  setup your PIN"}

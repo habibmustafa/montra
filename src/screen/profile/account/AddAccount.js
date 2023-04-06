@@ -5,11 +5,11 @@ import {
    Keyboard,
    Dimensions,
 } from "react-native";
-import NewScreen from "../components/NewScreen";
-import Input from "../components/Input";
-import DropdownPicker from "../components/DropdownPicker";
-import MaterialButton from "../components/MaterialButton";
-import { addAccount } from "../firebaseConfig/montraDB";
+import NewScreen from "../../../components/NewScreen";
+import Input from "../../../components/Input";
+import DropdownPicker from "../../../components/DropdownPicker";
+import MaterialButton from "../../../components/MaterialButton";
+import { addAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";

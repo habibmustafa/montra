@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar, Text, TouchableHighlight, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { useSelector } from "react-redux";
-import { logout } from "../firebaseConfig/auth";
+import { logout } from "../../firebaseConfig/auth";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -19,11 +19,11 @@ const Profile = ({ navigation }) => {
 
    return (
       <View className="h-full px-4 bg-[#F7F7F7]">
-         <StatusBar
-            backgroundColor="#F7F7F7"
-            animated={true}
-            barStyle="dark-content"
-         />
+         {/*<StatusBar*/}
+         {/*   backgroundColor="#F7F7F7"*/}
+         {/*   animated={true}*/}
+         {/*   barStyle="dark-content"*/}
+         {/*/>*/}
          {/* Header */}
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
             <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />

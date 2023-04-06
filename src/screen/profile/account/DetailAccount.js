@@ -7,13 +7,13 @@ import {
    TouchableWithoutFeedback,
    Dimensions,
 } from "react-native";
-import TransactionItem from "../components/TransactionItem";
+import TransactionItem from "../../../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
-import Modal from "../components/Modal";
+import Modal from "../../../components/Modal";
 import { useSelector } from "react-redux";
-import { accountTransactions } from "../utils/filter";
-import SvgIcons from "../utils/SvgIcons";
+import { accountTransactions } from "../../../utils/filter";
+import SvgIcons from "../../../utils/SvgIcons";
 
 const date = (params = false, render = false) => {
    const dateTime = new Date(params).getDate();

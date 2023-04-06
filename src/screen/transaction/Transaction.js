@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useSelector } from "react-redux";
-import TransactionItem from "../components/TransactionItem";
+import TransactionItem from "../../components/TransactionItem";
 import { useFocusEffect } from "@react-navigation/native";
 // import {} from "react-native-vector-icons/"
 
@@ -40,11 +40,11 @@ const Transaction = () => {
 
    return (
       <>
-         <StatusBar
-            backgroundColor="#FFF"
-            animated={true}
-            barStyle="dark-content"
-         />
+         {/*<StatusBar*/}
+         {/*   backgroundColor="#FFF"*/}
+         {/*   animated={true}*/}
+         {/*   barStyle="dark-content"*/}
+         {/*/>*/}
          <View className="h-full bg-white">
             {/* Header */}
             <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
@@ -168,19 +168,3 @@ const Transaction = () => {
 };
 
 export default Transaction;
-
-// transactions && transactions.map((transaction, index) => (
-//    <View key={transaction.id}>
-//       {/* Time */}
-//       {(index === 0 ||
-//          date(transactions[index - 1].timestamp) !==
-//             date(transaction.timestamp)) && (
-//          <View className="time pt-1.5 pb-3.5">
-//             <Text className="font-semibold text-lg text-dark-100">
-//                {date(transaction.timestamp, true)}
-//             </Text>
-//          </View>
-//       )}
-//       <TransactionItem {...transaction} />
-//    </View>
-// ))

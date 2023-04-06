@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, Image, Dimensions, ScrollView } from "react-native";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { Checkbox } from "react-native-paper";
-import MaterialButton from "../components/MaterialButton";
-import { register, signInWithGoogle } from "../firebaseConfig/auth";
+import MaterialButton from "../../components/MaterialButton";
+import { register, signInWithGoogle } from "../../firebaseConfig/auth";
 import { Formik } from "formik";
 
 const Register = ({ navigation }) => {
@@ -107,7 +107,7 @@ const Register = ({ navigation }) => {
          <MaterialButton
             leading={<Image
                style={{ width: 32, height: 32 }}
-               source={require("../assets/google.png")}
+               source={require("../../assets/google.png")}
             />}
             title="Sign Up with Google"
             titleColor="#212325"

@@ -12,11 +12,11 @@ import { ActivityIndicator, Avatar, Modal, Portal } from "react-native-paper";
 import Svg, { Path } from "react-native-svg";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "react-redux";
-import { prettyPrint } from "../prettyPrint";
-import SpendFrequency from "../components/SpendFrequency";
+import { prettyPrint } from "../../prettyPrint";
+import SpendFrequency from "./SpendFrequency";
 import DatePicker from "react-native-modern-datepicker";
-import RecentTransaction from "../components/RecentTransaction";
-import Amount from "../components/Amount";
+import RecentTransaction from "./RecentTransaction";
+import Amount from "../../components/Amount";
 import { useFocusEffect } from "@react-navigation/native";
 
 function getMonthName(monthNumber) {
@@ -70,11 +70,11 @@ const Home = ({ navigation }) => {
                colors={["#FFF7E6", "#FFFFFF", "#FFFFFF"]}
                className="pb-20"
             >
-               <StatusBar
-                  backgroundColor="#FFF7E6"
-                  animated={true}
-                  barStyle="dark-content"
-               />
+               {/*<StatusBar*/}
+               {/*   backgroundColor="#FFF7E6"*/}
+               {/*   animated={true}*/}
+               {/*   barStyle="dark-content"*/}
+               {/*/>*/}
                <View className="bg-[#FFF7E6] pb-6 mb-3 rounded-bl-[32px] rounded-br-[32px]">
                   {/* Head */}
                   <View className="head py-3 my-2 px-4">

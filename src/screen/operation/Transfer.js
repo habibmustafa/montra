@@ -2,16 +2,16 @@ import React from "react";
 import {
    View, StatusBar, Keyboard, Dimensions, TouchableHighlight,
 } from "react-native";
-import NewScreen from "../components/NewScreen";
-import Input from "../components/Input";
-import DropdownPicker from "../components/DropdownPicker";
-import MaterialButton from "../components/MaterialButton";
+import NewScreen from "../../components/NewScreen";
+import Input from "../../components/Input";
+import DropdownPicker from "../../components/DropdownPicker";
+import MaterialButton from "../../components/MaterialButton";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Svg, { Path } from "react-native-svg";
-import { addTransaction, editTransaction } from "../firebaseConfig/montraDB";
-import Modal from "../components/Modal";
+import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
+import Modal from "../../components/Modal";
 
 const Transfer = ({ navigation, route }) => {
    const [from, setFrom] = React.useState(route.params?.from || "");

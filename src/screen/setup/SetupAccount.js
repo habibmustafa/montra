@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, StatusBar, BackHandler } from "react-native";
-import MaterialButton from "../components/MaterialButton";
+import MaterialButton from "../../components/MaterialButton";
 
 const SetupAccount = ({navigation}) => {
 

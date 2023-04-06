@@ -1,25 +1,25 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Onboarding from "../screen/Onboarding";
-import Register from "../screen/Register";
-import Login from "../screen/Login";
-import ForgotPassword from "../screen/ForgotPassword";
-import ForgotPasswordEmailSent from "../screen/ForgotPasswordEmailSent";
-import SetupPin from "../screen/SetupPin";
+import Onboarding from "../screen/onboarding/Onboarding";
+import Register from "../screen/auth/Register";
+import Login from "../screen/auth/Login";
+import ForgotPassword from "../screen/auth/ForgotPassword";
+import ForgotPasswordEmailSent from "../screen/auth/ForgotPasswordEmailSent";
+import SetupPin from "../screen/onboarding/SetupPin";
 import { useSelector } from "react-redux";
-import SetupAccount from "../screen/SetupAccount";
-import AddAccount from "../screen/AddAccount";
-import Success from "../screen/Success";
+import SetupAccount from "../screen/setup/SetupAccount";
+import AddAccount from "../screen/profile/account/AddAccount";
+import Success from "../screen/setup/Success";
 import TabNavigator from "./TabNavigator";
-import Account from "../screen/Account";
-import Income from "../screen/Income";
-import Expense from "../screen/Expense";
-import Transfer from "../screen/Transfer";
-import Notification from "../screen/Notification";
-import NotificationRight from "../components/NotificationRight";
-import DetailAccount from "../screen/DetailAccount";
-import EditAccount from "../screen/EditAccount";
-import DetailTransaction from "../screen/DetailTransaction";
+import Account from "../screen/profile/account/Account";
+import Income from "../screen/operation/Income";
+import Expense from "../screen/operation/Expense";
+import Transfer from "../screen/operation/Transfer";
+import Notification from "../screen/home/notification/Notification";
+import NotificationRight from "../screen/home/notification/NotificationRight";
+import DetailAccount from "../screen/profile/account/DetailAccount";
+import EditAccount from "../screen/profile/account/EditAccount";
+import DetailTransaction from "../screen/transaction/DetailTransaction";
 
 export default function MainNavigator() {
    // Router stack
@@ -38,6 +38,7 @@ export default function MainNavigator() {
                animation: "fade_from_bottom",
                headerTitleAlign: "center",
                headerShadowVisible: false,
+               statusBarAnimation: 'fade',
             }}
          >
             {isLoggedIn ? (

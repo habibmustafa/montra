@@ -10,8 +10,8 @@ import {
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
-import MaterialButton from "../components/MaterialButton";
-import SvgIcons from "../utils/SvgIcons";
+import MaterialButton from "../../../components/MaterialButton";
+import SvgIcons from "../../../utils/SvgIcons";
 
 const Account = ({ navigation }) => {
    const { userDb, allAccountBalance } = useSelector((state) => state.user);
@@ -37,7 +37,7 @@ const Account = ({ navigation }) => {
             <Image
                className="h-full w-full absolute"
                style={{ resizeMode: "cover" }}
-               source={require("../assets/account.png")}
+               source={require("../../../assets/account.png")}
             />
             <View className="items-center">
                <Text className="font-medium text-sm text-light-20">

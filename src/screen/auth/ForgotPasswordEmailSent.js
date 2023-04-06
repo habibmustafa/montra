@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import MaterialButton from "../components/MaterialButton";
+import MaterialButton from "../../components/MaterialButton";
 import { openInbox } from "react-native-email-link";
 
 const ForgotPasswordEmailSent = ({ navigation }) => {
@@ -10,7 +10,7 @@ const ForgotPasswordEmailSent = ({ navigation }) => {
          <View className="pt-8 px-4 flex-1">
             <Image
                className="h-80 mb-10 w-full"
-               source={require("../assets/email-sent.png")}
+               source={require("../../assets/email-sent.png")}
             />
 
             <Text className="mb-6 text-center font-semibold text-2xl text-dark-100">

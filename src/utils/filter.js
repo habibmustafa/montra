@@ -1,4 +1,4 @@
-import transaction from "../screen/Transaction";
+import transaction from "../screen/transaction/Transaction";
 
 const date = (time, timestamp = new Date().getTime()) => {
    if (time == "DATE") {

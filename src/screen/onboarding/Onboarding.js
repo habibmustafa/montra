@@ -8,7 +8,7 @@ import {
    Dimensions,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import MaterialButton from "../components/MaterialButton";
+import MaterialButton from "../../components/MaterialButton";
 
 const Onboarding = ({ navigation }) => {
    const beforeRemove = (e) => {
@@ -44,7 +44,7 @@ const Onboarding = ({ navigation }) => {
                <View>
                   <Image
                      className="h-80 mb-10 w-11/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
-                     source={require("../assets/onboarding1.png")}
+                     source={require("../../assets/onboarding1.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
                      Gain total control{"\n"} of your money
@@ -57,7 +57,7 @@ const Onboarding = ({ navigation }) => {
                <View>
                   <Image
                      className="h-80 mb-10 w-11/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
-                     source={require("../assets/onboarding2.png")}
+                     source={require("../../assets/onboarding2.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
                      Know where your{"\n"} money goes
@@ -70,7 +70,7 @@ const Onboarding = ({ navigation }) => {
                <View>
                   <Image
                      className="h-80 mb-10 w-11/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
-                     source={require("../assets/onboarding3.png")}
+                     source={require("../../assets/onboarding3.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
                      Planning ahead

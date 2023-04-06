@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Input from "../components/Input";
-import MaterialButton from "../components/MaterialButton";
+import Input from "../../components/Input";
+import MaterialButton from "../../components/MaterialButton";
 import { Formik } from "formik";
-import { passwordReset } from "../firebaseConfig/auth";
+import { passwordReset } from "../../firebaseConfig/auth";
 
 const ForgotPassword = ({ navigation }) => {
 

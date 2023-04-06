@@ -4,7 +4,7 @@ import { LineChart } from "react-native-chart-kit";
 import { useSelector } from "react-redux";
 import { prettyPrint } from "../prettyPrint";
 
-const Chart = ({data}) => {
+const Chart = ({ data }) => {
 
    return (
       <LineChart
@@ -12,27 +12,27 @@ const Chart = ({data}) => {
             labels: Array.from({ length: 5 }, (_, i) => i + 1),
             datasets: [
                {
-                  data: [...data]
+                  data: [...data],
                },
             ],
          }}
-         width={Dimensions.get("window").width-4} // from react-native
+         width={Dimensions.get("window").width - 4} // from react-native
          height={185}
 
          yAxisInterval={10} // optional, defaults to 1
          chartConfig={{
             backgroundColor: "#e26a00",
-            backgroundGradientFrom: '#ddd',
-            backgroundGradientTo: '#ddd',
+            backgroundGradientFrom: "#ddd",
+            backgroundGradientTo: "#ddd",
             decimalPlaces: 1, // optional, defaults to 2dp
             color: (opacity = 1) => `#7F3DFF`,
             style: {},
             propsForBackgroundLines: {
-               stroke: '#c3c3d4',
+               stroke: "#c3c3d4",
             },
             propsForLabels: {
-               stroke: '#292B2D',
-               fontWeight: '100',
+               stroke: "#292B2D",
+               fontWeight: "100",
                fontSize: 10,
             },
             // propsForDots: {
@@ -64,3 +64,5 @@ const Chart = ({data}) => {
 };
 
 export default memo(Chart);
+
+

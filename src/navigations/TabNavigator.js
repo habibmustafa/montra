@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screen/Home";
-import Transaction from "../screen/Transaction";
-import Budget from "../screen/Budget";
-import Profile from "../screen/Profile";
-import AddButton from "../components/AddButton";
+import Home from "../screen/home/Home";
+import Transaction from "../screen/transaction/Transaction";
+import Budget from "../screen/budget/Budget";
+import Profile from "../screen/profile/Profile";
+import AddButton from "../screen/operation/AddButton";
 import Svg, { Path } from "react-native-svg";
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +22,7 @@ const TabNavigator = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: styles.tabBar,
-            lazy: false,
+            lazy: false
          }}
       >
          <Tab.Screen

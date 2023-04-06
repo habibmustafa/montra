@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
-import TransactionItem from "./TransactionItem";
+import TransactionItem from "../../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";

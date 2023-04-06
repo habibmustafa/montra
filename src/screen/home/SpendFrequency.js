@@ -1,9 +1,9 @@
 import React, { memo, useState } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
-import { prettyPrint } from "../prettyPrint";
-import Chart from "./Chart";
-import { lastSpendFilter } from "../utils/filter";
+import { prettyPrint } from "../../prettyPrint";
+import Chart from "../../components/Chart";
+import { lastSpendFilter } from "../../utils/filter";
 
 const SpendFrequency = () => {
    const [button, setButton] = useState({

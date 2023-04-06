@@ -1,21 +1,17 @@
 import React from "react";
-import {
-   View,
-   StatusBar,
-   Keyboard,
-   Dimensions,
-} from "react-native";
-import NewScreen from "../components/NewScreen";
-import Input from "../components/Input";
-import DropdownPicker from "../components/DropdownPicker";
-import MaterialButton from "../components/MaterialButton";
-import { addTransaction, editTransaction } from "../firebaseConfig/montraDB";
+import { View, StatusBar, Keyboard, Dimensions } from "react-native";
+import NewScreen from "../../components/NewScreen";
+import Input from "../../components/Input";
+import DropdownPicker from "../../components/DropdownPicker";
+import MaterialButton from "../../components/MaterialButton";
+import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
-import Modal from "../components/Modal";
+import Modal from "../../components/Modal";
+import { prettyPrint } from "../../prettyPrint";
 
-const Income = ({ navigation, route }) => {
+const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
    const [account, setAccount] = React.useState(route.params?.account_id || "");
    const [amount, setAmount] = React.useState(0);
@@ -27,13 +23,14 @@ const Income = ({ navigation, route }) => {
 
    const handleAddAccount = async () => {
       if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
+
          const data = {
             id: route.params?.id ? route.params.id : uuid.v4(),
             account_id: account,
             amount: Number(amount),
             description: description.trim(),
             category,
-            type: "income",
+            type: "expense",
          };
          if(route.params?.amount) {
             await editTransaction(data, route.params.amount)
@@ -69,22 +66,28 @@ const Income = ({ navigation, route }) => {
    }, [visible]);
 
    const data = [
-      { label: "Salary", value: "Salary" },
-      { label: "Sales", value: "Sales" },
-      { label: "Scholarship", value: "Scholarship" },
-      { label: "Refunds", value: "Refunds" },
-      { label: "Prize or Award", value: "Prize or Award" },
-      { label: "Passive Income", value: "Passive Income" },
-   ];
+      { label: "Food and Drink", value: "Food and Drink" }, {
+         label: "Transportation",
+         value: "Transportation",
+      }, { label: "Shopping", value: "Shopping" }, { label: "Entertainment", value: "Entertainment" }, {
+         label: "Personal care and Health",
+         value: "Personal care and Health",
+      }, { label: "Housing", value: "Housing" }, {
+         label: "Credit and Dept",
+         value: "Credit and Dept",
+      }, {
+         label: "Education",
+         value: "Education",
+      }, { label: "Savings and investments", value: "Savings and investments" }];
    return (
       <View className="h-full">
          <StatusBar
-            backgroundColor="#00A86B"
+            backgroundColor="#FD3C4A"
             animated={true}
             barStyle="default"
          />
          <NewScreen
-            color="#00A86B"
+            color="#FD3C4A"
             text="How much?"
             input={(value) => {
                setAmount(value);
@@ -149,8 +152,7 @@ const Income = ({ navigation, route }) => {
             visible={visible}
             text="Transaction has been successfully added"
          />
-      </View>
-   );
+      </View>);
 };
 
-export default Income;
+export default Expense;

@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import { CurvedBottomBar } from "react-native-curved-bottom-bar";
 import Svg, { Path } from "react-native-svg";
-import Home from "../screen/Home";
-import Transaction from "../screen/Transaction";
-import Budget from "../screen/Budget";
-import Profile from "../screen/Profile";
-import AddButton from "../components/AddButton";
+import Home from "../screen/home/Home";
+import Transaction from "../screen/transaction/Transaction";
+import Budget from "../screen/budget/Budget";
+import Profile from "../screen/profile/Profile";
+import AddButton from "../screen/operation/AddButton";
 
 export default function TabsNavigator() {
 
@@ -98,7 +98,7 @@ export default function TabsNavigator() {
                         fill={routeName !== selectedTab ? "#C6C6C6" : "#7F3DFF"}
                      />
                   </Svg>
-                  
+
                   <Text
                      className={`font-medium text-[10px] mt-1 ${
                         routeName !== selectedTab

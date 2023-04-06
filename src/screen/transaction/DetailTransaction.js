@@ -2,10 +2,10 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import {
    View, Text, StatusBar, Image, Dimensions, TouchableWithoutFeedback,
 } from "react-native";
-import MaterialButton from "../components/MaterialButton";
+import MaterialButton from "../../components/MaterialButton";
 import { useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
-import RemoveDialog from "../components/RemoveDialog";
+import RemoveDialog from "../../components/RemoveDialog";
 
 export const DetailTransactionRight = (params) => {
    const [show, setShow] = useState(false)
@@ -53,8 +53,7 @@ const DetailTransaction = ({ navigation, route }) => {
       color = "#FD3C4A";
    } else if (type === "income") {
       color = "#00A86B";
-   }
-   if (type === "transfer") {
+   }else if (type === "transfer") {
       color = "#0077FF";
    }
 
@@ -151,7 +150,7 @@ const DetailTransaction = ({ navigation, route }) => {
             <View className="w-full">
                <Image
                   className="h-80 mb-10 w-10/12 self-center mini:h-48 mini:w-2/3 mini:mb-5 mini:mt-4"
-                  source={require("../assets/onboarding2.png")}
+                  source={require("../../assets/onboarding2.png")}
                />
             </View>
 

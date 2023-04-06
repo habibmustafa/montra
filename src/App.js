@@ -2,7 +2,6 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
 import { NativeBaseProvider } from "native-base";
-import { StatusBar } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDb } from "./store/userSlice";
 import database from "@react-native-firebase/database";
@@ -36,12 +35,7 @@ export default function App() {
    return (
       <NativeBaseProvider>
          <PaperProvider>
-            <SafeAreaView className="h-full ">
-               <StatusBar
-                  backgroundColor="#fff"
-                  animated={true}
-                  barStyle="dark-content"
-               />
+            <SafeAreaView className="h-full">
                <MainNavigator />
             </SafeAreaView>
          </PaperProvider>

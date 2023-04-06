@@ -6,15 +6,15 @@ import {
    Dimensions,
    TouchableWithoutFeedback,
 } from "react-native";
-import NewScreen from "../components/NewScreen";
-import Input from "../components/Input";
-import DropdownPicker from "../components/DropdownPicker";
-import MaterialButton from "../components/MaterialButton";
-import { editAccount } from "../firebaseConfig/montraDB";
+import NewScreen from "../../../components/NewScreen";
+import Input from "../../../components/Input";
+import DropdownPicker from "../../../components/DropdownPicker";
+import MaterialButton from "../../../components/MaterialButton";
+import { editAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import Svg, { Path } from "react-native-svg";
-import Modal from "../components/Modal";
+import Modal from "../../../components/Modal";
 
 export const EditAccountRight = () => {
    return (

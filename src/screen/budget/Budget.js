@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import MaterialButton from "../components/MaterialButton";
+import MaterialButton from "../../components/MaterialButton";
 import { useFocusEffect } from "@react-navigation/native";
 
 const Budget = () => {
@@ -15,11 +15,11 @@ const Budget = () => {
 
    return (
       <View className="bg-violet-100 flex-1">
-         <StatusBar
-            backgroundColor="#7F3DFF"
-            animated={true}
-            barStyle="light-content"
-         />
+         {/*<StatusBar*/}
+         {/*   backgroundColor="#7F3DFF"*/}
+         {/*   animated={true}*/}
+         {/*   barStyle="light-content"*/}
+         {/*/>*/}
          {/* Date */}
          <View className="date px-4 h-[104px] flex-row justify-between items-center">
             {/* prev */}
