@@ -25,7 +25,6 @@ const TransactionItem = (props) => {
       "Transfer": 'bg-blue-20'
    }
 
-
    const navigation = useNavigation()
    return (
       <TouchableHighlight
@@ -38,7 +37,7 @@ const TransactionItem = (props) => {
       >
          <>
             {/* SVG */}
-            <View className={`${colors[category]} rounded-2xl p-[13px] mr-2.5`}>
+            <View className={`${colors[category]} rounded-2xl p-3.5 mr-2.5`}>
                <SvgIcons icon={category} />
             </View>
 
