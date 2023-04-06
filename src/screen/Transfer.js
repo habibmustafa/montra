@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Svg, { Path } from "react-native-svg";
-import { addTransaction } from "../firebaseConfig/montraDB";
+import { addTransaction, editTransaction } from "../firebaseConfig/montraDB";
 import Modal from "../components/Modal";
 
 const Transfer = ({ navigation, route }) => {
-   const [from, setFrom] = React.useState(route.params?.from);
-   const [to, setTo] = React.useState(route.params?.to);
+   const [from, setFrom] = React.useState(route.params?.from || "");
+   const [to, setTo] = React.useState(route.params?.to || "");
    const [amount, setAmount] = React.useState(0);
-   const [description, setDescription] = React.useState(route.params?.description);
+   const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
@@ -27,7 +27,7 @@ const Transfer = ({ navigation, route }) => {
       if (/.{3,}/.test(description.trim()) && from && to && Number(amount)) {
 
          const data = {
-            id: uuid.v4(),
+            id: route.params?.id ? route.params.id : uuid.v4(),
             from,
             to,
             amount: Number(amount),
@@ -35,7 +35,12 @@ const Transfer = ({ navigation, route }) => {
             category: "Transfer",
             type: "transfer",
          };
-         await addTransaction(data);
+         if(route.params?.amount) {
+            await editTransaction(data, route.params.amount)
+         } else {
+            const res = await addTransaction(data);
+            console.log("RES: ", res);
+         }
 
          setVisible(true);
       } else {

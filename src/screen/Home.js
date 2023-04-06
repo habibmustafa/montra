@@ -17,6 +17,7 @@ import SpendFrequency from "../components/SpendFrequency";
 import DatePicker from "react-native-modern-datepicker";
 import RecentTransaction from "../components/RecentTransaction";
 import Amount from "../components/Amount";
+import { useFocusEffect } from "@react-navigation/native";
 
 function getMonthName(monthNumber) {
    const date = new Date();
@@ -34,6 +35,13 @@ const Home = ({ navigation }) => {
    );
    const { userDb } = useSelector((state) => state.user);
    const { user } = useSelector((state) => state.local);
+
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle('dark-content');
+         StatusBar.setBackgroundColor('#FFF7E6');
+      }, [])
+   )
 
    const beforeRemove = (e) => {
       BackHandler.exitApp();
@@ -57,17 +65,16 @@ const Home = ({ navigation }) => {
    } else
       return (
          <ScrollView showsVerticalScrollIndicator={false} className="bg-white">
-            <StatusBar
-               backgroundColor="#FFF7E6"
-               animated={true}
-               barStyle="dark-content"
-            />
-
             <LinearGradient
                // Background Linear Gradient
                colors={["#FFF7E6", "#FFFFFF", "#FFFFFF"]}
                className="pb-20"
             >
+               <StatusBar
+                  backgroundColor="#FFF7E6"
+                  animated={true}
+                  barStyle="dark-content"
+               />
                <View className="bg-[#FFF7E6] pb-6 mb-3 rounded-bl-[32px] rounded-br-[32px]">
                   {/* Head */}
                   <View className="head py-3 my-2 px-4">

@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, StatusBar } from "react-native";
 import { View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useToast } from "native-base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";

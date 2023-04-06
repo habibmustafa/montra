@@ -58,8 +58,10 @@ export const DetailAccountRight = (props) => {
 };
 
 const DetailAccount = ({ route, navigation }) => {
-   let { id, name, balance, type } = route.params;
+   let { id, type } = route.params;
    const { userDb } = useSelector(state => state.user);
+
+   const { name, balance } = userDb.accounts[id]
 
    React.useLayoutEffect(() => {
       navigation.setOptions({

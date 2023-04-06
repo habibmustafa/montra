@@ -4,10 +4,18 @@ import { Avatar } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { logout } from "../firebaseConfig/auth";
 import Svg, { Path, Rect } from "react-native-svg";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Profile = ({ navigation }) => {
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
+
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle('dark-content');
+         StatusBar.setBackgroundColor('#F7F7F7');
+      }, [])
+   )
 
    return (
       <View className="h-full px-4 bg-[#F7F7F7]">
@@ -16,7 +24,6 @@ const Profile = ({ navigation }) => {
             animated={true}
             barStyle="dark-content"
          />
-
          {/* Header */}
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
             <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />

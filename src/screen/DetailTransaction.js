@@ -32,15 +32,21 @@ export const DetailTransactionRight = (params) => {
                />
             </Svg>
          </TouchableWithoutFeedback>
-         <RemoveDialog ref={actionSheetRef} data={params} />
+         <RemoveDialog ref={actionSheetRef} data={params} text="transaction" />
       </>
    );
 };
 
 const DetailTransaction = ({ navigation, route }) => {
-   const { category, description, type, amount, from, to, account_id, timestamp } = route.params;
-
    const { userDb } = useSelector((state) => state.user);
+
+   let transaction
+   if(route.params.type === 'transfer') {
+      transaction = userDb.transfers[route.params.id]
+   } else {
+      transaction = userDb.accounts[route.params.account_id].transactions[route.params.id];
+   }
+   const { category, description, type, amount, from, to, account_id, timestamp } = transaction;
 
    let color;
    if (type === "expense") {
@@ -65,7 +71,7 @@ const DetailTransaction = ({ navigation, route }) => {
 
    useLayoutEffect(() => {
       navigation.setOptions({
-         headerStyle: { backgroundColor: color }, headerRight: () => <DetailTransactionRight {...route.params} />,
+         headerStyle: { backgroundColor: color }, headerRight: () => <DetailTransactionRight {...transaction} />,
       });
    }, [navigation]);
 

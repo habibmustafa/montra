@@ -9,17 +9,17 @@ import NewScreen from "../components/NewScreen";
 import Input from "../components/Input";
 import DropdownPicker from "../components/DropdownPicker";
 import MaterialButton from "../components/MaterialButton";
-import { addTransaction } from "../firebaseConfig/montraDB";
+import { addTransaction, editTransaction } from "../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
 import Modal from "../components/Modal";
 
 const Income = ({ navigation, route }) => {
-   const [category, setCategory] = React.useState(route.params?.category);
-   const [account, setAccount] = React.useState(route.params?.account_id);
+   const [category, setCategory] = React.useState(route.params?.category || "");
+   const [account, setAccount] = React.useState(route.params?.account_id || "");
    const [amount, setAmount] = React.useState(0);
-   const [description, setDescription] = React.useState(route.params?.description);
+   const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
@@ -28,14 +28,19 @@ const Income = ({ navigation, route }) => {
    const handleAddAccount = async () => {
       if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
          const data = {
-            id: uuid.v4(),
+            id: route.params?.id ? route.params.id : uuid.v4(),
             account_id: account,
             amount: Number(amount),
             description: description.trim(),
             category,
             type: "income",
          };
-         await addTransaction(data);
+         if(route.params?.amount) {
+            await editTransaction(data, route.params.amount)
+         } else {
+            const res = await addTransaction(data);
+            console.log("RES: ", res);
+         }
 
          setVisible(true);
       } else {
@@ -67,10 +72,9 @@ const Income = ({ navigation, route }) => {
       { label: "Salary", value: "Salary" },
       { label: "Sales", value: "Sales" },
       { label: "Scholarship", value: "Scholarship" },
-      { label: "Passive Income", value: "Passive Income" },
-      { label: "Tips", value: "Tips" },
-      { label: "Prize or Award", value: "Prize or Award" },
       { label: "Refunds", value: "Refunds" },
+      { label: "Prize or Award", value: "Prize or Award" },
+      { label: "Passive Income", value: "Passive Income" },
    ];
    return (
       <View className="h-full">

@@ -10,6 +10,8 @@ import {
 import Svg, { Path, Rect } from "react-native-svg";
 import { useSelector } from "react-redux";
 import TransactionItem from "../components/TransactionItem";
+import { useFocusEffect } from "@react-navigation/native";
+// import {} from "react-native-vector-icons/"
 
 const Transaction = () => {
    const { transactions } = useSelector((state) => state.user);
@@ -28,6 +30,13 @@ const Transaction = () => {
          return dateTime;
       }
    };
+
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle('dark-content');
+         StatusBar.setBackgroundColor('#FFF');
+      }, [])
+   )
 
    return (
       <>

@@ -4,7 +4,7 @@ import NewScreen from "../components/NewScreen";
 import Input from "../components/Input";
 import DropdownPicker from "../components/DropdownPicker";
 import MaterialButton from "../components/MaterialButton";
-import { addTransaction } from "../firebaseConfig/montraDB";
+import { addTransaction, editTransaction } from "../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "native-base";
 import uuid from "react-native-uuid";
@@ -12,10 +12,10 @@ import Modal from "../components/Modal";
 import { prettyPrint } from "../prettyPrint";
 
 const Expense = ({ navigation, route }) => {
-   const [category, setCategory] = React.useState(route.params?.category);
-   const [account, setAccount] = React.useState(route.params?.account_id);
+   const [category, setCategory] = React.useState(route.params?.category || "");
+   const [account, setAccount] = React.useState(route.params?.account_id || "");
    const [amount, setAmount] = React.useState(0);
-   const [description, setDescription] = React.useState(route.params?.description);
+   const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
 
@@ -25,15 +25,19 @@ const Expense = ({ navigation, route }) => {
       if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
 
          const data = {
-            id: uuid.v4(),
+            id: route.params?.id ? route.params.id : uuid.v4(),
             account_id: account,
             amount: Number(amount),
             description: description.trim(),
             category,
             type: "expense",
          };
-         const res = await addTransaction(data)
-         console.log("RES: ", res);
+         if(route.params?.amount) {
+            await editTransaction(data, route.params.amount)
+         } else {
+            const res = await addTransaction(data);
+            console.log("RES: ", res);
+         }
 
          setVisible(true);
       } else {
@@ -65,13 +69,13 @@ const Expense = ({ navigation, route }) => {
       { label: "Food and Drink", value: "Food and Drink" }, {
          label: "Transportation",
          value: "Transportation",
-      }, { label: "Entertainment", value: "Entertainment" }, {
-         label: "Personal care",
-         value: "Personal care",
-      }, { label: "Travel", value: "Travel" }, { label: "Housing", value: "Housing" }, {
-         label: "Health",
-         value: "Health",
-      }, { label: "Gifts and donations", value: "Gifts and donations" }, {
+      }, { label: "Shopping", value: "Shopping" }, { label: "Entertainment", value: "Entertainment" }, {
+         label: "Personal care and Health",
+         value: "Personal care and Health",
+      }, { label: "Housing", value: "Housing" }, {
+         label: "Credit and Dept",
+         value: "Credit and Dept",
+      }, {
          label: "Education",
          value: "Education",
       }, { label: "Savings and investments", value: "Savings and investments" }];

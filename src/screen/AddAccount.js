@@ -37,7 +37,7 @@ const AddAccount = ({ navigation }) => {
          if (Object.keys(userDb.accounts).length <= 1) {
             navigation.navigate("Success");
          } else {
-            navigation.navigate("Tab");
+            navigation.goBack();
          }
       } else {
          toast.show({

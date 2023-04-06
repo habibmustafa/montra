@@ -76,6 +76,39 @@ export const addTransaction = async (data) => {
    }
 };
 
+// !Edit Transaction
+export const  editTransaction = async (data, balance) => {
+   try {
+      if (data.type !== "transfer") {
+         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
+         const updates = {};
+
+         updates[accountRef + `transactions/${data.id}`] = {
+            ...data, timestamp: new Date().getTime(),
+         };
+
+         updates[accountRef + `balance`] = database.ServerValue.increment(balance-data.amount);
+         await database().ref().update(updates);
+
+         return true
+      }
+
+      else {
+         const updates = {};
+         updates[`users/${user_uid}/transfers/${data.id}`] = {
+            ...data, timestamp: new Date().getTime(),
+         };
+         updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(balance-data.amount);
+         updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount-balance);
+         await database().ref().update(updates);
+
+         return true
+      }
+   } catch(err) {
+      console.log(err.code);
+   }
+}
+
 // !Remove Transaction
 export const removeTransaction = async (data) => {
    try {
