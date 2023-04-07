@@ -5,7 +5,7 @@ import {
    View,
    StatusBar,
    TouchableHighlight,
-   FlatList,
+   FlatList, Dimensions,
 } from "react-native";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useSelector } from "react-redux";
@@ -16,9 +16,9 @@ import { transactionFilter } from "../../utils/filter";
 
 const Transaction = () => {
    const { transactions } = useSelector((state) => state.user);
-   const actionSheetRef = useRef(null)
-   const [filter, setFilter] = useState(['expense', 'income', 'transfer'])
-   const [sort, setSort] = useState("Newest")
+   const actionSheetRef = useRef(null);
+   const [filter, setFilter] = useState(["expense", "income", "transfer"]);
+   const [sort, setSort] = useState("Newest");
 
    const date = (params = false, render = false) => {
       const dateTime = new Date(params).getDate();
@@ -37,10 +37,10 @@ const Transaction = () => {
 
    useFocusEffect(
       React.useCallback(() => {
-         StatusBar.setBarStyle('dark-content');
-         StatusBar.setBackgroundColor('#FFF');
-      }, [])
-   )
+         StatusBar.setBarStyle("dark-content");
+         StatusBar.setBackgroundColor("#FFF");
+      }, []),
+   );
 
    return (
       <>
@@ -55,7 +55,8 @@ const Transaction = () => {
                      console.log(1);
                   }}
                >
-                  <View className="flex-row py-2.5 px-4 pl-2 border-[1px] border-light-60 rounded-[40px] justify-center items-center">
+                  <View
+                     className="flex-row py-2.5 px-4 pl-2 border-[1px] border-light-60 rounded-[40px] justify-center items-center">
                      <Svg
                         width="24"
                         height="24"
@@ -82,7 +83,7 @@ const Transaction = () => {
                   underlayColor="#eee"
                   style={{ borderRadius: 8 }}
                   onPress={() => {
-                     actionSheetRef.current?.show()
+                     actionSheetRef.current?.show();
                   }}
                >
                   <Svg
@@ -118,7 +119,8 @@ const Transaction = () => {
             </View>
 
             {/* Financial Report */}
-            <View className="financial-report mx-4 my-2 px-4 py-3.5 flex-row justify-between items-center bg-[#EEE5FF] rounded-lg ">
+            <View
+               className="financial-report mx-4 my-2 px-4 py-3.5 flex-row justify-between items-center bg-[#EEE5FF] rounded-lg ">
                <Text className="text-base text-violet-100">
                   See your financial report
                </Text>
@@ -145,11 +147,15 @@ const Transaction = () => {
                   data={transactionFilter(transactions, filter, sort)}
                   keyExtractor={(item) => item.id}
                   className="mb-20 px-4"
+                  ListEmptyComponent={
+                     <View style={{height: Dimensions.get('window').height-240}} className="justify-center items-center">
+                        <Text className="font-medium text-sm text-light-20">No money transactions</Text>
+                     </View>}
                   renderItem={({ item, index }) => (
                      <>
                         {(index === 0 ||
                            date(transactionFilter(transactions, filter, sort)[index - 1].timestamp) !==
-                              date(item.timestamp)) && (
+                           date(item.timestamp)) && (
                            <View className="time pt-1.5 pb-3.5">
                               <Text className="font-semibold text-lg text-dark-100">
                                  {date(item.timestamp, true)}
@@ -161,7 +167,11 @@ const Transaction = () => {
                   )}
                />
             )}
-            <FilterDialog ref={actionSheetRef} getFilter={(e) => {setFilter(e)}} getSort={(e) => {setSort(e)}} />
+            <FilterDialog ref={actionSheetRef} getFilter={(e) => {
+               setFilter(e);
+            }} getSort={(e) => {
+               setSort(e);
+            }} />
          </View>
       </>
    );
