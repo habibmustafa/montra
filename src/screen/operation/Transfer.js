@@ -16,7 +16,7 @@ import Modal from "../../components/Modal";
 const Transfer = ({ navigation, route }) => {
    const [from, setFrom] = React.useState(route.params?.from || "");
    const [to, setTo] = React.useState(route.params?.to || "");
-   const [amount, setAmount] = React.useState(0);
+   const [amount, setAmount] = React.useState(route.params?.amount || 0);
    const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
@@ -176,7 +176,7 @@ const Transfer = ({ navigation, route }) => {
       </NewScreen>
       <Modal
          visible={visible}
-         text="Transaction has been successfully added"
+         text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
       />
    </View>);
 };

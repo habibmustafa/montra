@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StatusBar, Text, TouchableHighlight, View } from "react-native";
 import { Avatar } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { logout } from "../../firebaseConfig/auth";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
+import Dialog from "../../components/Dialog";
 
 const Profile = ({ navigation }) => {
+   const actionSheetRef = useRef(null);
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
 
    useFocusEffect(
       React.useCallback(() => {
-         StatusBar.setBarStyle('dark-content');
-         StatusBar.setBackgroundColor('#F7F7F7');
-      }, [])
-   )
+         StatusBar.setBarStyle("dark-content");
+         StatusBar.setBackgroundColor("#F7F7F7");
+      }, []),
+   );
 
    return (
       <View className="h-full px-4 bg-[#F7F7F7]">
@@ -187,8 +189,8 @@ const Profile = ({ navigation }) => {
                activeOpacity={0.99}
                underlayColor="#eee"
                style={{ borderRadius: 24 }}
-               onPress={async () => {
-                  await logout(user);
+               onPress={() => {
+                  actionSheetRef.current?.show();
                }}
             >
                <View className="flex-row items-center px-4 py-3.5">
@@ -232,6 +234,13 @@ const Profile = ({ navigation }) => {
                </View>
             </TouchableHighlight>
          </View>
+
+         {/* Dialog */}
+         <Dialog ref={actionSheetRef}
+                 id="logout"
+                 title="Logout?"
+                 description={`Are you sure do you wanna logout?`}
+         />
       </View>
    );
 };

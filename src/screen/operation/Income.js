@@ -18,7 +18,7 @@ import Modal from "../../components/Modal";
 const Income = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
    const [account, setAccount] = React.useState(route.params?.account_id || "");
-   const [amount, setAmount] = React.useState(0);
+   const [amount, setAmount] = React.useState(route.params?.amount || 0);
    const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
@@ -147,7 +147,7 @@ const Income = ({ navigation, route }) => {
          </NewScreen>
          <Modal
             visible={visible}
-            text="Transaction has been successfully added"
+            text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
          />
       </View>
    );

@@ -5,18 +5,16 @@ import {
 import MaterialButton from "../../components/MaterialButton";
 import { useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
-import RemoveDialog from "../../components/RemoveDialog";
+import Dialog from "../../components/Dialog";
 
 export const DetailTransactionRight = (params) => {
-   const [show, setShow] = useState(false)
-   const actionSheetRef = useRef(null)
+   const actionSheetRef = useRef(null);
 
    return (
       <>
          <TouchableWithoutFeedback
             onPress={() => {
                actionSheetRef.current?.show();
-               setShow(true)
             }}
          >
             <Svg
@@ -32,7 +30,12 @@ export const DetailTransactionRight = (params) => {
                />
             </Svg>
          </TouchableWithoutFeedback>
-         <RemoveDialog ref={actionSheetRef} data={params} text="transaction" />
+         <Dialog ref={actionSheetRef} data={params}
+                 id="transaction"
+                 title="Remove this transaction?"
+                 description={`Are you sure do you wanna remove this ${`\n`} transaction?`}
+                 modalDescription="Transaction has been successfully removed"
+         />
       </>
    );
 };
@@ -40,20 +43,20 @@ export const DetailTransactionRight = (params) => {
 const DetailTransaction = ({ navigation, route }) => {
    const { userDb } = useSelector((state) => state.user);
 
-   let transaction
-   if(route.params.type === 'transfer') {
-      transaction = userDb.transfers[route.params.id]
+   let transaction;
+   if (route.params.type === "transfer") {
+      transaction = userDb.transfers[route.params.id];
    } else {
       transaction = userDb.accounts[route.params.account_id].transactions[route.params.id];
    }
-   const { category, description, type, amount, from, to, account_id, timestamp } = transaction;
+   const { category, description, type, amount, from, to, account_id, timestamp } = transaction || route.params;
 
    let color;
    if (type === "expense") {
       color = "#FD3C4A";
    } else if (type === "income") {
       color = "#00A86B";
-   }else if (type === "transfer") {
+   } else if (type === "transfer") {
       color = "#0077FF";
    }
 

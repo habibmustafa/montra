@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
    ScrollView,
    Text,
@@ -11,17 +11,21 @@ import Svg, { Path, Rect } from "react-native-svg";
 import { useSelector } from "react-redux";
 import TransactionItem from "../../components/TransactionItem";
 import { useFocusEffect } from "@react-navigation/native";
-// import {} from "react-native-vector-icons/"
+import FilterDialog from "./FilterDialog";
+import { transactionFilter } from "../../utils/filter";
 
 const Transaction = () => {
    const { transactions } = useSelector((state) => state.user);
+   const actionSheetRef = useRef(null)
+   const [filter, setFilter] = useState(['expense', 'income', 'transfer'])
+   const [sort, setSort] = useState("Newest")
 
    const date = (params = false, render = false) => {
       const dateTime = new Date(params).getDate();
       if (render) {
-         if (dateTime == new Date().getDate()) {
+         if (dateTime === new Date().getDate()) {
             return "Today";
-         } else if (dateTime == new Date().getDate() - 1) {
+         } else if (dateTime === new Date().getDate() - 1) {
             return "Yesterday";
          } else {
             return new Date(params).toDateString();
@@ -40,11 +44,6 @@ const Transaction = () => {
 
    return (
       <>
-         {/*<StatusBar*/}
-         {/*   backgroundColor="#FFF"*/}
-         {/*   animated={true}*/}
-         {/*   barStyle="dark-content"*/}
-         {/*/>*/}
          <View className="h-full bg-white">
             {/* Header */}
             <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
@@ -83,7 +82,7 @@ const Transaction = () => {
                   underlayColor="#eee"
                   style={{ borderRadius: 8 }}
                   onPress={() => {
-                     console.log(1);
+                     actionSheetRef.current?.show()
                   }}
                >
                   <Svg
@@ -143,13 +142,13 @@ const Transaction = () => {
             {/* transactions */}
             {transactions && (
                <FlatList
-                  data={transactions}
+                  data={transactionFilter(transactions, filter, sort)}
                   keyExtractor={(item) => item.id}
                   className="mb-20 px-4"
                   renderItem={({ item, index }) => (
                      <>
                         {(index === 0 ||
-                           date(transactions[index - 1].timestamp) !==
+                           date(transactionFilter(transactions, filter, sort)[index - 1].timestamp) !==
                               date(item.timestamp)) && (
                            <View className="time pt-1.5 pb-3.5">
                               <Text className="font-semibold text-lg text-dark-100">
@@ -162,6 +161,7 @@ const Transaction = () => {
                   )}
                />
             )}
+            <FilterDialog ref={actionSheetRef} getFilter={(e) => {setFilter(e)}} getSort={(e) => {setSort(e)}} />
          </View>
       </>
    );

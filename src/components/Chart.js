@@ -12,7 +12,7 @@ const Chart = ({ data }) => {
             labels: Array.from({ length: 5 }, (_, i) => i + 1),
             datasets: [
                {
-                  data: [...data],
+                  data: data,
                },
             ],
          }}

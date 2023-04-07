@@ -1,21 +1,28 @@
 import React, { memo, useLayoutEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions, StatusBar } from "react-native";
 import MaterialButton from "./MaterialButton";
 import Modal from "../components/Modal";
 import { useNavigation } from "@react-navigation/native";
 import { removeTransaction } from "../firebaseConfig/montraDB";
 import ActionSheet from "react-native-actions-sheet";
+import { logout } from "../firebaseConfig/auth";
+import { useSelector } from "react-redux";
 
-const RemoveDialog = React.forwardRef(({ data, text }, ref) => {
+const Dialog = React.forwardRef(({id, data, title, description, modalDescription = false }, ref) => {
    const navigation = useNavigation();
    const [visible, setVisible] = useState(false);
+   let { user } = useSelector((state) => state.local);
+   user = JSON.parse(user);
 
    const handleSubmit = async () => {
       ref.current?.hide();
-      if(text === "transaction") {
+      if (id === "transaction") {
          await removeTransaction(data);
+         setVisible(true);
       }
-      setVisible(true);
+      else if (id === "logout") {
+         await logout(user);
+      }
    };
 
    useLayoutEffect(() => {
@@ -38,15 +45,13 @@ const RemoveDialog = React.forwardRef(({ data, text }, ref) => {
             borderTopRightRadius: 24,
             paddingHorizontal: 16,
             paddingTop: 12,
-            paddingBottom: 0,
+            paddingBottom: Dimensions.get('screen').height-Dimensions.get('window').height-StatusBar.currentHeight,
          }} closeOnTouchBackdrop closeOnPressBack gestureEnabled headerAlwaysVisible
                       indicatorStyle={{ backgroundColor: "#D3BDFF" }}>
             <View className="w-full">
                <View>
-                  <Text className="text-black font-semibold text-lg text-center my-2">Remove this {text}?</Text>
-                  <Text className="text-[#91919F] font-medium text-base text-center mb-6">Are you sure do you wanna
-                     remove
-                     this {`\n`} {text}?</Text>
+                  <Text className="text-black font-semibold text-lg text-center my-2">{title}</Text>
+                  <Text className="text-[#91919F] font-medium text-base text-center mb-6">{description}</Text>
                </View>
                <View className="flex-row justify-between w-full">
                   <MaterialButton title="No" titleColor="#7F3DFF" color="#EEE5FF" style={{ width: "48%" }}
@@ -59,12 +64,12 @@ const RemoveDialog = React.forwardRef(({ data, text }, ref) => {
             </View>
          </ActionSheet>
          {/* Modal */}
-         <Modal
+         {modalDescription && <Modal
             visible={visible}
-            text={`${text.charAt(0).toUpperCase()+text.slice(1)} has been successfully removed`}
-         />
+            text={modalDescription}
+         />}
       </>
    );
 });
 
-export default memo(RemoveDialog);
+export default memo(Dialog);

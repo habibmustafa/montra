@@ -15,7 +15,7 @@ const TransactionItem = (props) => {
       "Housing": 'bg-violet-20',
       "Credit and Dept": 'bg-red-20',
       "Education": 'bg-blue-20',
-      "Savings and investments": 'bg-green-20',
+      "Savings and Investments": 'bg-green-20',
       "Salary": 'bg-green-20',
       "Sales": 'bg-red-20',
       "Scholarship": 'bg-yellow-20',

@@ -45,8 +45,7 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
 
 export const lastSpendFilter = (transactions, num) => {
    let value = transactions
-      .filter((transaction) => transaction.type === "expense")
-      .map((transaction) => transaction.amount).sort(a => -1).slice(-num);
+      .filter((transaction) => transaction.type === "expense").sort((a, b) => a.timestamp - b.timestamp).map((transaction) => transaction.amount).slice(-num);
 
    return value;
 };
@@ -58,3 +57,23 @@ export const accountTransactions = (user, id) => {
    value = value.sort((a, b) => b.timestamp - a.timestamp);
    return value;
 };
+
+export const transactionFilter = (transactions, filter=['expense', 'income', 'transfer'], sort='Newest') => {
+   let value = transactions.filter(transaction => filter.includes(transaction.type))
+
+   if(sort === "Highest") {
+      value = value.sort((a,b) => b.amount - a.amount)
+   }
+   else if(sort === "Lowest") {
+      value = value.sort((a,b) => a.amount - b.amount)
+   }
+   else if(sort === "Newest") {
+      value = value.sort((a,b) => b.timestamp - a.timestamp)
+   }
+   else if(sort === "Oldest") {
+      value = value.sort((a,b) => a.timestamp - b.timestamp)
+   }
+
+
+   return value
+}

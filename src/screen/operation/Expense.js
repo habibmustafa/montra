@@ -14,7 +14,7 @@ import { prettyPrint } from "../../prettyPrint";
 const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
    const [account, setAccount] = React.useState(route.params?.account_id || "");
-   const [amount, setAmount] = React.useState(0);
+   const [amount, setAmount] = React.useState(route.params?.amount || 0);
    const [description, setDescription] = React.useState(route.params?.description || "");
    const [visible, setVisible] = React.useState(false);
    const toast = useToast();
@@ -32,8 +32,8 @@ const Expense = ({ navigation, route }) => {
             category,
             type: "expense",
          };
-         if(route.params?.amount) {
-            await editTransaction(data, route.params.amount)
+         if (route.params?.amount) {
+            await editTransaction(data, route.params.amount);
          } else {
             const res = await addTransaction(data);
             console.log("RES: ", res);
@@ -78,7 +78,8 @@ const Expense = ({ navigation, route }) => {
       }, {
          label: "Education",
          value: "Education",
-      }, { label: "Savings and investments", value: "Savings and investments" }];
+      }, { label: "Savings and Investments", value: "Savings and Investments" }];
+
    return (
       <View className="h-full">
          <StatusBar
@@ -150,7 +151,7 @@ const Expense = ({ navigation, route }) => {
          </NewScreen>
          <Modal
             visible={visible}
-            text="Transaction has been successfully added"
+            text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
          />
       </View>);
 };
