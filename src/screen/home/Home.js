@@ -12,7 +12,6 @@ import { ActivityIndicator, Avatar, Modal, Portal } from "react-native-paper";
 import Svg, { Path } from "react-native-svg";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "react-redux";
-import { prettyPrint } from "../../prettyPrint";
 import SpendFrequency from "./SpendFrequency";
 import DatePicker from "react-native-modern-datepicker";
 import RecentTransaction from "./RecentTransaction";

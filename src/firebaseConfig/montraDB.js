@@ -42,97 +42,99 @@ export const editAccount = async (data) => {
 };
 
 // !Add Transaction
-export const addTransaction = async (data) => {
-   try {
-      if (data.type !== "transfer") {
-         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
-         const updates = {};
-         // await database().ref(accountRef + `transactions/${data.id}`).set({
-         //    ...data, timestamp: new Date().getTime(),
-         // });
-         updates[accountRef + `transactions/${data.id}`] = {
-            ...data, timestamp: new Date().getTime(),
-         };
-         updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? data.amount : -data.amount);
-         await database().ref().update(updates);
-
-         return true;
-      } else {
-         const updates = {};
-         // await database().ref(`users/${user_uid}/transfers/${data.id}`).set({
-         //    ...data, timestamp: new Date().getTime(),
-         // });
-         updates[`users/${user_uid}/transfers/${data.id}`] = {
-            ...data, timestamp: new Date().getTime(),
-         };
-         updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(-data.amount);
-         updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount);
-         await database().ref().update(updates);
-
-         return true;
-      }
-   } catch (err) {
-      console.log(err.code);
+export const addTransaction = (data, balance) => {
+   if (data.type !== "transfer") {
+      const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
+      const updates = {};
+      // await database().ref(accountRef + `transactions/${data.id}`).set({
+      //    ...data, timestamp: new Date().getTime(),
+      // });
+      updates[accountRef + `transactions/${data.id}`] = {
+         ...data, timestamp: new Date().getTime(),
+      };
+      // updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? data.amount : -data.amount);
+      updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance + data.amount : balance.accountBalance -data.amount)
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
+   } else {
+      const updates = {};
+      // await database().ref(`users/${user_uid}/transfers/${data.id}`).set({
+      //    ...data, timestamp: new Date().getTime(),
+      // });
+      updates[`users/${user_uid}/transfers/${data.id}`] = {
+         ...data, timestamp: new Date().getTime(),
+      };
+      // updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(-data.amount);
+      // updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount);
+      updates[`users/${user_uid}/accounts/${data.from}/balance`] = (balance.fromBalance - data.amount);
+      updates[`users/${user_uid}/accounts/${data.to}/balance`] = (balance.toBalance + data.amount);
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
    }
 };
 
 // !Edit Transaction
-export const  editTransaction = async (data, balance) => {
-   try {
-      if (data.type !== "transfer") {
-         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
-         const updates = {};
+export const editTransaction = (data, balance) => {
 
-         updates[accountRef + `transactions/${data.id}`] = {
-            ...data, timestamp: new Date().getTime(),
-         };
+   if (data.type !== "transfer") {
+      const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
+      const updates = {};
 
-         updates[accountRef + `balance`] = database.ServerValue.increment(balance-data.amount);
-         await database().ref().update(updates);
+      updates[accountRef + `transactions/${data.id}`] = {
+         ...data, timestamp: new Date().getTime(),
+      };
 
-         return true
-      }
+      const change = balance.transactionAmount - data.amount
+      updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance - change : balance.accountBalance + change);
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
 
-      else {
-         const updates = {};
-         updates[`users/${user_uid}/transfers/${data.id}`] = {
-            ...data, timestamp: new Date().getTime(),
-         };
-         updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(balance-data.amount);
-         updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount-balance);
-         await database().ref().update(updates);
-
-         return true
-      }
-   } catch(err) {
-      console.log(err.code);
+   } else {
+      const updates = {};
+      updates[`users/${user_uid}/transfers/${data.id}`] = {
+         ...data, timestamp: new Date().getTime(),
+      };
+      // updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(balance - data.amount);
+      // updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount - balance);
+      const change = balance.transactionAmount - data.amount
+      updates[`users/${user_uid}/accounts/${data.from}/balance`] = (balance.fromBalance - change );
+      updates[`users/${user_uid}/accounts/${data.to}/balance`] = (balance.toBalance + change);
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
    }
-}
+};
 
 // !Remove Transaction
-export const removeTransaction = async (data) => {
-   try {
-      if (data.type !== "transfer") {
-         const updates = {};
-         const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
+export const removeTransaction = (data, balance) => {
+   if (data.type !== "transfer") {
+      const updates = {};
+      const accountRef = `users/${user_uid}/accounts/${data.account_id}/`;
 
-         await database().ref(accountRef + `transactions/${data.id}`).remove();
-         updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? -data.amount : data.amount);
-         await database().ref().update(updates);
-         return true;
-      } else {
-         const updates = {};
-         const fromAccountRef = `users/${user_uid}/accounts/${data.from}/balance`;
-         const toAccountRef = `users/${user_uid}/accounts/${data.to}/balance`;
+      database().ref(accountRef + `transactions/${data.id}`).remove().then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
 
-         await database().ref(`users/${user_uid}/transfers/${data.id}`).remove();
-         updates[fromAccountRef] = database.ServerValue.increment(-data.amount);
-         updates[toAccountRef] = database.ServerValue.increment(data.amount);
-         await database().ref().update(updates);
+      updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance - data.amount : balance.accountBalance + data.amount);
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
+   } else {
+      const updates = {};
+      const fromAccountRef = `users/${user_uid}/accounts/${data.from}/balance`;
+      const toAccountRef = `users/${user_uid}/accounts/${data.to}/balance`;
 
-         return true;
-      }
-   } catch (err) {
-      console.log(err.code);
+      database().ref(`users/${user_uid}/transfers/${data.id}`).remove().then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
+      updates[fromAccountRef] = (balance.fromBalance + data.amount);
+      updates[toAccountRef] = (balance.toBalance - data.amount);
+      database().ref().update(updates).then(() => {
+         console.log("Success");
+      }).catch((err) => console.log(err.code));
+
    }
 };

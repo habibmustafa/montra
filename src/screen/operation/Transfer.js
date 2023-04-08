@@ -23,7 +23,7 @@ const Transfer = ({ navigation, route }) => {
 
    let { userDb } = useSelector((state) => state.user);
 
-   const handleAddAccount = async () => {
+   const handleAddAccount = () => {
       if (/.{3,}/.test(description.trim()) && from && to && Number(amount)) {
 
          const data = {
@@ -35,11 +35,15 @@ const Transfer = ({ navigation, route }) => {
             category: "Transfer",
             type: "transfer",
          };
+         const balance = {
+            fromBalance: userDb.accounts[from].balance,
+            toBalance: userDb.accounts[to].balance,
+            transactionAmount: route.params?.amount
+         }
          if(route.params?.amount) {
-            await editTransaction(data, route.params.amount)
+            editTransaction(data, balance)
          } else {
-            const res = await addTransaction(data);
-            console.log("RES: ", res);
+            addTransaction(data, balance);
          }
 
          setVisible(true);

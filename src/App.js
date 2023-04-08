@@ -7,6 +7,7 @@ import { setUserDb } from "./store/userSlice";
 import database from "@react-native-firebase/database";
 import MainNavigator from "./navigations/MainNavigator";
 import SplashScreen from "react-native-splash-screen";
+import NetInfo from '@react-native-community/netinfo';
 
 export default function App() {
    const dispatch = useDispatch();
@@ -30,6 +31,19 @@ export default function App() {
 
    useEffect(() => {
       SplashScreen.hide();
+      const unsubscribe = NetInfo.addEventListener( async state => {
+         console.log("Connection type", state.type);
+         console.log("Is connected?", state.isConnected);
+         if (state.isConnected) {
+            await database().goOnline();
+         } else {
+            await database().goOffline();
+         }
+      })
+
+      return () => {
+         unsubscribe();
+      };
    }, []);
 
    return (

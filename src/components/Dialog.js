@@ -12,12 +12,19 @@ const Dialog = React.forwardRef(({id, data, title, description, modalDescription
    const navigation = useNavigation();
    const [visible, setVisible] = useState(false);
    let { user } = useSelector((state) => state.local);
+   const { userDb } = useSelector((state) => state.user);
    user = JSON.parse(user);
 
    const handleSubmit = async () => {
       ref.current?.hide();
       if (id === "transaction") {
-         await removeTransaction(data);
+         console.log(data);
+         const balance = {
+            accountBalance: data.type !== "transfer" ? userDb.accounts[data.account_id].balance : false,
+            fromBalance: data.type === "transfer" ? userDb.accounts[data.from].balance : false,
+            toBalance: data.type === "transfer" ? userDb.accounts[data.to].balance : false
+         }
+         removeTransaction(data, balance);
          setVisible(true);
       }
       else if (id === "logout") {

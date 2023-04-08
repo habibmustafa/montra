@@ -25,7 +25,7 @@ const Income = ({ navigation, route }) => {
 
    let { userDb } = useSelector((state) => state.user);
 
-   const handleAddAccount = async () => {
+   const handleAddAccount = () => {
       if (/.{3,}/.test(description.trim()) && category && account && Number(amount)) {
          const data = {
             id: route.params?.id ? route.params.id : uuid.v4(),
@@ -35,11 +35,14 @@ const Income = ({ navigation, route }) => {
             category,
             type: "income",
          };
+         const balance = {
+            accountBalance: userDb.accounts[account].balance,
+            transactionAmount: route.params?.amount
+         }
          if(route.params?.amount) {
-            await editTransaction(data, route.params.amount)
+            editTransaction(data, balance)
          } else {
-            const res = await addTransaction(data);
-            console.log("RES: ", res);
+            addTransaction(data, balance);
          }
 
          setVisible(true);
