@@ -1,7 +1,13 @@
 import database from "@react-native-firebase/database";
+import messaging from "@react-native-firebase/messaging"
 import { store } from "../store";
 
 const user_uid = JSON.parse(store.getState().local.user).uid;
+
+async function firebaseConfig() {
+   await messaging().registerDeviceForRemoteMessages();
+}
+firebaseConfig();
 
 // !Create User Account
 export const createAccount = async () => {

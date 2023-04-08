@@ -17,6 +17,8 @@ import DatePicker from "react-native-modern-datepicker";
 import RecentTransaction from "./RecentTransaction";
 import Amount from "../../components/Amount";
 import { useFocusEffect } from "@react-navigation/native";
+import {PermissionsAndroid} from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 
 function getMonthName(monthNumber) {
    const date = new Date();
@@ -39,6 +41,7 @@ const Home = ({ navigation }) => {
       React.useCallback(() => {
          StatusBar.setBarStyle('dark-content');
          StatusBar.setBackgroundColor('#FFF7E6');
+         PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }, [])
    )
 

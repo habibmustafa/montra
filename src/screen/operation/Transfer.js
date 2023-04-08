@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import DropdownPicker from "../../components/DropdownPicker";
 import MaterialButton from "../../components/MaterialButton";
 import { useSelector } from "react-redux";
-import { useToast } from "native-base";
+import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Svg, { Path } from "react-native-svg";
 import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
@@ -48,13 +48,7 @@ const Transfer = ({ navigation, route }) => {
 
          setVisible(true);
       } else {
-         toast.show({
-            title: "Choose a minimum 3-character name and type for the account",
-            placement: "top",
-            duration: 1700,
-            variant: "solid",
-            backgroundColor: "red.500",
-         });
+         toast.show("Choose a minimum 3-character name and type for the account")
       }
    };
 

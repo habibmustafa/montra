@@ -7,7 +7,10 @@ import { setUserDb } from "./store/userSlice";
 import database from "@react-native-firebase/database";
 import MainNavigator from "./navigations/MainNavigator";
 import SplashScreen from "react-native-splash-screen";
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo from "@react-native-community/netinfo";
+import { ToastProvider } from "react-native-toast-notifications";
+import { Alert, Dimensions, Text, View } from "react-native";
+import messaging from "@react-native-firebase/messaging";
 
 export default function App() {
    const dispatch = useDispatch();
@@ -31,7 +34,7 @@ export default function App() {
 
    useEffect(() => {
       SplashScreen.hide();
-      const unsubscribe = NetInfo.addEventListener( async state => {
+      const unsubscribe = NetInfo.addEventListener(async state => {
          console.log("Connection type", state.type);
          console.log("Is connected?", state.isConnected);
          if (state.isConnected) {
@@ -39,20 +42,34 @@ export default function App() {
          } else {
             await database().goOffline();
          }
-      })
+      });
+
+      messaging().onMessage(async remoteMessage => {
+         Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
 
       return () => {
          unsubscribe();
       };
    }, []);
 
+   const Toast = (toast) => (
+      <View style={{ width: Dimensions.get("window").width - 32 }}
+            className="w-full rounded-lg py-1 px-2 bg-red-80">
+         <Text className="text-center font-medium text-light-80">{toast.message}</Text></View>
+   );
+
    return (
       <NativeBaseProvider>
          <PaperProvider>
-            <SafeAreaView className="h-full">
-               <MainNavigator />
-            </SafeAreaView>
+            <ToastProvider animationType="zoom-in" placement="top" duration={2500}
+                           renderToast={(toast) => Toast(toast)}>
+               <SafeAreaView className="h-full">
+                  <MainNavigator />
+               </SafeAreaView>
+            </ToastProvider>
          </PaperProvider>
       </NativeBaseProvider>
-   );
+   )
+      ;
 }

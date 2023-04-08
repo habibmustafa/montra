@@ -11,7 +11,7 @@ import DropdownPicker from "../../components/DropdownPicker";
 import MaterialButton from "../../components/MaterialButton";
 import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
-import { useToast } from "native-base";
+import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
 
@@ -47,13 +47,7 @@ const Income = ({ navigation, route }) => {
 
          setVisible(true);
       } else {
-         toast.show({
-            title: "Choose a minimum 3-character name and type for the account",
-            placement: "top",
-            duration: 1700,
-            variant: "solid",
-            backgroundColor: "red.500",
-         });
+         toast.show("Choose a minimum 3-character name and type for the account")
       }
    };
 

@@ -2,7 +2,7 @@ import { SafeAreaView, Text, StatusBar } from "react-native";
 import { View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 import React, { useEffect, useState } from "react";
-import { useToast } from "native-base";
+import { useToast } from "react-native-toast-notifications";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { setPin } from "../../store/localSlice";
@@ -11,7 +11,6 @@ import { useFocusEffect } from "@react-navigation/native";
 const SetupPin = ({ navigation }) => {
    const [enteredPin, setEnteredPin] = useState("");
    const [registerPin, setRegisterPin] = useState("");
-   const [error, setError] = useState(false);
    const toast = useToast();
 
    const { pin } = useSelector((state) => state.local);
@@ -24,14 +23,15 @@ const SetupPin = ({ navigation }) => {
 
    useEffect(() => {
       let timer;
-      if (enteredPin.toString().length == 4) {
+
+      if (enteredPin.toString().length === 4) {
 
       timer = setTimeout(() => {
             if (!pin) {
                if (!registerPin) {
                   setRegisterPin(enteredPin);
                } else {
-                  if (registerPin == enteredPin) {
+                  if (registerPin === enteredPin) {
                      dispatch(setPin(enteredPin));
                      if (userDb && !userDb.accounts) {
                         navigation.navigate("SetupAccount");
@@ -40,29 +40,18 @@ const SetupPin = ({ navigation }) => {
                      }
                   } else {
                      setRegisterPin("");
-                     toast.show({
-                        title: "The entered PINs do not match. Please try again",
-                        placement: "top",
-                        duration: 2000,
-                        backgroundColor: "red.500",
-                     });
+                     toast.show("The entered PINs do not match. Please try again");
                   }
                }
             } else {
-               if (enteredPin == pin) {
+               if (enteredPin === pin) {
                   if (userDb && !userDb.accounts) {
                      navigation.navigate("SetupAccount");
                   } else {
                      navigation.navigate("Tab");
                   }
                } else {
-                  setError(true);
-                  toast.show({
-                     title: "Pin code is incorrect",
-                     placement: "top",
-                     duration: 1700,
-                     backgroundColor: "red.500",
-                  });
+                  toast.show("PIN code is incorrect");
                }
             }
             setEnteredPin("");
