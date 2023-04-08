@@ -13,32 +13,26 @@ export const createAccount = async () => {
 };
 
 // !Add Account
-export const addAccount = async (data) => {
-   try {
-      await database().ref(`users/${user_uid}/accounts/${data.id}`).set({
-         ...data,
-         transactions: false,
-      });
+export const addAccount = (data) => {
+   database().ref(`users/${user_uid}/accounts/${data.id}`).set({
+      ...data,
+      transactions: false,
+   }).then(() => {
+      console.log("Success");
+   }).catch(err => console.log(err.code));
 
-      return true;
-   } catch (err) {
-      console.log(err.code);
-   }
 };
 
 // !Edit Account
-export const editAccount = async (data) => {
-   try {
-      await database().ref(`users/${user_uid}/accounts/${data.id}`).update({
-         name: data.name,
-         type: data.type,
-         balance: data.balance,
-      });
+export const editAccount = (data) => {
+   database().ref(`users/${user_uid}/accounts/${data.id}`).update({
+      name: data.name,
+      type: data.type,
+      balance: data.balance,
+   }).then(() => {
+      console.log("Success");
+   }).catch(err => console.log(err.code));
 
-      return true;
-   } catch (err) {
-      console.log(err.code);
-   }
 };
 
 // !Add Transaction
@@ -53,7 +47,7 @@ export const addTransaction = (data, balance) => {
          ...data, timestamp: new Date().getTime(),
       };
       // updates[accountRef + `balance`] = database.ServerValue.increment(data.type === "income" ? data.amount : -data.amount);
-      updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance + data.amount : balance.accountBalance -data.amount)
+      updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance + data.amount : balance.accountBalance - data.amount);
       database().ref().update(updates).then(() => {
          console.log("Success");
       }).catch((err) => console.log(err.code));
@@ -86,7 +80,7 @@ export const editTransaction = (data, balance) => {
          ...data, timestamp: new Date().getTime(),
       };
 
-      const change = balance.transactionAmount - data.amount
+      const change = balance.transactionAmount - data.amount;
       updates[accountRef + `balance`] = (data.type === "income" ? balance.accountBalance - change : balance.accountBalance + change);
       database().ref().update(updates).then(() => {
          console.log("Success");
@@ -99,8 +93,8 @@ export const editTransaction = (data, balance) => {
       };
       // updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(balance - data.amount);
       // updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount - balance);
-      const change = balance.transactionAmount - data.amount
-      updates[`users/${user_uid}/accounts/${data.from}/balance`] = (balance.fromBalance - change );
+      const change = balance.transactionAmount - data.amount;
+      updates[`users/${user_uid}/accounts/${data.from}/balance`] = (balance.fromBalance - change);
       updates[`users/${user_uid}/accounts/${data.to}/balance`] = (balance.toBalance + change);
       database().ref().update(updates).then(() => {
          console.log("Success");

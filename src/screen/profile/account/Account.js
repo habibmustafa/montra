@@ -4,7 +4,6 @@ import {
    StatusBar,
    Image,
    ScrollView,
-   TouchableHighlight,
    TouchableNativeFeedback,
 } from "react-native";
 import React from "react";

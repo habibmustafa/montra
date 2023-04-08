@@ -24,7 +24,7 @@ const AddAccount = ({ navigation }) => {
    let { userDb } = useSelector((state) => state.user);
    user = JSON.parse(user);
 
-   const handleAddAccount = async () => {
+   const handleAddAccount = () => {
       if (/.{3,}/.test(name.trim()) && selectedList) {
          const data = {
             id: uuid.v4(),
@@ -32,7 +32,7 @@ const AddAccount = ({ navigation }) => {
             type: selectedList,
             balance: Number(amount),
          };
-         await addAccount(data);
+         addAccount(data);
 
          if (Object.keys(userDb.accounts).length <= 1) {
             navigation.navigate("Success");

@@ -54,7 +54,7 @@ const EditAccount = ({ navigation, route }) => {
    let { userDb } = useSelector((state) => state.user);
    user = JSON.parse(user);
 
-   const handleEditAccount = async () => {
+   const handleEditAccount = () => {
       if (/.{3,}/.test(name.trim()) && selectedList) {
          const data = {
             id: route.params.props.id,
@@ -62,7 +62,7 @@ const EditAccount = ({ navigation, route }) => {
             type: selectedList,
             balance: Number(amount)
          }
-         await editAccount(data);
+         editAccount(data);
          setVisible(true)
       } else {
          toast.show({
