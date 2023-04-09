@@ -20,6 +20,11 @@ import NotificationRight from "../screen/home/notification/NotificationRight";
 import DetailAccount from "../screen/profile/account/DetailAccount";
 import EditAccount from "../screen/profile/account/EditAccount";
 import DetailTransaction from "../screen/transaction/DetailTransaction";
+import Settings from "../screen/profile/settings/Settings";
+import Currency from "../screen/profile/settings/Currency"
+import Language from "../screen/profile/settings/Language"
+import Theme from "../screen/profile/settings/Theme"
+import NotificationSettings from "../screen/profile/settings/NotificationSettings"
 
 export default function MainNavigator() {
    // Router stack
@@ -32,7 +37,7 @@ export default function MainNavigator() {
    return (
       <NavigationContainer>
          <Stack.Navigator
-            initialRouteName="SetupPin"
+            initialRouteName="Tab"
             screenOptions={{
                headerShown: true,
                animation: "fade_from_bottom",
@@ -142,6 +147,29 @@ export default function MainNavigator() {
                      options={{
                         animation: "slide_from_right",
                         headerRight: NotificationRight,
+                     }}
+                  />
+                  <Stack.Screen
+                     name="Settings"
+                     component={Settings}
+                  />
+                  <Stack.Screen
+                     name="Currency"
+                     component={Currency}
+                  />
+                  <Stack.Screen
+                     name="Language"
+                     component={Language}
+                  />
+                  <Stack.Screen
+                     name="Theme"
+                     component={Theme}
+                  />
+                  <Stack.Screen
+                     name="NotificationSettings"
+                     component={NotificationSettings}
+                     options={{
+                        headerTitle: "Notification"
                      }}
                   />
                </>
