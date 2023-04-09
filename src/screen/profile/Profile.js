@@ -141,7 +141,7 @@ const Profile = ({ navigation }) => {
                underlayColor="#eee"
                style={{ borderRadius: 24 }}
                onPress={() => {
-                  console.log(1);
+                  navigation.navigate("ExportData")
                }}
             >
                <View className="flex-row items-center px-4 py-3.5 border-b-[1px] border-[#F7F7F7]">

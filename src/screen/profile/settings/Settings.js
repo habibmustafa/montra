@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar, Text, TouchableNativeFeedback, View } from "react-native";
+import { Linking, StatusBar, Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 const Settings = ({navigation}) => {
@@ -17,11 +17,12 @@ const Settings = ({navigation}) => {
 
          {data.map(item => (
             <TouchableNativeFeedback key={item.name} background={TouchableNativeFeedback.Ripple("#eee")}
-                                     onPress={() => {
+                                     onPress={async () => {
                                         if(item.navigate) {
                                            navigation.navigate(item.navigate)
                                         } else {
                                            console.log("FAQ");
+                                           await Linking.openURL("https://habibmustafa.netlify.app/")
                                         }
                                      }}>
                <View className={`flex-row justify-between py-4 px-4 ${item.name === "About" && "mt-8"}`}>

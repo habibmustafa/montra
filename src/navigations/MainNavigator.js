@@ -25,6 +25,7 @@ import Currency from "../screen/profile/settings/Currency"
 import Language from "../screen/profile/settings/Language"
 import Theme from "../screen/profile/settings/Theme"
 import NotificationSettings from "../screen/profile/settings/NotificationSettings"
+import ExportData from "../screen/profile/exportData/ExportData";
 
 export default function MainNavigator() {
    // Router stack
@@ -170,6 +171,13 @@ export default function MainNavigator() {
                      component={NotificationSettings}
                      options={{
                         headerTitle: "Notification"
+                     }}
+                  />
+                  <Stack.Screen
+                     name="ExportData"
+                     component={ExportData}
+                     options={{
+                        headerTitle: "Export Data"
                      }}
                   />
                </>

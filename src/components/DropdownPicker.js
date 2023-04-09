@@ -22,9 +22,14 @@ const SelectList = ({ items, selectedList, setSelectedList, label, style }) => {
             borderRadius: 16,
             borderColor: "#F1F1FA",
          }}
-         listItemContainerStyle={{borderBottomWidth: 1, borderBottomColor: '#F1F1FA', height: 45}}
-         disabledItemLabelStyle={{color: "#bbb"}}
-         listMode="FLATLIST"
+
+         listItemContainerStyle={{
+            borderBottomWidth: 1,
+            borderBottomColor: "#F1F1FA",
+            height: 45,
+         }}
+         disabledItemLabelStyle={{ color: "#bbb" }}
+         listMode="SCROLLVIEW"
          scrollViewProps={{
             nestedScrollEnabled: true,
          }}
