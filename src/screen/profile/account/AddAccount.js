@@ -11,7 +11,7 @@ import DropdownPicker from "../../../components/DropdownPicker";
 import MaterialButton from "../../../components/MaterialButton";
 import { addAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
-import { useToast } from "native-base";
+import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 
 const AddAccount = ({ navigation }) => {
@@ -40,13 +40,7 @@ const AddAccount = ({ navigation }) => {
             navigation.goBack();
          }
       } else {
-         toast.show({
-            title: "Choose a minimum 3-character name and type for the account",
-            placement: "top",
-            duration: 1700,
-            variant: "solid",
-            backgroundColor: "red.500",
-         });
+         toast.show("Choose a minimum 3-character name and type for the account")
       }
    };
 

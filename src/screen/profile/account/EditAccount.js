@@ -12,7 +12,7 @@ import DropdownPicker from "../../../components/DropdownPicker";
 import MaterialButton from "../../../components/MaterialButton";
 import { editAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
-import { useToast } from "native-base";
+import { useToast } from "react-native-toast-notifications";
 import Svg, { Path } from "react-native-svg";
 import Modal from "../../../components/Modal";
 
@@ -65,13 +65,7 @@ const EditAccount = ({ navigation, route }) => {
          editAccount(data);
          setVisible(true)
       } else {
-         toast.show({
-            title: "Choose a minimum 3-character name and type for the account",
-            placement: "top",
-            duration: 1700,
-            variant: "solid",
-            backgroundColor: "red.500",
-         });
+         toast.show("Choose a minimum 3-character name and type for the account")
       }
    };
 

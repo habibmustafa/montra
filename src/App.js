@@ -1,7 +1,6 @@
 import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect } from "react";
-import { NativeBaseProvider } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDb } from "./store/userSlice";
 import database from "@react-native-firebase/database";
@@ -45,7 +44,7 @@ export default function App() {
       });
 
       messaging().onMessage(async remoteMessage => {
-         Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+         Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
       });
 
       return () => {
@@ -60,16 +59,14 @@ export default function App() {
    );
 
    return (
-      <NativeBaseProvider>
-         <PaperProvider>
-            <ToastProvider animationType="zoom-in" placement="top" duration={2500}
-                           renderToast={(toast) => Toast(toast)}>
-               <SafeAreaView className="h-full">
-                  <MainNavigator />
-               </SafeAreaView>
-            </ToastProvider>
-         </PaperProvider>
-      </NativeBaseProvider>
+      <PaperProvider>
+         <ToastProvider animationType="zoom-in" placement="top" duration={2500}
+                        renderToast={(toast) => Toast(toast)}>
+            <SafeAreaView className="h-full">
+            <MainNavigator />
+            {/*<Text>aaa</Text>*/}
+            </SafeAreaView>
+         </ToastProvider>
+      </PaperProvider>
    )
-      ;
 }
