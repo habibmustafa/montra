@@ -2,13 +2,14 @@ import React, { memo, useState } from "react";
 import { View, Dimensions, ScrollView } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const SelectList = ({ items, selectedList, setSelectedList, label, style }) => {
+const SelectList = ({ items, selectedList, setSelectedList, label, style, dropDownDirection="AUTO" }) => {
    const [open, setOpen] = useState(false);
 
    return (
       <DropDownPicker
          open={open}
          setOpen={setOpen}
+         dropDownDirection={dropDownDirection}
          maxHeight={500}
          value={selectedList}
          items={items}
@@ -29,7 +30,6 @@ const SelectList = ({ items, selectedList, setSelectedList, label, style }) => {
             height: 45,
          }}
          disabledItemLabelStyle={{ color: "#bbb" }}
-         listMode="SCROLLVIEW"
          scrollViewProps={{
             nestedScrollEnabled: true,
          }}

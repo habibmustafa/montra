@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
-import { prettyPrint } from "../../prettyPrint";
 
 const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -136,6 +135,7 @@ const Expense = ({ navigation, route }) => {
                      setAccount(val);
                   }}
                />
+
             </View>
             <MaterialButton
                onPress={handleAddAccount}
@@ -144,6 +144,7 @@ const Expense = ({ navigation, route }) => {
                style={{
                   marginTop: Dimensions.get("window").width < 385 ? 24 : 36,
                }}
+               disabled
             />
          </NewScreen>
          <Modal

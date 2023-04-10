@@ -63,7 +63,9 @@ const NewScreen = ({ color, text, children, input, value="" }) => {
                   placeholderTextColor="#F2F4F5"
                   value={amount}
                   onChangeText={handleAmountChange}
-                  caretHidden
+                  // caretHidden
+                  cursorColor="#FCAC12"
+
                />
             </View>
          </View>

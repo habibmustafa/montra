@@ -11,7 +11,7 @@ const ExportData = () => {
       <View className="h-full bg-white pt-10 px-4">
          <StatusBar backgroundColor="#fff" animated={true} barStyle="dark-content" />
 
-         <View className="mb-6">
+         <View className="mb-6 relative z-20">
             <Text className="font-medium text-base text-dark-75 mb-3">What data do your want to export?</Text>
             <DropdownPicker
                label="All"
@@ -28,7 +28,7 @@ const ExportData = () => {
             />
          </View>
 
-         <View className="mb-6">
+         <View className="mb-6 relative z-10">
             <Text className="font-medium text-base text-dark-75 mb-3">When date range?</Text>
             <DropdownPicker
                label="All"
@@ -45,7 +45,7 @@ const ExportData = () => {
             />
          </View>
 
-         <View className="mb-6">
+         <View className="mb-6 relative z-0">
             <Text className="font-medium text-base text-dark-75 mb-3">What format do you want to export?</Text>
             <DropdownPicker
                label="CSV"
@@ -59,6 +59,7 @@ const ExportData = () => {
                setSelectedList={(val) => {
                   setFormat(val);
                }}
+               dropDownDirection="BOTTOM"
             />
          </View>
 
