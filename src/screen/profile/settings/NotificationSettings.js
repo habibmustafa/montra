@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, Text, TouchableNativeFeedback, View } from "react-native";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 import { Switch } from "react-native-paper";
 
 const NotificationSettings = () => {
@@ -9,7 +9,6 @@ const NotificationSettings = () => {
 
    return (
       <View className="h-full bg-white">
-         <StatusBar backgroundColor="#fff" animated={true} barStyle="dark-content" />
          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple("#eee")}
                                   onPress={() => {
                                      setExpenseSwitch(!expenseSwitch);

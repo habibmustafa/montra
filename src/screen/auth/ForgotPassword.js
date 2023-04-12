@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { Formik } from "formik";

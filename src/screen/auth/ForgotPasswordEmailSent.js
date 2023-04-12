@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StatusBar } from "react-native";
 import MaterialButton from "../../components/MaterialButton";
 import { openInbox } from "react-native-email-link";
 

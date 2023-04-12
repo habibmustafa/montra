@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, StatusBar } from "react-native";
+import { Text, StatusBar } from "react-native";
 import { View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 import React, { useEffect, useState } from "react";
@@ -64,7 +64,8 @@ const SetupPin = ({ navigation }) => {
 
    useFocusEffect(
       React.useCallback(() => {
-         StatusBar.setBackgroundColor("#7F3DFF")
+         StatusBar.setTranslucent(true)
+         StatusBar.setBackgroundColor("transparent")
          StatusBar.setBarStyle("light-content")
       }, [])
    )
@@ -72,7 +73,7 @@ const SetupPin = ({ navigation }) => {
 
    return (
       <>
-         <SafeAreaView className="bg-violet-100 flex-1 items-center">
+         <View className="bg-violet-100 flex-1 items-center" style={{paddingTop: StatusBar.currentHeight}}>
             <Text className="pt-20 pb-16 text-light-100 font-bold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
                {!pin && !registerPin && "Let’s  setup your PIN"}
                {registerPin && "Ok. Re type your PIN again."}
@@ -132,7 +133,7 @@ const SetupPin = ({ navigation }) => {
                   </View>
                ))}
             </View>
-         </SafeAreaView>
+         </View>
       </>
    );
 };

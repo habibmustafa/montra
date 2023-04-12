@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, Text, TouchableNativeFeedback, View } from "react-native";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 const Currency = () => {
@@ -13,7 +13,6 @@ const Currency = () => {
 
    return (
       <View className="h-full bg-white">
-         <StatusBar backgroundColor="#fff" animated={true} barStyle="dark-content" />
          {data.value.map(item => (
             <TouchableNativeFeedback key={item.id} background={TouchableNativeFeedback.Ripple("#eee")}
                                      onPress={() => {

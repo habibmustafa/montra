@@ -8,7 +8,7 @@ import MainNavigator from "./navigations/MainNavigator";
 import SplashScreen from "react-native-splash-screen";
 import NetInfo from "@react-native-community/netinfo";
 import { ToastProvider } from "react-native-toast-notifications";
-import { Alert, Dimensions, Text, View } from "react-native";
+import { Alert, Dimensions, StatusBar, Text, View } from "react-native";
 import messaging from "@react-native-firebase/messaging";
 
 export default function App() {
@@ -53,7 +53,7 @@ export default function App() {
    }, []);
 
    const Toast = (toast) => (
-      <View style={{ width: Dimensions.get("window").width - 32 }}
+      <View style={{ width: Dimensions.get("window").width - 32, marginTop: StatusBar.currentHeight }}
             className="w-full rounded-lg py-1 px-2 bg-red-80">
          <Text className="text-center font-medium text-light-80">{toast.message}</Text></View>
    );
@@ -62,10 +62,9 @@ export default function App() {
       <PaperProvider>
          <ToastProvider animationType="zoom-in" placement="top" duration={2500}
                         renderToast={(toast) => Toast(toast)}>
-            <SafeAreaView className="h-full">
+            <View className="h-full">
             <MainNavigator />
-            {/*<Text>aaa</Text>*/}
-            </SafeAreaView>
+            </View>
          </ToastProvider>
       </PaperProvider>
    )

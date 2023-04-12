@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -76,13 +77,14 @@ const Expense = ({ navigation, route }) => {
          value: "Education",
       }, { label: "Savings and Investments", value: "Savings and Investments" }];
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("light-content");
+      }, []),
+   );
+
    return (
       <View className="h-full">
-         <StatusBar
-            backgroundColor="#FD3C4A"
-            animated={true}
-            barStyle="default"
-         />
          <NewScreen
             color="#FD3C4A"
             text="How much?"

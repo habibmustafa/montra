@@ -15,17 +15,11 @@ const Profile = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
-         StatusBar.setBackgroundColor("#F7F7F7");
       }, []),
    );
 
    return (
-      <View className="h-full px-4 bg-[#F7F7F7]">
-         {/*<StatusBar*/}
-         {/*   backgroundColor="#F7F7F7"*/}
-         {/*   animated={true}*/}
-         {/*   barStyle="dark-content"*/}
-         {/*/>*/}
+      <View className="h-full px-4 bg-[#F7F7F7]" style={{paddingTop: StatusBar.currentHeight}}>
          {/* Header */}
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
             <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />

@@ -22,7 +22,7 @@ const TabNavigator = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: styles.tabBar,
-            lazy: false
+            lazy: true
          }}
       >
          <Tab.Screen

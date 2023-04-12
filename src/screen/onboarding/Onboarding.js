@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Swiper from "react-native-swiper";
 import MaterialButton from "../../components/MaterialButton";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Onboarding = ({ navigation }) => {
    const beforeRemove = (e) => {
@@ -23,13 +24,16 @@ const Onboarding = ({ navigation }) => {
       };
    }, []);
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setTranslucent(true)
+         StatusBar.setBackgroundColor('transparent');
+         StatusBar.setBarStyle("dark-content")
+      }, [])
+   )
+
    return (
-      <View className="px-4 h-full w-full bg-light-100">
-         <StatusBar
-            backgroundColor="#fff"
-            animated={true}
-            barStyle="dark-content"
-         />
+      <View className="px-4 h-full w-full bg-light-100" style={{paddingTop: StatusBar.currentHeight}}>
          <View className="illustration my-8 flex-1 mini:my-2 mini:mb-0">
             <Swiper
                loadMinimal={true}

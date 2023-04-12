@@ -4,11 +4,6 @@ import React from "react";
 const Notification = () => {
    return (
       <ScrollView className="bg-white">
-         <StatusBar
-            backgroundColor="#FFF"
-            animated={true}
-            barStyle="dark-content"
-         />
          <View
             style={{ height: Dimensions.get("screen").height - 160 }}
             className="justify-center items-center"

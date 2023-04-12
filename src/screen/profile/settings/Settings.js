@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Linking, StatusBar, Text, TouchableNativeFeedback, View } from "react-native";
+import { Linking, Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
-const Settings = ({navigation}) => {
+const Settings = ({ navigation }) => {
    const [data, setData] = useState([
       { name: "Currency", value: "AZN", navigate: "Currency" },
       { name: "Language", value: "English", navigate: "Language" },
@@ -13,18 +13,17 @@ const Settings = ({navigation}) => {
    ]);
    return (
       <View className="bg-white h-full">
-         <StatusBar backgroundColor="#fff" animated={true} barStyle="dark-content" />
-
          {data.map(item => (
-            <TouchableNativeFeedback key={item.name} background={TouchableNativeFeedback.Ripple("#eee")}
-                                     onPress={async () => {
-                                        if(item.navigate) {
-                                           navigation.navigate(item.navigate)
-                                        } else {
-                                           console.log("FAQ");
-                                           await Linking.openURL("https://habibmustafa.netlify.app/")
-                                        }
-                                     }}>
+            <TouchableNativeFeedback
+               key={item.name} background={TouchableNativeFeedback.Ripple("#eee")}
+               onPress={async () => {
+                  if (item.navigate) {
+                     navigation.navigate(item.navigate);
+                  } else {
+                     console.log("FAQ");
+                     await Linking.openURL("https://habibmustafa.netlify.app/");
+                  }
+               }}>
                <View className={`flex-row justify-between py-4 px-4 ${item.name === "About" && "mt-8"}`}>
                   <Text className="font-medium text-base text-dark-25">{item.name}</Text>
                   <View className="flex-row items-center">

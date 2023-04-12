@@ -25,12 +25,6 @@ const Account = ({ navigation }) => {
    }
    return (
       <View className="bg-white h-full pb-5">
-         <StatusBar
-            backgroundColor="#FFF"
-            animated={true}
-            barStyle="dark-content"
-         />
-
          {/* Account balance */}
          <View className="account-balance justify-center items-center h-[216px] mt-2.5">
             <Image

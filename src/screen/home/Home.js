@@ -40,7 +40,6 @@ const Home = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle('dark-content');
-         StatusBar.setBackgroundColor('#FFF7E6');
          PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }, [])
    )
@@ -57,6 +56,12 @@ const Home = ({ navigation }) => {
       };
    }, []);
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("dark-content");
+      }, []),
+   );
+
    if (!userDb) {
       return (
          <View className="h-full pb-[70px] bg-[#F7F7F7] justify-center items-center flex-row gap-x-2">
@@ -71,6 +76,7 @@ const Home = ({ navigation }) => {
                // Background Linear Gradient
                colors={["#FFF7E6", "#FFFFFF", "#FFFFFF"]}
                className="pb-20"
+               style={{paddingTop: StatusBar.currentHeight}}
             >
                {/*<StatusBar*/}
                {/*   backgroundColor="#FFF7E6"*/}

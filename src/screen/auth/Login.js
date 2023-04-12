@@ -1,15 +1,15 @@
 import { Formik } from "formik";
 import React from "react";
-import { View, Text, Dimensions, Image } from "react-native";
+import { View, Text, Dimensions, Image, StatusBar } from "react-native";
 import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { login } from "../../firebaseConfig/auth";
 import { signInWithGoogle } from "../../firebaseConfig/auth";
 
 const Login = ({ navigation }) => {
+
    return (
       <View className="px-4 bg-white h-full">
-         {/* Inputs */}
          <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={async (values, { setErrors, resetForm }) => {

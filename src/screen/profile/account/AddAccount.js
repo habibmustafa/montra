@@ -13,6 +13,7 @@ import { addAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
+import { useFocusEffect } from "@react-navigation/native";
 
 const AddAccount = ({ navigation }) => {
    const [selectedList, setSelectedList] = React.useState("");
@@ -44,6 +45,12 @@ const AddAccount = ({ navigation }) => {
       }
    };
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("light-content");
+      }, []),
+   );
+
    const items = [
       { label: "Cash", value: "Cash" },
       { label: "Credit card", value: "Credit card" },
@@ -54,11 +61,6 @@ const AddAccount = ({ navigation }) => {
    ];
    return (
       <View className="h-full bg-red-20">
-         <StatusBar
-            backgroundColor="#7F3DFF"
-            animated={true}
-            barStyle="default"
-         />
          <NewScreen
             color="#7F3DFF"
             text="Balance"

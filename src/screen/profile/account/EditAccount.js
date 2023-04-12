@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import Svg, { Path } from "react-native-svg";
 import Modal from "../../../components/Modal";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const EditAccountRight = () => {
    return (
@@ -98,13 +99,14 @@ const EditAccount = ({ navigation, route }) => {
       });
    }, [navigation]);
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("light-content");
+      }, []),
+   );
+
    return (
       <View className="h-full bg-red-20">
-         <StatusBar
-            backgroundColor="#7F3DFF"
-            animated={true}
-            barStyle="default"
-         />
          <NewScreen
             color="#7F3DFF"
             text="Balance"

@@ -14,7 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import FilterDialog from "./FilterDialog";
 import { transactionFilter } from "../../utils/filter";
 
-const Transaction = () => {
+const Transaction = ({ navigation }) => {
    const { transactions } = useSelector((state) => state.user);
    const actionSheetRef = useRef(null);
    const [filter, setFilter] = useState(["expense", "income", "transfer"]);
@@ -38,13 +38,12 @@ const Transaction = () => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
-         StatusBar.setBackgroundColor("#FFF");
       }, []),
    );
 
    return (
       <>
-         <View className="h-full bg-white">
+         <View className="h-full bg-white" style={{paddingTop: StatusBar.currentHeight}}>
             {/* Header */}
             <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
                <TouchableHighlight
@@ -119,27 +118,38 @@ const Transaction = () => {
             </View>
 
             {/* Financial Report */}
-            <View
-               className="financial-report mx-4 my-2 px-4 py-3.5 flex-row justify-between items-center bg-[#EEE5FF] rounded-lg ">
-               <Text className="text-base text-violet-100">
-                  See your financial report
-               </Text>
 
-               {/* svg */}
-               <Svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-               >
-                  <Path
-                     d="M12.6076 24.9903L12.5999 24.9901L12.5921 24.99C12.5259 24.9898 12.4605 24.9764 12.3996 24.9506C12.3386 24.9249 12.2834 24.8873 12.2371 24.84L12.2346 24.8375C12.1415 24.7439 12.0892 24.6171 12.0892 24.485C12.0892 24.3532 12.1413 24.2267 12.2341 24.1331C12.2343 24.1329 12.2344 24.1327 12.2346 24.1325L17.8936 18.4736L17.8938 18.4734C18.5492 17.8171 18.9174 16.9275 18.9174 16C18.9174 15.0725 18.5492 14.183 17.8938 13.5267L17.8936 13.5265L12.2496 7.88249C12.1743 7.78871 12.1353 7.67078 12.1399 7.55028C12.1448 7.42444 12.197 7.30508 12.286 7.21603C12.3751 7.12698 12.4944 7.07481 12.6203 7.06995C12.7411 7.06528 12.8594 7.10459 12.9533 7.18028L18.6469 12.814C18.6472 12.8143 18.6474 12.8145 18.6476 12.8148C19.0664 13.2326 19.3986 13.7289 19.6253 14.2753C19.8522 14.822 19.969 15.4081 19.969 16C19.969 16.5919 19.8522 17.178 19.6253 17.7247C19.3985 18.2714 19.066 18.768 18.6469 19.186L18.6468 19.1862L12.9868 24.8362L12.9868 24.8361L12.9827 24.8403C12.934 24.8901 12.8755 24.9291 12.811 24.9549C12.7464 24.9807 12.6772 24.9928 12.6076 24.9903Z"
-                     fill="black"
-                     stroke="#7F3DFF"
-                  />
-               </Svg>
-            </View>
+            <TouchableHighlight
+               activeOpacity={0.99}
+               underlayColor="#D3BDFF48"
+               style={{ borderRadius: 8 }}
+               onPress={() => {
+                  navigation.navigate("ReportIntro");
+               }}
+               className="financial-report mx-4 my-2 px-4 py-3.5 flex-row justify-between items-center bg-[#EEE5FF] rounded-lg "
+            >
+               <>
+                  <Text className="text-base text-violet-100">
+                     See your financial report
+                  </Text>
+
+                  {/* svg */}
+                  <Svg
+                     width="32"
+                     height="32"
+                     viewBox="0 0 32 32"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <Path
+                        d="M12.6076 24.9903L12.5999 24.9901L12.5921 24.99C12.5259 24.9898 12.4605 24.9764 12.3996 24.9506C12.3386 24.9249 12.2834 24.8873 12.2371 24.84L12.2346 24.8375C12.1415 24.7439 12.0892 24.6171 12.0892 24.485C12.0892 24.3532 12.1413 24.2267 12.2341 24.1331C12.2343 24.1329 12.2344 24.1327 12.2346 24.1325L17.8936 18.4736L17.8938 18.4734C18.5492 17.8171 18.9174 16.9275 18.9174 16C18.9174 15.0725 18.5492 14.183 17.8938 13.5267L17.8936 13.5265L12.2496 7.88249C12.1743 7.78871 12.1353 7.67078 12.1399 7.55028C12.1448 7.42444 12.197 7.30508 12.286 7.21603C12.3751 7.12698 12.4944 7.07481 12.6203 7.06995C12.7411 7.06528 12.8594 7.10459 12.9533 7.18028L18.6469 12.814C18.6472 12.8143 18.6474 12.8145 18.6476 12.8148C19.0664 13.2326 19.3986 13.7289 19.6253 14.2753C19.8522 14.822 19.969 15.4081 19.969 16C19.969 16.5919 19.8522 17.178 19.6253 17.7247C19.3985 18.2714 19.066 18.768 18.6469 19.186L18.6468 19.1862L12.9868 24.8362L12.9868 24.8361L12.9827 24.8403C12.934 24.8901 12.8755 24.9291 12.811 24.9549C12.7464 24.9807 12.6772 24.9928 12.6076 24.9903Z"
+                        fill="black"
+                        stroke="#7F3DFF"
+                     />
+                  </Svg>
+               </>
+            </TouchableHighlight>
+
 
             {/* transactions */}
             {transactions && (
@@ -148,7 +158,8 @@ const Transaction = () => {
                   keyExtractor={(item) => item.id}
                   className="mb-20 px-4"
                   ListEmptyComponent={
-                     <View style={{height: Dimensions.get('window').height-240}} className="justify-center items-center">
+                     <View style={{ height: Dimensions.get("window").height - 240 }}
+                           className="justify-center items-center">
                         <Text className="font-medium text-sm text-light-20">No money transactions</Text>
                      </View>}
                   renderItem={({ item, index }) => (

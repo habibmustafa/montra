@@ -9,17 +9,11 @@ const Budget = () => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle('light-content');
-         StatusBar.setBackgroundColor('#7F3DFF');
       }, [])
    )
 
    return (
-      <View className="bg-violet-100 flex-1">
-         {/*<StatusBar*/}
-         {/*   backgroundColor="#7F3DFF"*/}
-         {/*   animated={true}*/}
-         {/*   barStyle="light-content"*/}
-         {/*/>*/}
+      <View className="bg-violet-100 flex-1" style={{paddingTop: StatusBar.currentHeight}}>
          {/* Date */}
          <View className="date px-4 h-[104px] flex-row justify-between items-center">
             {/* prev */}

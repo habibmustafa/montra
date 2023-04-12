@@ -6,6 +6,7 @@ import MaterialButton from "../../components/MaterialButton";
 import { useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import Dialog from "../../components/Dialog";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const DetailTransactionRight = (params) => {
    const actionSheetRef = useRef(null);
@@ -77,13 +78,14 @@ const DetailTransaction = ({ navigation, route }) => {
       });
    }, [navigation]);
 
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("light-content");
+      }, []),
+   );
+
    return (
       <View className="h-full bg-white">
-         <StatusBar
-            backgroundColor={color}
-            animated={true}
-            barStyle="light-content"
-         />
 
          {/* Header */}
          <View

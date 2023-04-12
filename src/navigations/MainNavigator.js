@@ -26,6 +26,7 @@ import Language from "../screen/profile/settings/Language"
 import Theme from "../screen/profile/settings/Theme"
 import NotificationSettings from "../screen/profile/settings/NotificationSettings"
 import ExportData from "../screen/profile/exportData/ExportData";
+import ReportIntro from "../screen/financial_report/ReportIntro";
 
 export default function MainNavigator() {
    // Router stack
@@ -45,6 +46,7 @@ export default function MainNavigator() {
                headerTitleAlign: "center",
                headerShadowVisible: false,
                statusBarAnimation: 'fade',
+
             }}
          >
             {isLoggedIn ? (
@@ -178,6 +180,13 @@ export default function MainNavigator() {
                      component={ExportData}
                      options={{
                         headerTitle: "Export Data"
+                     }}
+                  />
+                  <Stack.Screen
+                     name="ReportIntro"
+                     component={ReportIntro}
+                     options={{
+                        headerShown: false,
                      }}
                   />
                </>
