@@ -27,6 +27,7 @@ import Theme from "../screen/profile/settings/Theme"
 import NotificationSettings from "../screen/profile/settings/NotificationSettings"
 import ExportData from "../screen/profile/exportData/ExportData";
 import ReportIntro from "../screen/financial_report/ReportIntro";
+import FinancialReport from "../screen/financial_report/FinancialReport";
 
 export default function MainNavigator() {
    // Router stack
@@ -187,6 +188,13 @@ export default function MainNavigator() {
                      component={ReportIntro}
                      options={{
                         headerShown: false,
+                     }}
+                  />
+                  <Stack.Screen
+                     name="FinancialReport"
+                     component={FinancialReport}
+                     options={{
+                        headerTitle: 'Financial Report',
                      }}
                   />
                </>

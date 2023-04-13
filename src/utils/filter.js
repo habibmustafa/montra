@@ -58,22 +58,19 @@ export const accountTransactions = (user, id) => {
    return value;
 };
 
-export const transactionFilter = (transactions, filter=['expense', 'income', 'transfer'], sort='Newest') => {
-   let value = transactions.filter(transaction => filter.includes(transaction.type))
+export const transactionFilter = (transactions, filter = ["expense", "income", "transfer"], sort = "Newest") => {
+   let value = transactions.filter(transaction => filter.includes(transaction.type));
 
-   if(sort === "Highest") {
-      value = value.sort((a,b) => b.amount - a.amount)
-   }
-   else if(sort === "Lowest") {
-      value = value.sort((a,b) => a.amount - b.amount)
-   }
-   else if(sort === "Newest") {
-      value = value.sort((a,b) => b.timestamp - a.timestamp)
-   }
-   else if(sort === "Oldest") {
-      value = value.sort((a,b) => a.timestamp - b.timestamp)
+   if (sort === "Highest") {
+      value = value.sort((a, b) => b.amount - a.amount);
+   } else if (sort === "Lowest") {
+      value = value.sort((a, b) => a.amount - b.amount);
+   } else if (sort === "Newest") {
+      value = value.sort((a, b) => b.timestamp - a.timestamp);
+   } else if (sort === "Oldest") {
+      value = value.sort((a, b) => a.timestamp - b.timestamp);
    }
 
 
-   return value
-}
+   return value;
+};

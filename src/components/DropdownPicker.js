@@ -2,7 +2,7 @@ import React, { memo, useState } from "react";
 import { View, Dimensions, ScrollView } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const SelectList = ({ items, selectedList, setSelectedList, label, style, dropDownDirection="AUTO" }) => {
+const SelectList = ({ items, selectedList, setSelectedList, label, style, textStyle, dropDownDirection="AUTO" }) => {
    const [open, setOpen] = useState(false);
 
    return (
@@ -17,7 +17,7 @@ const SelectList = ({ items, selectedList, setSelectedList, label, style, dropDo
          placeholder={label}
          placeholderStyle={{ color: "#91919F" }}
          style={{ borderRadius: 16, borderColor: "#F1F1FA", height: 56, ...style }}
-         textStyle={{ marginHorizontal: 4, fontSize: 16 }}
+         textStyle={{ marginHorizontal: 4, fontSize: 16, ...textStyle }}
          dropDownContainerStyle={{
             paddingVertical: 4,
             borderRadius: 16,

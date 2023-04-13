@@ -78,11 +78,6 @@ const Home = ({ navigation }) => {
                className="pb-20"
                style={{paddingTop: StatusBar.currentHeight}}
             >
-               {/*<StatusBar*/}
-               {/*   backgroundColor="#FFF7E6"*/}
-               {/*   animated={true}*/}
-               {/*   barStyle="dark-content"*/}
-               {/*/>*/}
                <View className="bg-[#FFF7E6] pb-6 mb-3 rounded-bl-[32px] rounded-br-[32px]">
                   {/* Head */}
                   <View className="head py-3 my-2 px-4">
