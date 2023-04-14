@@ -89,6 +89,7 @@ const AddAccount = ({ navigation }) => {
             >
                <Dropdown
                   placeholder="Account Type"
+                  position="top"
                   data={items}
                   value={selectedList}
                   onChange={(val) => {

@@ -135,6 +135,7 @@ const EditAccount = ({ navigation, route }) => {
             >
                <Dropdown
                   placeholder="Account Type"
+                  position="top"
                   data={items}
                   value={selectedList}
                   onChange={(val) => {
