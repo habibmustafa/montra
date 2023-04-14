@@ -2,7 +2,6 @@ import React from "react";
 import { View, StatusBar, Keyboard, Dimensions } from "react-native";
 import NewScreen from "../../components/NewScreen";
 import Input from "../../components/Input";
-import DropdownPicker from "../../components/DropdownPicker";
 import MaterialButton from "../../components/MaterialButton";
 import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
+import Dropdown from "../../components/Dropdown";
 
 const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -34,17 +34,17 @@ const Expense = ({ navigation, route }) => {
          };
          const balance = {
             accountBalance: userDb.accounts[account].balance,
-            transactionAmount: route.params?.amount
-         }
+            transactionAmount: route.params?.amount,
+         };
          if (route.params?.amount) {
-            editTransaction(data, balance)
+            editTransaction(data, balance);
          } else {
             addTransaction(data, balance);
          }
 
          setVisible(true);
       } else {
-         toast.show("Choose a minimum 3-character name and type for the account")
+         toast.show("Choose a minimum 3-character name and type for the account");
       }
    };
 
@@ -99,12 +99,12 @@ const Expense = ({ navigation, route }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Category"
-                  items={data}
-                  selectedList={category}
-                  setSelectedList={(val) => {
-                     setCategory(val);
+               <Dropdown
+                  placeholder="Category"
+                  data={data}
+                  value={category}
+                  onChange={(val) => {
+                     setCategory(val.value);
                   }}
                />
             </View>
@@ -127,14 +127,15 @@ const Expense = ({ navigation, route }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Account"
-                  items={Object.values(userDb.accounts).map((account) => {
+               <Dropdown
+                  placeholder="Account"
+                  position='top'
+                  data={Object.values(userDb.accounts).map((account) => {
                      return { value: account.id, label: account.name };
                   })}
-                  selectedList={account}
-                  setSelectedList={(val) => {
-                     setAccount(val);
+                  value={account}
+                  onChange={(val) => {
+                     setAccount(val.value);
                   }}
                />
 

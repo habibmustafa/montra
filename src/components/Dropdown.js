@@ -1,19 +1,19 @@
 import { Dropdown as DropdownElement } from "react-native-element-dropdown";
-import { memo, useState } from "react";
+import { memo } from "react";
 
-const Dropdown = ({data, defaultValue = '', placeholder='', onChange, style }) => {
-   const [value, setValue] = useState(null);
+const Dropdown = ({data, value = '', placeholder='', onChange, position = 'auto', style }) => {
    return (
       <DropdownElement
+         autoScroll={false}
          data={data}
-         value={defaultValue}
+         value={value}
          placeholder={placeholder}
          labelField="label"
          valueField="value"
          onChange={onChange}
-         dropdownPosition="auto"
+         dropdownPosition={position}
          style={{
-            width: 120,
+            width: '100%',
             borderWidth: 1,
             borderColor: "#F1F1FA",
             borderRadius: 16,
@@ -21,9 +21,10 @@ const Dropdown = ({data, defaultValue = '', placeholder='', onChange, style }) =
             paddingVertical: 8,
             ...style
          }}
+         selectedTextStyle={{color: "#000"}}
          containerStyle={{ borderRadius: 12 }}
-         itemContainerStyle={{ padding: 10 }}
-         itemTextStyle={{}}
+         itemContainerStyle={{ padding: 10, borderBottomWidth: 1, borderBottomColor: "#F1F1FA" }}
+         itemTextStyle={{ color: '#000', fontSize: 16}}
          maxHeight={170}
       />
    );

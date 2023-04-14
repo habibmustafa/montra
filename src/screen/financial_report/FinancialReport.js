@@ -50,10 +50,6 @@ const FinancialReport = () => {
       }, []),
    );
 
-   const data = [
-      { label: "Month", value: "Month" },
-   ];
-
    return (
       <ScrollView className="h-full bg-white">
 
@@ -64,13 +60,13 @@ const FinancialReport = () => {
 
                <View className="w-24">
                   <Dropdown
-                     defaultValue={datex}
+                     value={datex}
                      data={[
                         { label: "Month", value: "Month" },
                         { label: "Year", value: "Year" },
                      ]}
                      onChange={(val) => {
-                        setDatex(val);
+                        setDatex(val.value);
                      }}
                   />
 
@@ -122,15 +118,15 @@ const FinancialReport = () => {
 
             {/* Head */}
             <View className="flex-row justify-between items-center">
-               <View className="">
+               <View className="w-[116px]">
                   <Dropdown
-                     defaultValue={selected}
+                     value={selected}
                      data={[
                         { label: "Account", value: "Account" },
                         { label: "Category", value: "Category" },
                      ]}
                      onChange={(val) => {
-                        setSelected(val);
+                        setSelected(val.value);
                      }}
                   />
                </View>

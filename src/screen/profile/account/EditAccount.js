@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import NewScreen from "../../../components/NewScreen";
 import Input from "../../../components/Input";
-import DropdownPicker from "../../../components/DropdownPicker";
 import MaterialButton from "../../../components/MaterialButton";
 import { editAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
@@ -16,6 +15,7 @@ import { useToast } from "react-native-toast-notifications";
 import Svg, { Path } from "react-native-svg";
 import Modal from "../../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
+import Dropdown from "../../../components/Dropdown";
 
 export const EditAccountRight = () => {
    return (
@@ -133,12 +133,12 @@ const EditAccount = ({ navigation, route }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Account Type"
-                  items={items}
-                  selectedList={selectedList}
-                  setSelectedList={(val) => {
-                     setSelectedList(val);
+               <Dropdown
+                  placeholder="Account Type"
+                  data={items}
+                  value={selectedList}
+                  onChange={(val) => {
+                     setSelectedList(val.value);
                   }}
                />
             </View>

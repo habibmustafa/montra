@@ -7,13 +7,13 @@ import {
 } from "react-native";
 import NewScreen from "../../../components/NewScreen";
 import Input from "../../../components/Input";
-import DropdownPicker from "../../../components/DropdownPicker";
 import MaterialButton from "../../../components/MaterialButton";
 import { addAccount } from "../../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import { useFocusEffect } from "@react-navigation/native";
+import Dropdown from "../../../components/Dropdown";
 
 const AddAccount = ({ navigation }) => {
    const [selectedList, setSelectedList] = React.useState("");
@@ -87,12 +87,12 @@ const AddAccount = ({ navigation }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Account Type"
-                  items={items}
-                  selectedList={selectedList}
-                  setSelectedList={(val) => {
-                     setSelectedList(val);
+               <Dropdown
+                  placeholder="Account Type"
+                  data={items}
+                  value={selectedList}
+                  onChange={(val) => {
+                     setSelectedList(val.value);
                   }}
                />
 

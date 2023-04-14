@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import NewScreen from "../../components/NewScreen";
 import Input from "../../components/Input";
-import DropdownPicker from "../../components/DropdownPicker";
 import MaterialButton from "../../components/MaterialButton";
 import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
 import { useSelector } from "react-redux";
@@ -15,6 +14,7 @@ import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
+import Dropdown from "../../components/Dropdown";
 
 const Income = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -97,12 +97,12 @@ const Income = ({ navigation, route }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Category"
-                  items={data}
-                  selectedList={category}
-                  setSelectedList={(val) => {
-                     setCategory(val);
+               <Dropdown
+                  placeholder="Category"
+                  data={data}
+                  value={category}
+                  onChange={(val) => {
+                     setCategory(val.value);
                   }}
                />
             </View>
@@ -125,14 +125,15 @@ const Income = ({ navigation, route }) => {
                   Keyboard.dismiss();
                }}
             >
-               <DropdownPicker
-                  label="Account"
-                  items={Object.values(userDb.accounts).map((account) => {
+               <Dropdown
+                  placeholder="Account"
+                  position='top'
+                  data={Object.values(userDb.accounts).map((account) => {
                      return { value: account.id, label: account.name };
                   })}
-                  selectedList={account}
-                  setSelectedList={(val) => {
-                     setAccount(val);
+                  value={account}
+                  onChange={(val) => {
+                     setAccount(val.value);
                   }}
                />
             </View>
