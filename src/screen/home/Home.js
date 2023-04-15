@@ -18,7 +18,6 @@ import RecentTransaction from "./RecentTransaction";
 import Amount from "../../components/Amount";
 import { useFocusEffect } from "@react-navigation/native";
 import {PermissionsAndroid} from 'react-native';
-import messaging from '@react-native-firebase/messaging';
 
 function getMonthName(monthNumber) {
    const date = new Date();

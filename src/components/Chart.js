@@ -1,12 +1,11 @@
 import React, { memo } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import { useSelector } from "react-redux";
-import { prettyPrint } from "../prettyPrint";
+import { DonutChart } from "react-native-circular-chart";
 
-const Chart = ({ data }) => {
+const Chart = ({ data, version = "LineChart" }) => {
 
-   return (
+   if(version === "LineChart") return (
       <LineChart
          data={{
             labels: Array.from({ length: 5 }, (_, i) => i + 1),
@@ -60,7 +59,27 @@ const Chart = ({ data }) => {
             marginLeft: -16,
          }}
       />
-   );
+   )
+
+   else if(version === "CircleChart") {
+      return (
+         <DonutChart
+            data={[
+               { name: 'Wallet', value: 230, color: 'cyan' },
+               { name: 'Leo Bank', value: 430, color: 'green' },
+               { name: 'ATB Bank', value: 430, color: 'orange' },
+            ]}
+            strokeWidth={15}
+            radius={75}
+            containerWidth={400}
+            containerHeight={195}
+            type="round"
+            startAngle={0}
+            endAngle={360}
+            animationType="slide"
+         />
+      )
+   }
 };
 
 export default memo(Chart);

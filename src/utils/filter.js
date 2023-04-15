@@ -43,9 +43,10 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
 
 // .filter((transaction) => transaction.type === "expense")
 
-export const lastSpendFilter = (transactions, num) => {
+export const lastSpendFilter = (transactions, num, type = "expense") => {
    let value = transactions
-      .filter((transaction) => transaction.type === "expense").sort((a, b) => a.timestamp - b.timestamp).map((transaction) => transaction.amount).slice(-num);
+      .filter((transaction) => transaction.type === type).sort((a, b) => a.timestamp - b.timestamp)
+      .map((transaction) => transaction.amount).slice(-num);
 
    return value;
 };
@@ -70,6 +71,25 @@ export const transactionFilter = (transactions, filter = ["expense", "income", "
    } else if (sort === "Oldest") {
       value = value.sort((a, b) => a.timestamp - b.timestamp);
    }
+   return value;
+};
+
+// Account type balance filter
+export const accountBalanceFilter = (accounts, type = "expense", datex = "MONTH", sort = "Highest") => {
+   let value = Object.values(accounts).map(account => {
+      return {
+         id: account.id,
+         name: account.name,
+         type: account.type,
+         balance: Object.values(account.transactions)
+            .filter(transaction => (transaction.type === type) && (date(datex, transaction.timestamp) === date(datex)))
+            .map(transaction => transaction.amount).reduce((acc, curr) => acc + curr, 0),
+      };
+   }).sort((a,b) => sort === "Highest" ? b.balance - a.balance : a.balance - b.balance)
+
+
+   // .filter(transaction => (transaction.type === type) && date("MONTH", transaction.timestamp) === month)
+   // .map(transaction => transaction.amount).reduce((acc, curr) => acc + curr, 0);
 
 
    return value;
