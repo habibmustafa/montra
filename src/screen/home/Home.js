@@ -39,6 +39,8 @@ const Home = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle('dark-content');
+         return () => {
+         }
          PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }, [])
    )
