@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import { useToast } from "react-native-toast-notifications";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { setPin } from "../../store/localSlice";
 import { useFocusEffect } from "@react-navigation/native";
@@ -122,9 +122,9 @@ const SetupPin = ({ navigation }) => {
                               </Text>
                            )}
                            {index == 11 && (
-                              <Icon
+                              <MaterialCommunityIcons
                                  name="backspace-outline"
-                                 size={38}
+                                 size={34}
                                  color="#fff"
                               />
                            )}

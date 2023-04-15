@@ -1,20 +1,21 @@
-import React, { memo } from "react";
-import { View, Text } from "react-native";
+import React, { memo, useState } from "react";
+import { View, Keyboard } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
 
 const Input = ({
-   label,
-   style,
-   textContentType = "name",
-   secureTextEntry = false,
-   onChangeText,
-   onBlur,
-   value,
-   error,
-   placeholder=true,
-   text = false
-}) => {
+                  label,
+                  style,
+                  textContentType = "name",
+                  secureTextEntry = false,
+                  onChangeText,
+                  onBlur,
+                  value,
+                  error,
+                  placeholder = true,
+                  text = false,
+               }) => {
 
+   const [show, setShow] = useState(secureTextEntry);
 
    return (
       <View>
@@ -37,15 +38,17 @@ const Input = ({
             textColor="#222"
             textContentType={textContentType}
             returnKeyType="next"
-            autoCapitalize="none"
-            secureTextEntry={secureTextEntry}
-            right={secureTextEntry && <TextInput.Icon icon="eye" />}
+            autoCapitalize="sentences"
+            secureTextEntry={show}
+            right={secureTextEntry && <TextInput.Icon onPress={() => {
+               setShow(!show);
+            }} icon={show ? "eye-off" : "eye"} />}
             onChangeText={onChangeText}
             value={value}
             onBlur={onBlur}
          />
          <HelperText
-            style={{ position: "absolute", color: '#FD3C4A' }}
+            style={{ position: "absolute", color: "#FD3C4A" }}
             className="text-xs -bottom-[22px] mini:text-[10px] mini:-bottom-[19px]"
             type="error"
             visible={error}

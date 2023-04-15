@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, Dimensions, ScrollView } from "react-native";
+import { View, Text, Image, Dimensions, ScrollView, Linking } from "react-native";
 import Input from "../../components/Input";
 import { Checkbox } from "react-native-paper";
 import MaterialButton from "../../components/MaterialButton";
@@ -7,23 +7,23 @@ import { register, signInWithGoogle } from "../../firebaseConfig/auth";
 import { Formik } from "formik";
 
 const Register = ({ navigation }) => {
-   const [checked, setChecked] = useState(true);
+   const [checked, setChecked] = useState(false);
 
-   return (<ScrollView className="px-4 bg-white h-full">
+   return (<ScrollView keyboardShouldPersistTaps="handled" className="px-4 bg-white h-full">
       {/* Inputs */}
       <Formik
-         initialValues={{ name: "", email: "", password: "" }}
+         initialValues={{ name: "", email: "", password: "", checked: false }}
          onSubmit={async (values, { resetForm }) => {
-            const data = { email: values.email.trim(), name: values.name.trim(), password };
+            const data = { email: values.email.trim(), name: values.name.trim(), password: values.password };
 
             // check
-            console.log(values.checkbox);
             const user = await register(data);
             if (user) {
                navigation.navigate("SetupPin");
             }
             resetForm();
          }}
+
          validateOnChange={false}
          validate={(values) => {
             const errors = {};
@@ -40,63 +40,72 @@ const Register = ({ navigation }) => {
             if (!values.password) {
                errors.password = "Required";
             } else if (!/^.{6,16}$/.test(values.password)) {
-               errors.password = "Enter a password of 3-16 characters";
+               errors.password = "Enter a password of 6-16 characters";
+            }
+
+            if (!values.checked) {
+               errors.checked = true;
             }
 
             return errors;
          }}
       >
-         {({ handleSubmit, handleChange, handleBlur, values, errors }) => (<View className="inputs pt-14 mini:pt-8">
-            <Input
-               label="Name"
-               textContentType="name"
-               value={values.name}
-               onChangeText={handleChange("name")}
-               onBlur={handleBlur("name")}
-               error={errors.name}
-            />
-            <Input
-               label="Email"
-               textContentType="emailAddress"
-               style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
-               value={values.email}
-               onChangeText={handleChange("email")}
-               onBlur={handleBlur("email")}
-               error={errors.email}
-            />
-            <Input
-               label="Password"
-               textContentType="password"
-               style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
-               value={values.password}
-               onChangeText={handleChange("password")}
-               onBlur={handleBlur("password")}
-               error={errors.password}
-               secureTextEntry={true}
-            />
-
-            {/* Terms of Service */}
-            <View className="flex-row my-7 mini:mb-5">
-               <Checkbox
-                  status={checked ? "checked" : "unchecked"}
-                  onPress={() => {
-                     setChecked(!checked);
-                  }}
+         {({ handleSubmit, setFieldValue, handleChange, handleBlur, values, errors }) => (
+            <View className="inputs pt-14 mini:pt-8">
+               <Input
+                  label="Name"
+                  textContentType="name"
+                  value={values.name}
+                  onChangeText={handleChange("name")}
+                  onBlur={handleBlur("name")}
+                  error={errors.name}
                />
-               <Text className="ml-2.5 mr-4 text-sm font-medium mini:text-[13px]">
-                  By signing up, you agree to the{" "}
-                  <Text className="text-[#7F3DFF]">
-                     Terms of Service and Privacy Policy
-                  </Text>
-               </Text>
-            </View>
+               <Input
+                  label="Email"
+                  textContentType="emailAddress"
+                  style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
+                  value={values.email}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  error={errors.email}
+               />
+               <Input
+                  label="Password"
+                  textContentType="password"
+                  style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  error={errors.password}
+                  secureTextEntry={true}
+               />
 
-            <MaterialButton
-               onPress={handleSubmit}
-               title="Sign Up"
-               titleColor="#fff"
-            />
-         </View>)}
+               {/* Terms of Service */}
+               <View className="flex-row my-7 mini:mb-5">
+                  <Checkbox
+                     status={values.checked ? "checked" : "unchecked"}
+                     color="#7F3DFF"
+                     uncheckedColor={errors.checked ? "#FD3C4A" : "#91919F"}
+                     onPress={() => {
+                        setFieldValue("checked", !values.checked);
+                     }}
+                  />
+                  <Text className="ml-2.5 mr-4 text-sm font-medium mini:text-[13px]">
+                     By signing up, you agree to the{" "}
+                     <Text onPress={async () => {
+                        await Linking.openURL("https://habibmustafa.netlify.app/");
+                     }} className="text-[#7F3DFF]">
+                        Terms of Service and Privacy Policy
+                     </Text>
+                  </Text>
+               </View>
+
+               <MaterialButton
+                  onPress={handleSubmit}
+                  title="Sign Up"
+                  titleColor="#fff"
+               />
+            </View>)}
       </Formik>
 
       {/* Sign up with Google */}
@@ -114,11 +123,10 @@ const Register = ({ navigation }) => {
             color="#fff"
             style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
             onPress={async () => {
-               // ToastAndroid.showWithGravity("Not active yet", 200, 10);
                const user = await signInWithGoogle();
             }}
          />
-         <Text className="font-medium text-base text-light-20 text-center mt-8 mini:mt-6 mini:text-sm mini:mb-6">
+         <Text className="font-medium text-base text-light-20 text-center mt-8 mb-6 mini:mt-6 mini:text-sm mini:mb-6">
             Already have an account?{" "}
             <Text
                onPress={() => {

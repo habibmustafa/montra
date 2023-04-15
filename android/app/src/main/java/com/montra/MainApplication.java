@@ -12,6 +12,7 @@ import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           new SplashScreenReactPackage();
           new LinearGradientPackage();
           new ReactNativeFirebaseMessagingPackage();
+          new VectorIconsPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
