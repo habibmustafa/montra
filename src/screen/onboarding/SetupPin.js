@@ -94,44 +94,47 @@ const SetupPin = ({ navigation }) => {
                ))}
             </View>
 
-            {/* Keyboard */}
-            <View className="input flex-row flex-wrap w-11/12 mb-3 justify-center items-center mini:w-10/12">
-               {keyboard.map((item, index) => (
-                  <View
-                     key={index}
-                     className="h-[90px] basis-1/3 justify-center items-center mini:h-[78px] mini:basis-1/3"
-                  >
-                     <TouchableRipple
-                        onPress={() => {
-                           if (!isNaN(item)) {
-                              setEnteredPin((value) => `${value}${item}`);
-                           }
-                           if (index == 11) {
-                              setEnteredPin((value) => value.slice(0, -1));
-                           }
-                        }}
-                        rippleColor="#B18AFF"
-                        disabled={index == 9 && true}
-                        borderless={true}
-                        className={`rounded-full h-20 w-20 border-violet-100 justify-center items-center mini:w-16 mini:h-16`}
+            <View className="bg-violet-80 rounded-tl-3xl rounded-tr-3xl w-[95%] pt-14 items-center shadow-2xl shadow-dark-50">
+
+               {/* Keyboard */}
+               <View className="input flex-row flex-wrap w-[85%] mb-3 justify-center items-center mini:w-10/12">
+                  {keyboard.map((item, index) => (
+                     <View
+                        key={index}
+                        className="h-[90px] basis-1/3 justify-center items-center mini:h-[78px] mini:basis-1/3"
                      >
-                        <>
-                           {index == 11 || (
-                              <Text className="text-light-100 text-5xl justify-center mt-3 mini:text-3xl mini:mt-1.5">
-                                 {item}
-                              </Text>
-                           )}
-                           {index == 11 && (
-                              <MaterialCommunityIcons
-                                 name="backspace-outline"
-                                 size={34}
-                                 color="#fff"
-                              />
-                           )}
-                        </>
-                     </TouchableRipple>
-                  </View>
-               ))}
+                        <TouchableRipple
+                           onPress={() => {
+                              if (!isNaN(item)) {
+                                 setEnteredPin((value) => `${value}${item}`);
+                              }
+                              if (index == 11) {
+                                 setEnteredPin((value) => value.slice(0, -1));
+                              }
+                           }}
+                           rippleColor="#B18AFF"
+                           disabled={index == 9 && true}
+                           borderless={true}
+                           className={`rounded-full h-20 w-28 border-violet-100 justify-center items-center mini:w-16 mini:h-16`}
+                        >
+                           <>
+                              {index == 11 || (
+                                 <Text className="text-light-100 text-[44px] justify-center mini:text-3xl mini:mt-1.5">
+                                    {item}
+                                 </Text>
+                              )}
+                              {index == 11 && (
+                                 <MaterialCommunityIcons
+                                    name="backspace-outline"
+                                    size={30}
+                                    color={enteredPin ? "#FFF" : "#bbb"}
+                                 />
+                              )}
+                           </>
+                        </TouchableRipple>
+                     </View>
+                  ))}
+               </View>
             </View>
          </View>
       </>
