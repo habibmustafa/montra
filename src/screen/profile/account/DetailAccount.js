@@ -5,10 +5,10 @@ import {
    ScrollView,
    Text,
    TouchableWithoutFeedback,
-   Dimensions,
+   Dimensions, StatusBar,
 } from "react-native";
 import TransactionItem from "../../../components/TransactionItem";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 import Modal from "../../../components/Modal";
 import { useSelector } from "react-redux";
@@ -76,6 +76,12 @@ const DetailAccount = ({ route, navigation }) => {
          ),
       });
    }, [navigation]);
+
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("dark-content");
+      }, []),
+   );
 
    return (
       <ScrollView className="bg-white px-4">

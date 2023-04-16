@@ -54,7 +54,7 @@ export default function App() {
 
    const Toast = (toast) => (
       <View style={{ width: Dimensions.get("window").width - 32, marginTop: StatusBar.currentHeight }}
-            className="w-full rounded-lg py-1 px-2 bg-red-80">
+            className={`w-full rounded-lg py-1 px-2 bg-red-80 ${toast.type === "success" && "bg-green-80"}`}>
          <Text className="text-center font-medium text-light-80">{toast.message}</Text></View>
    );
 

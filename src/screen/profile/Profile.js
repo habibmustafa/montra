@@ -1,16 +1,28 @@
-import React, { useRef } from "react";
-import { StatusBar, Text, TouchableHighlight, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+   StatusBar,
+   Text,
+   TextInput,
+   TouchableHighlight,
+   View,
+} from "react-native";
 import { Avatar } from "react-native-paper";
-import { useSelector } from "react-redux";
-import { logout } from "../../firebaseConfig/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUsername } from "../../firebaseConfig/auth";
 import Svg, { Path, Rect } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
 import Dialog from "../../components/Dialog";
+import { useToast } from "react-native-toast-notifications";
+import { setUser } from "../../store/localSlice";
 
 const Profile = ({ navigation }) => {
    const actionSheetRef = useRef(null);
    let { user } = useSelector((state) => state.local);
    user = JSON.parse(user);
+   const [username, setUsername] = useState(user.displayName);
+   const [activeInput, setActiveInput] = useState(false);
+   const toast = useToast();
+   const dispatch = useDispatch();
 
    useFocusEffect(
       React.useCallback(() => {
@@ -19,41 +31,106 @@ const Profile = ({ navigation }) => {
    );
 
    return (
-      <View className="h-full px-4 bg-[#F7F7F7]" style={{paddingTop: StatusBar.currentHeight}}>
+      <View
+         className="h-full px-4 bg-[#F7F7F7]"
+         style={{ paddingTop: StatusBar.currentHeight }}
+      >
          {/* Header */}
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
             <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />
             <View className="flex-1 ml-5">
-               <Text className="font-medium text-sm text-light-20">
-                  Username
-               </Text>
-               <Text className="font-semibold text-2xl text-dark-75">
-                  {user.displayName}
-               </Text>
+               <Text className="font-medium text-sm text-light-20">Username</Text>
+               {!activeInput ? (
+                  <Text className="font-semibold text-2xl text-dark-75">
+                     {user.displayName}
+                  </Text>
+               ) : (
+                  <TextInput
+                     value={username}
+                     autoFocus={true}
+                     
+                     onChangeText={(val) => {
+                        setUsername(val);
+                     }}
+                     onKeyPress={(e) => {
+                        console.log(e.nativeEvent.key);
+                     }}
+                     className="font-semibold p-0 text-2xl text-dark-75"
+                  />
+               )}
             </View>
-            <Svg
-               width="40"
-               height="40"
-               viewBox="0 0 40 40"
-               fill="none"
-               xmlns="http://www.w3.org/2000/svg"
-            >
-               <Path
-                  d="M29.19 16.46L17.19 28.46C16.9139 28.7302 16.5673 28.9173 16.19 29L12.65 29.71C12.3277 29.7737 11.9947 29.7571 11.6803 29.6615C11.366 29.566 11.0801 29.3945 10.8477 29.1622C10.6154 28.9299 10.4439 28.6439 10.3484 28.3296C10.2529 28.0153 10.2362 27.6823 10.3 27.36L11 23.85C11.0826 23.4726 11.2698 23.1261 11.54 22.85L23.38 11C23.7665 10.6039 24.2285 10.2891 24.7385 10.0742C25.2486 9.85925 25.7965 9.74854 26.35 9.74854C26.9034 9.74854 27.4513 9.85925 27.9614 10.0742C28.4715 10.2891 28.9334 10.6039 29.32 11C30.0089 11.7599 30.3796 12.7555 30.3554 13.7809C30.3312 14.8064 29.914 15.7834 29.19 16.51V16.46Z"
-                  stroke="#212325"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-               />
-               <Rect
-                  x="0.5"
-                  y="0.5"
-                  width="39"
-                  height="39"
-                  rx="7.5"
-                  stroke="#F1F1FA"
-               />
-            </Svg>
+            {!activeInput ? <TouchableHighlight
+                  activeOpacity={0.99}
+                  underlayColor="#eee"
+                  style={{ borderRadius: 8 }}
+                  onPress={() => {
+                     setActiveInput(true);
+                  }}
+               >
+                  <Svg
+                     width="40"
+                     height="40"
+                     viewBox="0 0 40 40"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <Path
+                        d="M29.19 16.46L17.19 28.46C16.9139 28.7302 16.5673 28.9173 16.19 29L12.65 29.71C12.3277 29.7737 11.9947 29.7571 11.6803 29.6615C11.366 29.566 11.0801 29.3945 10.8477 29.1622C10.6154 28.9299 10.4439 28.6439 10.3484 28.3296C10.2529 28.0153 10.2362 27.6823 10.3 27.36L11 23.85C11.0826 23.4726 11.2698 23.1261 11.54 22.85L23.38 11C23.7665 10.6039 24.2285 10.2891 24.7385 10.0742C25.2486 9.85925 25.7965 9.74854 26.35 9.74854C26.9034 9.74854 27.4513 9.85925 27.9614 10.0742C28.4715 10.2891 28.9334 10.6039 29.32 11C30.0089 11.7599 30.3796 12.7555 30.3554 13.7809C30.3312 14.8064 29.914 15.7834 29.19 16.51V16.46Z"
+                        stroke="#212325"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                     />
+                     <Rect
+                        x="0.5"
+                        y="0.5"
+                        width="39"
+                        height="39"
+                        rx="7.5"
+                        stroke="#F1F1FA"
+                     />
+                  </Svg>
+               </TouchableHighlight> :
+               <TouchableHighlight
+                  activeOpacity={0.99}
+                  underlayColor="#eee"
+                  style={{
+                     borderRadius: 8,
+                     borderWidth: 1,
+                     borderColor: "#F1F1FA",
+                     width: 40,
+                     height: 40,
+                     justifyContent: "center",
+                     alignItems: "center",
+                  }}
+                  onPress={async () => {
+                     if (!/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(username.trim())) {
+                        toast.show("Enter a name of 3-16 letters [A-Z]-[a-z]");
+                     } else if (username === user.displayName) {
+                        setActiveInput(false);
+                     } else {
+                        await updateUsername(username);
+                        dispatch(setUser({ ...user, displayName: username }));
+                        setActiveInput(false);
+                        toast.show("Username has been successfully updated", {
+                           type: "success",
+                        });
+                     }
+                  }}
+               >
+                  <Svg
+                     width="32"
+                     height="32"
+                     viewBox="0 0 32 32"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <Path
+                        d="M16 4C13.6266 4 11.3066 4.70379 9.33316 6.02236C7.35977 7.34094 5.8217 9.21509 4.91345 11.4078C4.0052 13.6005 3.76756 16.0133 4.23058 18.3411C4.6936 20.6689 5.83649 22.8071 7.51472 24.4853C9.19295 26.1635 11.3312 27.3064 13.6589 27.7694C15.9867 28.2324 18.3995 27.9948 20.5922 27.0866C22.7849 26.1783 24.6591 24.6402 25.9776 22.6668C27.2962 20.6935 28 18.3734 28 16C28 12.8174 26.7357 9.76515 24.4853 7.51472C22.2348 5.26428 19.1826 4 16 4ZM21.66 13.59L16 19.24C15.4375 19.8018 14.675 20.1174 13.88 20.1174C13.085 20.1174 12.3225 19.8018 11.76 19.24L10.34 17.83C10.2468 17.7368 10.1728 17.6261 10.1223 17.5042C10.0719 17.3824 10.0459 17.2519 10.0459 17.12C10.0459 16.9881 10.0719 16.8576 10.1223 16.7358C10.1728 16.6139 10.2468 16.5032 10.34 16.41C10.4332 16.3168 10.5439 16.2428 10.6658 16.1923C10.7876 16.1419 10.9181 16.1159 11.05 16.1159C11.1819 16.1159 11.3124 16.1419 11.4343 16.1923C11.5561 16.2428 11.6668 16.3168 11.76 16.41L13.17 17.83C13.263 17.9237 13.3736 17.9981 13.4954 18.0489C13.6173 18.0997 13.748 18.1258 13.88 18.1258C14.012 18.1258 14.1427 18.0997 14.2646 18.0489C14.3864 17.9981 14.497 17.9237 14.59 17.83L20.24 12.17C20.3332 12.0768 20.4439 12.0028 20.5658 11.9523C20.6876 11.9019 20.8181 11.8759 20.95 11.8759C21.0819 11.8759 21.2124 11.9019 21.3343 11.9523C21.4561 12.0028 21.5668 12.0768 21.66 12.17C21.7532 12.2632 21.8272 12.3739 21.8777 12.4958C21.9281 12.6176 21.9541 12.7481 21.9541 12.88C21.9541 13.0119 21.9281 13.1424 21.8777 13.2642C21.8272 13.3861 21.7532 13.4968 21.66 13.59Z"
+                        fill="#00A86B"
+                     />
+                  </Svg>
+               </TouchableHighlight>}
          </View>
 
          {/* Content */}
@@ -88,9 +165,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">
-                     Account
-                  </Text>
+                  <Text className="font-medium text-base text-dark-25">Account</Text>
                </View>
             </TouchableHighlight>
 
@@ -99,7 +174,7 @@ const Profile = ({ navigation }) => {
                underlayColor="#eee"
                style={{ borderRadius: 24 }}
                onPress={() => {
-                  navigation.navigate("Settings")
+                  navigation.navigate("Settings");
                }}
             >
                <View className="flex-row items-center px-4 py-3.5 border-b-[1px] border-[#F7F7F7]">
@@ -124,9 +199,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">
-                     Settings
-                  </Text>
+                  <Text className="font-medium text-base text-dark-25">Settings</Text>
                </View>
             </TouchableHighlight>
 
@@ -135,7 +208,7 @@ const Profile = ({ navigation }) => {
                underlayColor="#eee"
                style={{ borderRadius: 24 }}
                onPress={() => {
-                  navigation.navigate("ExportData")
+                  navigation.navigate("ExportData");
                }}
             >
                <View className="flex-row items-center px-4 py-3.5 border-b-[1px] border-[#F7F7F7]">
@@ -222,18 +295,17 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">
-                     Logout
-                  </Text>
+                  <Text className="font-medium text-base text-dark-25">Logout</Text>
                </View>
             </TouchableHighlight>
          </View>
 
          {/* Dialog */}
-         <Dialog ref={actionSheetRef}
-                 id="logout"
-                 title="Logout?"
-                 description={`Are you sure do you wanna logout?`}
+         <Dialog
+            ref={actionSheetRef}
+            id="logout"
+            title="Logout?"
+            description={`Are you sure do you wanna logout?`}
          />
       </View>
    );

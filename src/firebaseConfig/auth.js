@@ -63,6 +63,17 @@ export const signInWithGoogle = async () => {
    }
 };
 
+// Update username
+export const updateUsername = async (username) => {
+   try {
+      await auth().currentUser.updateProfile({
+         displayName: username,
+      });
+   } catch (err) {
+      console.log(err);
+   }
+}
+
 // !Logout
 export const logout = async (user) => {
    try {

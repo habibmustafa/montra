@@ -11,9 +11,16 @@ import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
 import MaterialButton from "../../../components/MaterialButton";
 import SvgIcons from "../../../utils/SvgIcons";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Account = ({ navigation }) => {
    const { userDb, allAccountBalance } = useSelector((state) => state.user);
+
+   useFocusEffect(
+      React.useCallback(() => {
+         StatusBar.setBarStyle("dark-content");
+      }, []),
+   );
 
    const colors = {
       "Cash": "bg-green-20",
