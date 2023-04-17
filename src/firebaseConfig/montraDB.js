@@ -22,6 +22,8 @@ export const createAccount = async () => {
 export const addAccount = (data) => {
    database().ref(`users/${user_uid}/accounts/${data.id}`).set({
       ...data,
+      startingBalance: data.balance,
+      timestamp: new Date().getTime(),
       transactions: false,
    }).then(() => {
       console.log("Success");

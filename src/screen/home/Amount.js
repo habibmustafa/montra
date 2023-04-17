@@ -2,13 +2,15 @@ import React, { memo } from "react";
 import { View, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
-import { transactionsBalanceFilter } from "../utils/filter";
-import { prettyPrint } from "../prettyPrint";
+import { transactionsBalanceFilter } from "../../utils/filter";
+import { prettyPrint } from "../../prettyPrint";
 
 const Amount = ({ month, year }) => {
-   const { allAccountBalance, transactions } = useSelector(
-      (state) => state.user
+   const { allAccountBalance, transactions, userDb } = useSelector(
+      (state) => state.user,
    );
+
+   prettyPrint(transactionsBalanceFilter(transactions, "all", month, year, userDb.accounts));
 
    return (
       <View className="amount px-4">
@@ -19,20 +21,15 @@ const Amount = ({ month, year }) => {
             </Text>
             <Text className="font-semibold text-[40px] text-dark-75">
                ₼
-               {transactionsBalanceFilter(
-                  transactions,
-                  "all",
-                  month,
-                  year,
-                  allAccountBalance
-               )}
+               {transactionsBalanceFilter(transactions, "all", month, year, userDb.accounts)}
             </Text>
          </View>
 
          {/* transaction amount */}
          <View className="flex-row justify-between items-center">
             {/* Income */}
-            <View className="bg-green-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
+            <View
+               className="bg-green-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
                {/* svg */}
                <View className="bg-light-80 justify-center items-center w-12 h-12 rounded-2xl mr-2.5">
                   <Svg
@@ -68,14 +65,15 @@ const Amount = ({ month, year }) => {
                         transactions,
                         "income",
                         month,
-                        year
+                        year,
                      )}
                   </Text>
                </View>
             </View>
 
             {/* Expense */}
-            <View className="bg-red-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
+            <View
+               className="bg-red-100 rounded-[28px] flex-row min-w-[45%] max-w-[48%] justify-center items-center py-4 px-3.5">
                {/* svg */}
                <View className="bg-light-80 justify-center items-center w-12 h-12 rounded-2xl mr-2.5">
                   <Svg
@@ -111,7 +109,7 @@ const Amount = ({ month, year }) => {
                         transactions,
                         "expense",
                         month,
-                        year
+                        year,
                      )}
                   </Text>
                </View>

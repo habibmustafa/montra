@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import SpendFrequency from "./SpendFrequency";
 import DatePicker from "react-native-modern-datepicker";
 import RecentTransaction from "./RecentTransaction";
-import Amount from "../../components/Amount";
+import Amount from "./Amount";
 import { useFocusEffect } from "@react-navigation/native";
 import {PermissionsAndroid} from 'react-native';
 
@@ -187,7 +187,7 @@ const Home = ({ navigation }) => {
                   {/* Amount */}
                   <Amount
                      year={date.split(" ")[0]}
-                     month={date.split(" ")[1].replace(/^0+/, "") - 1}
+                     month={Number(date.split(" ")[1].replace(/^0+/, ""))}
                   />
                </View>
 

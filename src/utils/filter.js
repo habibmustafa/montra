@@ -1,4 +1,5 @@
 import transaction from "../screen/transaction/Transaction";
+import account from "../screen/profile/account/Account";
 
 const date = (time, timestamp = new Date().getTime()) => {
    if (time == "DATE") {
@@ -6,7 +7,7 @@ const date = (time, timestamp = new Date().getTime()) => {
       return dateTime;
    } else if (time == "MONTH") {
       const dateTime = new Date(timestamp).getMonth();
-      return dateTime;
+      return dateTime+1;
    } else if (time == "YEAR") {
       const dateTime = new Date(timestamp).getFullYear();
       return dateTime;
@@ -14,7 +15,7 @@ const date = (time, timestamp = new Date().getTime()) => {
 };
 
 // Transaction filter
-export const transactionsBalanceFilter = (transactions, type, month = date("MONTH"), year = date("YEAR"), allAccountBalance = false) => {
+export const transactionsBalanceFilter = (transactions, type, month = date("MONTH"), year = date("YEAR"), accounts = false) => {
    if (type == "expense" || type == "income") {
       let value = transactions
          .filter((transaction) => transaction.type == type && date("MONTH", transaction.timestamp) == month && date("YEAR", transaction.timestamp) == year)
@@ -25,19 +26,22 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
       return value;
    } else if (type == "all") {
       const expense = transactions
-         .filter((transaction) => transaction.type == "expense" && date("MONTH", transaction.timestamp) > month && date("YEAR", transaction.timestamp) >= year)
+         .filter((transaction) => transaction.type == "expense" && date("MONTH", transaction.timestamp) <= month && date("YEAR", transaction.timestamp) <= year)
          .map((transaction) => transaction.amount)
          .reduce((acc, curr) => acc + curr, 0);
 
       const income = transactions
-         .filter((transaction) => transaction.type == "income" && date("MONTH", transaction.timestamp) > month && date("YEAR", transaction.timestamp) >= year)
+         .filter((transaction) => transaction.type == "income" && date("MONTH", transaction.timestamp) <= month && date("YEAR", transaction.timestamp) <= year)
          .map((transaction) => transaction.amount)
          .reduce((acc, curr) => acc + curr, 0);
 
       const detucted = income - expense;
-      const allBalance = allAccountBalance - detucted;
 
-      return allBalance.toFixed(2);
+      let startingBalance = Object.values(accounts).filter(account => date("MONTH", account.timestamp) <= month && date("YEAR", account.timestamp) <= year)
+         .map(account => account.startingBalance).reduce((acc, curr) => acc + curr, 0);
+
+      let value = startingBalance + detucted
+      return value.toFixed(2);
    }
 };
 
@@ -85,12 +89,7 @@ export const accountBalanceFilter = (accounts, type = "expense", datex = "MONTH"
             .filter(transaction => (transaction.type === type) && (date(datex, transaction.timestamp) === date(datex)))
             .map(transaction => transaction.amount).reduce((acc, curr) => acc + curr, 0),
       };
-   }).sort((a,b) => sort === "Highest" ? b.balance - a.balance : a.balance - b.balance)
-
-
-   // .filter(transaction => (transaction.type === type) && date("MONTH", transaction.timestamp) === month)
-   // .map(transaction => transaction.amount).reduce((acc, curr) => acc + curr, 0);
-
+   }).sort((a, b) => sort === "Highest" ? b.balance - a.balance : a.balance - b.balance);
 
    return value;
 };

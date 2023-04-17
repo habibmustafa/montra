@@ -13,12 +13,14 @@ import TransactionItem from "../../components/TransactionItem";
 import { useFocusEffect } from "@react-navigation/native";
 import FilterDialog from "./FilterDialog";
 import { transactionFilter } from "../../utils/filter";
+import Dropdown from "../../components/Dropdown";
 
 const Transaction = ({ navigation }) => {
    const { transactions } = useSelector((state) => state.user);
    const actionSheetRef = useRef(null);
    const [filter, setFilter] = useState(["expense", "income", "transfer"]);
    const [sort, setSort] = useState("Newest");
+   const [datex, setDatex] = useState("Month")
 
    const date = (params = false, render = false) => {
       const dateTime = new Date(params).getDate();
@@ -46,36 +48,20 @@ const Transaction = ({ navigation }) => {
          <View className="h-full bg-white" style={{paddingTop: StatusBar.currentHeight}}>
             {/* Header */}
             <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
-               <TouchableHighlight
-                  activeOpacity={0.99}
-                  underlayColor="#eee"
-                  style={{ borderRadius: 40 }}
-                  onPress={() => {
-                     console.log(1);
-                  }}
-               >
-                  <View
-                     className="flex-row py-2.5 px-4 pl-2 border-[1px] border-light-60 rounded-[40px] justify-center items-center">
-                     <Svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                     >
-                        <Path
-                           d="M12.009 14.5576L12.0001 14.5575L11.9912 14.5576C11.2017 14.567 10.4405 14.2648 9.87244 13.7167L6.23449 10.0401L9.87976 13.6854L9.88672 13.6924L9.89386 13.6991C10.4624 14.2386 11.2163 14.5394 12.0001 14.5394C12.7839 14.5394 13.5378 14.2386 14.1063 13.6991L14.1135 13.6924L14.1204 13.6854L17.7656 10.0403L14.1277 13.7167C13.5597 14.2648 12.7985 14.567 12.009 14.5576Z"
-                           fill="black"
-                           stroke="#7F3DFF"
-                           stroke-width="1.5"
-                        />
-                     </Svg>
-
-                     <Text className="ml-1 font-medium text-sm text-dark-50">
-                        Month
-                     </Text>
-                  </View>
-               </TouchableHighlight>
+               <View className="w-[100px]">
+                  <Dropdown
+                     value={datex}
+                     data={[
+                        { label: "Week", value: "Week" },
+                        { label: "Month", value: "Month" },
+                        { label: "Year", value: "Year" },
+                     ]}
+                     onChange={(val) => {
+                        setDatex(val.value);
+                     }}
+                     style={{paddingVertical: 5, borderRadius: 24}}
+                  />
+               </View>
 
                <TouchableHighlight
                   activeOpacity={0.99}
@@ -156,6 +142,7 @@ const Transaction = ({ navigation }) => {
                <FlatList
                   data={transactionFilter(transactions, filter, sort)}
                   keyExtractor={(item) => item.id}
+                  initialNumToRender={7}
                   className="mb-20 px-4"
                   ListEmptyComponent={
                      <View style={{ height: Dimensions.get("window").height - 240 }}

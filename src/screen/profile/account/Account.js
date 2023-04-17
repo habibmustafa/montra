@@ -12,9 +12,10 @@ import { useSelector } from "react-redux";
 import MaterialButton from "../../../components/MaterialButton";
 import SvgIcons from "../../../utils/SvgIcons";
 import { useFocusEffect } from "@react-navigation/native";
+import { transactionsBalanceFilter } from "../../../utils/filter";
 
 const Account = ({ navigation }) => {
-   const { userDb, allAccountBalance } = useSelector((state) => state.user);
+   const { userDb, transactions } = useSelector((state) => state.user);
 
    useFocusEffect(
       React.useCallback(() => {
@@ -23,13 +24,13 @@ const Account = ({ navigation }) => {
    );
 
    const colors = {
-      "Cash": "bg-green-20",
-      "Credit card": 'bg-red-20',
-      "Savings": 'bg-blue-20',
-      "Investment": 'bg-yellow-20',
-      "Business": 'bg-violet-20',
-      "Other/miscellaneous": 'bg-dark-25',
-   }
+      Cash: "bg-green-20",
+      "Credit card": "bg-red-20",
+      Savings: "bg-blue-20",
+      Investment: "bg-yellow-20",
+      Business: "bg-violet-20",
+      "Other/miscellaneous": "bg-dark-25",
+   };
    return (
       <View className="bg-white h-full pb-5">
          {/* Account balance */}
@@ -44,7 +45,14 @@ const Account = ({ navigation }) => {
                   Account Balance
                </Text>
                <Text className="font-semibold text-[40px] text-dark-75">
-                  ₼{allAccountBalance.toFixed(2)}
+                  ₼
+                  {transactionsBalanceFilter(
+                     transactions,
+                     "all",
+                     new Date().getMonth() + 1,
+                     new Date().getFullYear() + 1,
+                     userDb.accounts,
+                  )}
                </Text>
             </View>
          </View>
