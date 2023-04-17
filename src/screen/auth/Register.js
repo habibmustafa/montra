@@ -5,6 +5,7 @@ import { Checkbox } from "react-native-paper";
 import MaterialButton from "../../components/MaterialButton";
 import { register, signInWithGoogle } from "../../firebaseConfig/auth";
 import { Formik } from "formik";
+import { l } from "../../localication";
 
 const Register = ({ navigation }) => {
    const [checked, setChecked] = useState(false);
@@ -53,7 +54,7 @@ const Register = ({ navigation }) => {
          {({ handleSubmit, setFieldValue, handleChange, handleBlur, values, errors }) => (
             <View className="inputs pt-14 mini:pt-8">
                <Input
-                  label="Name"
+                  label={l('name')}
                   textContentType="name"
                   value={values.name}
                   onChangeText={handleChange("name")}
@@ -70,7 +71,7 @@ const Register = ({ navigation }) => {
                   error={errors.email}
                />
                <Input
-                  label="Password"
+                  label={l('password')}
                   textContentType="password"
                   style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
                   value={values.password}
@@ -91,18 +92,18 @@ const Register = ({ navigation }) => {
                      }}
                   />
                   <Text className="ml-2.5 mr-4 text-sm font-medium mini:text-[13px]">
-                     By signing up, you agree to the{" "}
+                     {l('termsofservices1')}{" "}
                      <Text onPress={async () => {
                         await Linking.openURL("https://habibmustafa.netlify.app/");
                      }} className="text-[#7F3DFF]">
-                        Terms of Service and Privacy Policy
+                        {l('termsofservices2')}
                      </Text>
                   </Text>
                </View>
 
                <MaterialButton
                   onPress={handleSubmit}
-                  title="Sign Up"
+                  title={l('signup')}
                   titleColor="#fff"
                />
             </View>)}
@@ -111,14 +112,14 @@ const Register = ({ navigation }) => {
       {/* Sign up with Google */}
       <View>
          <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
-            Or with
+            {l('orwith')}
          </Text>
          <MaterialButton
             leading={<Image
                style={{ width: 32, height: 32 }}
                source={require("../../assets/google.png")}
             />}
-            title="Sign Up with Google"
+            title={l('signupwithgoogle')}
             titleColor="#212325"
             color="#fff"
             style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
@@ -127,14 +128,14 @@ const Register = ({ navigation }) => {
             }}
          />
          <Text className="font-medium text-base text-light-20 text-center mt-8 mb-6 mini:mt-6 mini:text-sm mini:mb-6">
-            Already have an account?{" "}
+            {l('haveaccount')}{" "}
             <Text
                onPress={() => {
                   navigation.navigate("Login");
                }}
                className="underline text-violet-100"
             >
-               Login
+               {l('login')}
             </Text>
          </Text>
       </View>

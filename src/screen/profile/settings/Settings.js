@@ -1,26 +1,29 @@
 import React, { useState } from "react";
 import { Linking, Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
+import { useSelector } from "react-redux";
 
 const Settings = ({ navigation }) => {
-   const [data, setData] = useState([
+   const { language } = useSelector(state => state.local)
+
+   const data = [
       { name: "Currency", value: "AZN", navigate: "Currency" },
-      { name: "Language", value: "English", navigate: "Language" },
+      { name: "Language", value: language === "en" ? "English" : "Azərbaycanca", navigate: "Language" },
       { name: "Theme", value: "Light", navigate: "Theme" },
       { name: "Notification", value: "", navigate: "NotificationSettings" },
       { name: "About", value: "", navigate: false },
       { name: "Help", value: "", navigate: false },
-   ]);
+   ]
    return (
       <View className="bg-white h-full">
          {data.map(item => (
             <TouchableNativeFeedback
-               key={item.name} background={TouchableNativeFeedback.Ripple("#eee")}
+               key={item.name}
+               background={TouchableNativeFeedback.Ripple("#eee")}
                onPress={async () => {
                   if (item.navigate) {
                      navigation.navigate(item.navigate);
                   } else {
-                     console.log("FAQ");
                      await Linking.openURL("https://habibmustafa.netlify.app/");
                   }
                }}>

@@ -5,6 +5,7 @@ import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { login } from "../../firebaseConfig/auth";
 import { signInWithGoogle } from "../../firebaseConfig/auth";
+import { l } from "../../localication";
 
 const Login = ({ navigation }) => {
 
@@ -55,7 +56,7 @@ const Login = ({ navigation }) => {
                      error={errors.email}
                   />
                   <Input
-                     label="Password"
+                     label={l('password')}
                      textContentType="password"
                      style={{
                         marginTop:
@@ -69,7 +70,7 @@ const Login = ({ navigation }) => {
                   />
                   <MaterialButton
                      onPress={handleSubmit}
-                     title="Login"
+                     title={l("login")}
                      titleColor="#fff"
                      style={{
                         marginTop:
@@ -79,7 +80,7 @@ const Login = ({ navigation }) => {
 
                   {/* Google */}
                   <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
-                     Or with
+                     {l("orwith")}
                   </Text>
                   <MaterialButton
                      leading={
@@ -88,7 +89,7 @@ const Login = ({ navigation }) => {
                            source={require("../../assets/google.png")}
                         />
                      }
-                     title="Sign Up with Google"
+                     title={l('signupwithgoogle')}
                      titleColor="#212325"
                      color="#fff"
                      style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
@@ -109,17 +110,17 @@ const Login = ({ navigation }) => {
                }}
                className="my-10 text-center font-semibold text-lg text-violet-100 mini:my-8 mini:text-base"
             >
-               Forgot Password?
+               {l("forgotpassword")}?
             </Text>
             <Text className="font-medium text-base text-light-20 text-center mini:text-sm">
-               Don’t have an account yet?{" "}
+               {l("dontaccount")}{" "}
                <Text
                   onPress={() => {
                      navigation.navigate("Register");
                   }}
                   className="underline text-violet-100"
                >
-                  Sign Up
+                  {l("signup")}
                </Text>
             </Text>
          </View>

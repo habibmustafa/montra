@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StatusBar } from "react-native";
 import MaterialButton from "../../components/MaterialButton";
 import { openInbox } from "react-native-email-link";
+import { l } from "../../localication";
 
 const ForgotPasswordEmailSent = ({ navigation }) => {
    return (
@@ -14,11 +15,10 @@ const ForgotPasswordEmailSent = ({ navigation }) => {
             />
 
             <Text className="mb-6 text-center font-semibold text-2xl text-dark-100">
-               Your email is on the way
+               {l('emailway')}
             </Text>
             <Text className="text-center font-medium text-base text-dark-25">
-               Check your email test@test.com and follow the instructions to
-               reset your password
+               {l('emailwaytext')}
             </Text>
          </View>
 
@@ -29,7 +29,7 @@ const ForgotPasswordEmailSent = ({ navigation }) => {
                   openInbox()
                   navigation.navigate("Login");
                }}
-               title="Go to Gmail"
+               title={l('gogmail')}
                titleColor="#fff"
             />
          </View>

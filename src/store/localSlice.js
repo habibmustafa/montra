@@ -4,6 +4,7 @@ const initialState = {
    user: null,
    isLoggedIn: false,
    pin: false,
+   language: 'en'
 };
 
 export const localSlice = createSlice({
@@ -21,10 +22,13 @@ export const localSlice = createSlice({
       },
       setPin: (state, action) => {
          state.pin = action.payload
-      } 
+      },
+      setLanguage: (state, action) => {
+         state.language = action.payload
+      }
    },
 });
 
-export const { setUser, removeUser, setPin } = localSlice.actions;
+export const { setUser, removeUser, setPin, setLanguage } = localSlice.actions;
 
 export default localSlice.reducer;

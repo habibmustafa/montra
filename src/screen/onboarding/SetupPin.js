@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from "react-redux";
 import { setPin } from "../../store/localSlice";
 import { useFocusEffect } from "@react-navigation/native";
+import { l } from "../../localication";
 
 const SetupPin = ({ navigation }) => {
    const [enteredPin, setEnteredPin] = useState("");
@@ -26,7 +27,7 @@ const SetupPin = ({ navigation }) => {
 
       if (enteredPin.toString().length === 4) {
 
-      timer = setTimeout(() => {
+         timer = setTimeout(() => {
             if (!pin) {
                if (!registerPin) {
                   setRegisterPin(enteredPin);
@@ -40,7 +41,7 @@ const SetupPin = ({ navigation }) => {
                      }
                   } else {
                      setRegisterPin("");
-                     toast.show("The entered PINs do not match. Please try again");
+                     toast.show(l("mismatchedpin"));
                   }
                }
             } else {
@@ -51,33 +52,33 @@ const SetupPin = ({ navigation }) => {
                      navigation.navigate("Tab");
                   }
                } else {
-                  toast.show("PIN code is incorrect");
+                  toast.show(l("incorrectpin"));
                }
             }
             setEnteredPin("");
             clearTimeout(timer);
-      }, 1);
-   }
+         }, 1);
+      }
 
       return () => clearTimeout(timer);
    }, [enteredPin]);
 
    useFocusEffect(
       React.useCallback(() => {
-         StatusBar.setTranslucent(true)
-         StatusBar.setBackgroundColor("transparent")
-         StatusBar.setBarStyle("light-content")
-      }, [])
-   )
+         StatusBar.setTranslucent(true);
+         StatusBar.setBackgroundColor("transparent");
+         StatusBar.setBarStyle("light-content");
+      }, []),
+   );
 
 
    return (
       <>
-         <View className="bg-violet-100 flex-1 items-center" style={{paddingTop: StatusBar.currentHeight}}>
-            <Text className="pt-20 pb-16 text-light-100 font-bold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
-               {!pin && !registerPin && "Let’s  setup your PIN"}
-               {registerPin && "Ok. Re type your PIN again."}
-               {pin && "Enter PIN"}
+         <View className="bg-violet-100 flex-1 items-center" style={{ paddingTop: StatusBar.currentHeight }}>
+            <Text className="pt-20 pb-16 text-light-100 font-semibold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
+               {!pin && !registerPin && l("setuppin")}
+               {registerPin && l("resetuppin")}
+               {pin && l("enterpin")}
             </Text>
 
             {/* Input */}
@@ -94,7 +95,8 @@ const SetupPin = ({ navigation }) => {
                ))}
             </View>
 
-            <View className="bg-violet-80 rounded-tl-3xl rounded-tr-3xl w-[95%] pt-14 items-center shadow-2xl shadow-dark-50">
+            <View
+               className="bg-violet-80 rounded-tl-3xl rounded-tr-3xl w-[95%] pt-14 items-center shadow-2xl shadow-dark-50">
 
                {/* Keyboard */}
                <View className="input flex-row flex-wrap w-[85%] mb-3 justify-center items-center mini:w-10/12">

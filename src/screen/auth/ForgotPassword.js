@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { Formik } from "formik";
 import { passwordReset } from "../../firebaseConfig/auth";
+import { l } from "../../localication";
 
 const ForgotPassword = ({ navigation }) => {
 
@@ -11,9 +12,8 @@ const ForgotPassword = ({ navigation }) => {
       <View className="px-4 bg-white h-full">
          {/* Text */}
          <View className="pt-16 mini:pt-10">
-            <Text className="font-semibold text-3xl text-dark-25 mini:text-xl">
-               Don’t worry.{"\n"}Enter your email and we’ll send you a link to
-               reset your password.
+            <Text className="font-semibold text-[28px] text-dark-25 mini:text-xl">
+               {l('dontworry')}
             </Text>
          </View>
 
@@ -54,7 +54,7 @@ const ForgotPassword = ({ navigation }) => {
                   <View className="mt-12 mini:mt-10">
                      <MaterialButton
                         onPress={handleSubmit}
-                        title="Continue"
+                        title={l("continue")}
                         titleColor="#fff"
                      />
                   </View>

@@ -10,8 +10,6 @@ const Amount = ({ month, year }) => {
       (state) => state.user,
    );
 
-   prettyPrint(transactionsBalanceFilter(transactions, "all", month, year, userDb.accounts));
-
    return (
       <View className="amount px-4">
          {/* total */}

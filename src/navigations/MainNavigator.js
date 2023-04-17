@@ -28,6 +28,7 @@ import NotificationSettings from "../screen/profile/settings/NotificationSetting
 import ExportData from "../screen/profile/exportData/ExportData";
 import ReportIntro from "../screen/financial_report/ReportIntro";
 import FinancialReport from "../screen/financial_report/FinancialReport";
+import { l } from "../localication";
 
 export default function MainNavigator() {
    // Router stack
@@ -47,7 +48,6 @@ export default function MainNavigator() {
                headerTitleAlign: "center",
                headerShadowVisible: false,
                statusBarAnimation: 'fade',
-
             }}
          >
             {isLoggedIn ? (
@@ -211,21 +211,21 @@ export default function MainNavigator() {
                      name="Register"
                      component={Register}
                      options={{
-                        headerTitle: "Sign Up",
+                        headerTitle: l('signup'),
                      }}
                   />
                   <Stack.Screen
                      name="Login"
                      component={Login}
                      options={{
-                        headerTitle: "Login",
+                        headerTitle: l('login'),
                      }}
                   />
                   <Stack.Screen
                      name="ForgotPassword"
                      component={ForgotPassword}
                      options={{
-                        headerTitle: "Forgot Password",
+                        headerTitle: l('forgotpassword'),
                      }}
                   />
                   <Stack.Screen
