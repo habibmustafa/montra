@@ -14,23 +14,30 @@ import { useFocusEffect } from "@react-navigation/native";
 import FilterDialog from "./FilterDialog";
 import { transactionFilter } from "../../utils/filter";
 import Dropdown from "../../components/Dropdown";
+import strings from "../../utils/Localization";
 
 const Transaction = ({ navigation }) => {
    const { transactions } = useSelector((state) => state.user);
+   const { language } = useSelector((state) => state.local);
    const actionSheetRef = useRef(null);
    const [filter, setFilter] = useState(["expense", "income", "transfer"]);
    const [sort, setSort] = useState("Newest");
-   const [datex, setDatex] = useState("Month")
+   const [datex, setDatex] = useState("Month");
 
    const date = (params = false, render = false) => {
       const dateTime = new Date(params).getDate();
       if (render) {
          if (dateTime === new Date().getDate()) {
-            return "Today";
+            return strings.today;
          } else if (dateTime === new Date().getDate() - 1) {
-            return "Yesterday";
+            return strings.yesterday;
          } else {
-            return new Date(params).toDateString();
+            return new Date(params).toLocaleString( language, {
+               weekday: "short",
+               day: "numeric",
+               month: "long",
+               year: 'numeric'
+            });
          }
       } else {
          return dateTime;
@@ -45,21 +52,21 @@ const Transaction = ({ navigation }) => {
 
    return (
       <>
-         <View className="h-full bg-white" style={{paddingTop: StatusBar.currentHeight}}>
+         <View className="h-full bg-white" style={{ paddingTop: StatusBar.currentHeight }}>
             {/* Header */}
             <View className="header px-4 py-4 flex-row justify-between items-center bg-white">
                <View className="w-[100px]">
                   <Dropdown
                      value={datex}
                      data={[
-                        { label: "Week", value: "Week" },
-                        { label: "Month", value: "Month" },
-                        { label: "Year", value: "Year" },
+                        { label: strings.week, value: "Week" },
+                        { label: strings.month, value: "Month" },
+                        { label: strings.year, value: "Year" },
                      ]}
                      onChange={(val) => {
                         setDatex(val.value);
                      }}
-                     style={{paddingVertical: 5, borderRadius: 24}}
+                     style={{ paddingVertical: 5, borderRadius: 24 }}
                   />
                </View>
 
@@ -116,7 +123,7 @@ const Transaction = ({ navigation }) => {
             >
                <>
                   <Text className="text-base text-violet-100">
-                     See your financial report
+                     {strings.seeyourfinancialreport}
                   </Text>
 
                   {/* svg */}
@@ -143,11 +150,11 @@ const Transaction = ({ navigation }) => {
                   data={transactionFilter(transactions, filter, sort)}
                   keyExtractor={(item) => item.id}
                   initialNumToRender={7}
-                  className="mb-20 px-4"
+                  className="mb-[70px] px-4"
                   ListEmptyComponent={
                      <View style={{ height: Dimensions.get("window").height - 240 }}
                            className="justify-center items-center">
-                        <Text className="font-medium text-sm text-light-20">No money transactions</Text>
+                        <Text className="font-medium text-sm text-light-20">{strings.nomoneytransaction}</Text>
                      </View>}
                   renderItem={({ item, index }) => (
                      <>

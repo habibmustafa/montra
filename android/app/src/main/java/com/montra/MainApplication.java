@@ -15,7 +15,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.List;
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-
+import com.reactnativerestart.RestartPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -34,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeFirebaseMessagingPackage();
           new VectorIconsPackage();
           new ReactNativeLocalizationPackage();
+          new RestartPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Svg, { Path } from "react-native-svg";
 import Dialog from "../../components/Dialog";
 import { useFocusEffect } from "@react-navigation/native";
+import strings from "../../utils/Localization";
 
 export const DetailTransactionRight = (params) => {
    const actionSheetRef = useRef(null);
@@ -33,9 +34,9 @@ export const DetailTransactionRight = (params) => {
          </TouchableWithoutFeedback>
          <Dialog ref={actionSheetRef} data={params}
                  id="transaction"
-                 title="Remove this transaction?"
-                 description={`Are you sure do you wanna remove this ${`\n`} transaction?`}
-                 modalDescription="Transaction has been successfully removed"
+                 title={strings.removetransactiontitle}
+                 description={strings.removetransactiondescription}
+                 modalDescription={`${strings.transactionsuccess} ${strings.removed}`}
          />
       </>
    );
@@ -81,6 +82,9 @@ const DetailTransaction = ({ navigation, route }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
+         navigation.setOptions({
+            title: strings.detailtransaction
+         })
       }, []),
    );
 
@@ -97,7 +101,7 @@ const DetailTransaction = ({ navigation, route }) => {
                   ₼{amount.toFixed(2)}
                </Text>
                {type === "transfer" || (<Text className="text-light-80 font-medium text-base">
-                  {category}
+                  {strings[category.replace(/\s+/g, "").toLowerCase()]}
                </Text>)}
             </View>
             <View className="flex-row gap-x-3 mb-5">
@@ -115,22 +119,22 @@ const DetailTransaction = ({ navigation, route }) => {
                style={{ width: Dimensions.get("screen").width - 32 }}
             >
                <View className="items-center">
-                  <Text className="text-light-20 font-medium text-sm mb-2">Type</Text>
+                  <Text className="text-light-20 font-medium text-sm mb-2">{strings.type}</Text>
                   <Text className="text-dark-100 font-semibold text-base capitalize">
-                     {type}
+                     {strings[type]}
                   </Text>
                </View>
                <View className="items-center">
                   <Text className="text-light-20 font-medium text-sm mb-2">
-                     {type === "transfer" ? "From" : "Category"}
+                     {type === "transfer" ? strings.from : strings.category}
                   </Text>
                   <Text className="text-dark-100 font-semibold text-base">
-                     {type === "transfer" ? userDb.accounts[from].name : category}
+                     {type === "transfer" ? userDb.accounts[from].name : strings[category.replace(/\s+/g, "").toLowerCase()]}
                   </Text>
                </View>
                <View className="items-center">
                   <Text className="text-light-20 font-medium text-sm mb-2">
-                     {type === "transfer" ? "To" : "Wallet"}
+                     {type === "transfer" ? strings.to : strings.wallet}
                   </Text>
                   <Text className="text-dark-100 font-semibold text-base">
                      {type === "transfer" ? userDb.accounts[to].name : (account_id && userDb.accounts[account_id].name) || "Wallet"}
@@ -144,7 +148,7 @@ const DetailTransaction = ({ navigation, route }) => {
             {/* Description */}
             <View className="mb-8">
                <Text className="text-light-20 font-semibold text-base mb-3.5">
-                  Description
+                  {strings.description}
                </Text>
                <Text className="text-dark-100 font-medium text-base">
                   {description}
@@ -161,7 +165,7 @@ const DetailTransaction = ({ navigation, route }) => {
 
             <MaterialButton
                style={{ position: "absolute", width: "100%", bottom: 20 }}
-               title="Edit"
+               title={strings.edit}
                titleColor="#FCFCFC"
                onPress={handleEdit}
             />

@@ -60,12 +60,11 @@ const NewScreen = ({ color, text, children, input, value="" }) => {
                   keyboardType="numeric"
                   className="font-medium text-[64px] w-full text-light-80 p-0 mini:text-5xl"
                   placeholder="0"
-                  placeholderTextColor="#F2F4F5"
+                  placeholderTextColor="#F2F4F5AA"
                   value={amount}
                   onChangeText={handleAmountChange}
                   // caretHidden
                   cursorColor="#FCAC12"
-
                />
             </View>
          </View>

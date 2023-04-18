@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
 import Chart from "../../components/Chart";
@@ -69,4 +69,4 @@ const SpendFrequency = () => {
    );
 };
 
-export default (SpendFrequency);
+export default memo(SpendFrequency);

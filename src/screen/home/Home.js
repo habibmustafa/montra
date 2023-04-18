@@ -92,7 +92,9 @@ const Home = ({ navigation }) => {
                               navigation.navigate("Profile");
                            }}
                         >
-                           <Avatar.Text size={34} label="HM" />
+                           <View className="border border-violet-80 rounded-full p-[1px]">
+                              <Avatar.Text size={31} label="HM" />
+                           </View>
                         </TouchableWithoutFeedback>
 
                         <TouchableHighlight

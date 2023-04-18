@@ -24,6 +24,7 @@ import {
    lastSpendFilter,
    transactionsBalanceFilter,
 } from "../../utils/filter";
+import strings from "../../utils/Localization";
 
 const date = (params = false, render = false) => {
    const dateTime = new Date(params).getDate();
@@ -47,8 +48,8 @@ const FinancialReport = ({ navigation }) => {
    const [sort, setSort] = useState("Highest");
    const [transactionButton, setTransactionButton] = useState({
       data: [
-         { id: 1, value: "Expense" },
-         { id: 2, value: "Income" },
+         { id: 1, label: strings.expense, value: "Expense" },
+         { id: 2, label: strings.income, value: "Income" },
       ],
       isActive: "Expense",
    });
@@ -63,6 +64,9 @@ const FinancialReport = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
+         navigation.setOptions({
+            title: strings.financialreport
+         })
       }, []),
    );
 
@@ -87,8 +91,8 @@ const FinancialReport = ({ navigation }) => {
                   <Dropdown
                      value={datex}
                      data={[
-                        { label: "Month", value: "Month" },
-                        { label: "Year", value: "Year" },
+                        { label: strings.month, value: "Month" },
+                        { label: strings.year, value: "Year" },
                      ]}
                      onChange={(val) => {
                         setDatex(val.value);
@@ -177,7 +181,7 @@ const FinancialReport = ({ navigation }) => {
                            transactionButton.isActive === item.value && "text-light-80"
                         }`}
                      >
-                        {item.value}
+                        {item.label}
                      </Text>
                   </View>
                </TouchableWithoutFeedback>
@@ -188,12 +192,12 @@ const FinancialReport = ({ navigation }) => {
          <View className="mt-6">
             {/* Head */}
             <View className="flex-row px-4 justify-between items-center">
-               <View className="w-[116px]">
+               <View className="w-[128px]">
                   <Dropdown
                      value={selected}
                      data={[
-                        { label: "Account", value: "Account" },
-                        { label: "Category", value: "Category" },
+                        { label: strings.account, value: "Account" },
+                        { label: strings.category, value: "Category" },
                      ]}
                      onChange={(val) => {
                         setSelected(val.value);

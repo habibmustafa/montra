@@ -3,6 +3,7 @@ import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
 import { transactionsBalanceFilter } from "../../utils/filter";
 import strings from "../../utils/Localization";
+import { memo } from "react";
 
 const Amount = ({ month, year }) => {
    const { transactions, userDb } = useSelector(
@@ -116,4 +117,4 @@ const Amount = ({ month, year }) => {
    );
 };
 
-export default (Amount);
+export default memo(Amount);

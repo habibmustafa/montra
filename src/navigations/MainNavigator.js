@@ -142,7 +142,6 @@ export default function MainNavigator() {
                      name="DetailTransaction"
                      component={DetailTransaction}
                      options={{
-                        headerTitle: "Detail Transaction",
                         headerTintColor: "#FFF",
                      }}
                   />
@@ -152,7 +151,6 @@ export default function MainNavigator() {
                      options={{
                         animation: "slide_from_right",
                         headerRight: NotificationRight,
-                        headerTitle: strings.notification
                      }}
                   />
                   <Stack.Screen
@@ -195,9 +193,6 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="FinancialReport"
                      component={FinancialReport}
-                     options={{
-                        headerTitle: 'Financial Report',
-                     }}
                   />
                </>
             ) : (

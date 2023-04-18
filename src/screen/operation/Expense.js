@@ -10,6 +10,7 @@ import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
 import Dropdown from "../../components/Dropdown";
+import strings from "../../utils/Localization";
 
 const Expense = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -63,23 +64,26 @@ const Expense = ({ navigation, route }) => {
    }, [visible]);
 
    const data = [
-      { label: "Food and Drink", value: "Food and Drink" }, {
-         label: "Transportation",
+      { label: strings.foodanddrink, value: "Food and Drink" }, {
+         label: strings.transportation,
          value: "Transportation",
-      }, { label: "Shopping", value: "Shopping" }, { label: "Entertainment", value: "Entertainment" }, {
-         label: "Personal care and Health",
+      }, { label: strings.shopping, value: "Shopping" }, { label: strings.entertainment, value: "Entertainment" }, {
+         label: strings.personalcareandhealth,
          value: "Personal care and Health",
-      }, { label: "Housing", value: "Housing" }, {
-         label: "Credit and Dept",
-         value: "Credit and Dept",
+      }, { label: strings.housing, value: "Housing" }, {
+         label: strings.creditanddebt,
+         value: "Credit and Debt",
       }, {
-         label: "Education",
+         label: strings.education,
          value: "Education",
-      }, { label: "Savings and Investments", value: "Savings and Investments" }];
+      }, { label: strings.savingsandinvestments, value: "Savings and Investments" }];
 
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
+         navigation.setOptions({
+            title: strings.expense
+         })
       }, []),
    );
 
@@ -87,7 +91,7 @@ const Expense = ({ navigation, route }) => {
       <View className="h-full">
          <NewScreen
             color="#FD3C4A"
-            text="How much?"
+            text={strings.howmuch}
             input={(value) => {
                setAmount(value);
             }}
@@ -100,7 +104,7 @@ const Expense = ({ navigation, route }) => {
                }}
             >
                <Dropdown
-                  placeholder="Category"
+                  placeholder={strings.category}
                   data={data}
                   value={category}
                   onChange={(val) => {
@@ -111,7 +115,7 @@ const Expense = ({ navigation, route }) => {
 
             {/* Description */}
             <Input
-               label="Description"
+               label={strings.description}
                textContentType="name"
                text
                value={description}
@@ -128,7 +132,7 @@ const Expense = ({ navigation, route }) => {
                }}
             >
                <Dropdown
-                  placeholder="Account"
+                  placeholder={strings.account}
                   position='top'
                   data={Object.values(userDb.accounts).map((account) => {
                      return { value: account.id, label: account.name };
@@ -142,7 +146,7 @@ const Expense = ({ navigation, route }) => {
             </View>
             <MaterialButton
                onPress={handleAddAccount}
-               title="Continue"
+               title={strings.continue}
                titleColor="#FCFCFC"
                style={{
                   marginTop: Dimensions.get("window").width < 385 ? 24 : 36,
@@ -152,7 +156,7 @@ const Expense = ({ navigation, route }) => {
          </NewScreen>
          <Modal
             visible={visible}
-            text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
+            text={`${strings.transactionsuccess} ${route.params ? strings.updated : strings.added} `}
          />
       </View>);
 };

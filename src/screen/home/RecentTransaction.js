@@ -3,6 +3,7 @@ import TransactionItem from "../../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import strings from "../../utils/Localization";
+import { memo } from "react";
 
 const date = (params = new Date().getTime()) => {
    const dateTime = new Date(params).getDate();
@@ -47,7 +48,7 @@ const RecentTransaction = () => {
                <View className="mt-2 items-center py-16 bg-[#fafafa] rounded-3xl mb-2">
 
                   <Text className="font-medium text-sm text-light-20 mt-2">
-                     There have been no transactions recently
+                     {strings.nomoneytransactionrecently}
                   </Text>
                </View>
             )}
@@ -56,4 +57,4 @@ const RecentTransaction = () => {
    );
 };
 
-export default (RecentTransaction);
+export default memo(RecentTransaction);

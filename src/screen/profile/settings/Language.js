@@ -4,6 +4,7 @@ import { SvgXml } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../../store/localSlice";
 import strings from "../../../utils/Localization";
+import RNRestart from 'react-native-restart';
 
 const Language = () => {
    const { language } = useSelector(state => state.local)
@@ -26,6 +27,18 @@ const Language = () => {
                   setData({ ...data, isActive: item.key });
                   dispatch(setLanguage(item.key))
                   strings.setLanguage(item.key);
+                  Alert.alert(
+                     'Language Changed',
+                     'Language settings have been changed. The application needs to be restarted.',
+                     [
+                        {
+                           text: 'OK',
+                           onPress: () => {
+                              RNRestart.restart();
+                           }
+                        }
+                     ]
+                  );
                }}>
                <View className="flex-row items-center justify-between h-14 px-4 ">
                   <Text className="font-medium text-sm text-dark-100">{item.name}</Text>

@@ -13,6 +13,7 @@ import Svg, { Path } from "react-native-svg";
 import { addTransaction, editTransaction } from "../../firebaseConfig/montraDB";
 import Modal from "../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
+import strings from "../../utils/Localization";
 
 const Transfer = ({ navigation, route }) => {
    const [from, setFrom] = React.useState(route.params?.from || "");
@@ -77,7 +78,7 @@ const Transfer = ({ navigation, route }) => {
       <View className="h-full">
          <NewScreen
             color="#0077FF"
-            text="How much?"
+            text={strings.howmuch}
             input={(value) => {
                setAmount(value);
             }}
@@ -92,7 +93,7 @@ const Transfer = ({ navigation, route }) => {
                   }}
                >
                   <DropdownPicker
-                     label="From"
+                     label={strings.from}
                      items={Object.values(userDb.accounts).map((account) => {
                         return {
                            value: account.id, label: account.name, disabled: account.id == to ? true : false,
@@ -139,7 +140,7 @@ const Transfer = ({ navigation, route }) => {
                   }}
                >
                   <DropdownPicker
-                     label="To"
+                     label={strings.to}
                      items={Object.values(userDb.accounts).map((account) => {
                         return {
                            value: account.id, label: account.name, disabled: account.id == from ? true : false,
@@ -156,7 +157,7 @@ const Transfer = ({ navigation, route }) => {
 
             {/* Description */}
             <Input
-               label="Description"
+               label={strings.description}
                textContentType="name"
                text
                value={description}
@@ -168,7 +169,7 @@ const Transfer = ({ navigation, route }) => {
 
             <MaterialButton
                onPress={handleAddAccount}
-               title="Continue"
+               title={strings.continue}
                titleColor="#FCFCFC"
                style={{
                   marginTop: Dimensions.get("window").width < 385 ? 24 : 36,
@@ -177,7 +178,7 @@ const Transfer = ({ navigation, route }) => {
          </NewScreen>
          <Modal
             visible={visible}
-            text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
+            text={`${strings.transactionsuccess} ${route.params ? strings.updated : strings.added} `}
          />
       </View>);
 };

@@ -15,6 +15,7 @@ import uuid from "react-native-uuid";
 import Modal from "../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
 import Dropdown from "../../components/Dropdown";
+import strings from "../../utils/Localization";
 
 const Income = ({ navigation, route }) => {
    const [category, setCategory] = React.useState(route.params?.category || "");
@@ -67,17 +68,20 @@ const Income = ({ navigation, route }) => {
    }, [visible]);
 
    const data = [
-      { label: "Salary", value: "Salary" },
-      { label: "Sales", value: "Sales" },
-      { label: "Scholarship", value: "Scholarship" },
-      { label: "Refunds", value: "Refunds" },
-      { label: "Prize or Award", value: "Prize or Award" },
-      { label: "Passive Income", value: "Passive Income" },
+      { label: strings.salary, value: "Salary" },
+      { label: strings.sales, value: "Sales" },
+      { label: strings.scholarship, value: "Scholarship" },
+      { label: strings.refunds, value: "Refunds" },
+      { label: strings.prizeoraward, value: "Prize or Award" },
+      { label: strings.passiveincome, value: "Passive Income" },
    ];
 
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
+         navigation.setOptions({
+            title: strings.income
+         })
       }, []),
    );
 
@@ -85,7 +89,7 @@ const Income = ({ navigation, route }) => {
       <View className="h-full">
          <NewScreen
             color="#00A86B"
-            text="How much?"
+            text={strings.howmuch}
             input={(value) => {
                setAmount(value);
             }}
@@ -98,7 +102,7 @@ const Income = ({ navigation, route }) => {
                }}
             >
                <Dropdown
-                  placeholder="Category"
+                  placeholder={strings.category}
                   data={data}
                   value={category}
                   onChange={(val) => {
@@ -109,7 +113,7 @@ const Income = ({ navigation, route }) => {
 
             {/* Description */}
             <Input
-               label="Description"
+               label={strings.description}
                textContentType="name"
                text
                value={description}
@@ -126,7 +130,7 @@ const Income = ({ navigation, route }) => {
                }}
             >
                <Dropdown
-                  placeholder="Account"
+                  placeholder={strings.account}
                   position='top'
                   data={Object.values(userDb.accounts).map((account) => {
                      return { value: account.id, label: account.name };
@@ -139,7 +143,7 @@ const Income = ({ navigation, route }) => {
             </View>
             <MaterialButton
                onPress={handleAddAccount}
-               title="Continue"
+               title={strings.continue}
                titleColor="#FCFCFC"
                style={{
                   marginTop: Dimensions.get("window").width < 385 ? 24 : 36,
@@ -148,7 +152,7 @@ const Income = ({ navigation, route }) => {
          </NewScreen>
          <Modal
             visible={visible}
-            text={`Transaction has been successfully ${route.params ? "updated" : "added"} `}
+            text={`${strings.transactionsuccess} ${route.params ? strings.updated : strings.added} `}
          />
       </View>
    );

@@ -1,8 +1,18 @@
-import { Text, View, ScrollView, Dimensions } from "react-native";
+import { Text, View, ScrollView, Dimensions, StatusBar } from "react-native";
 import React from "react";
 import strings from "../../../utils/Localization";
+import { useFocusEffect } from "@react-navigation/native";
 
-const Notification = () => {
+const Notification = ({navigation}) => {
+
+   useFocusEffect(
+      React.useCallback(() => {
+         navigation.setOptions({
+            title: strings.notification
+         })
+      }, []),
+   );
+
    return (
       <ScrollView className="bg-white">
          <View

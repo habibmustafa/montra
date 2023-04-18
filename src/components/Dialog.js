@@ -7,6 +7,7 @@ import { removeTransaction } from "../firebaseConfig/montraDB";
 import ActionSheet from "react-native-actions-sheet";
 import { logout } from "../firebaseConfig/auth";
 import { useSelector } from "react-redux";
+import strings from "../utils/Localization";
 
 const Dialog = React.forwardRef(({id, data, title, description, modalDescription = false }, ref) => {
    const navigation = useNavigation();
@@ -61,12 +62,12 @@ const Dialog = React.forwardRef(({id, data, title, description, modalDescription
                   <Text className="text-[#91919F] font-medium text-base text-center mb-6">{description}</Text>
                </View>
                <View className="flex-row justify-between w-full">
-                  <MaterialButton title="No" titleColor="#7F3DFF" color="#EEE5FF" style={{ width: "48%" }}
+                  <MaterialButton title={strings.no} titleColor="#7F3DFF" color="#EEE5FF" style={{ width: "48%" }}
                                   onPress={() => {
                                      ref.current?.hide();
                                   }}
                   />
-                  <MaterialButton title="Yes" titleColor="#fff" style={{ width: "48%" }} onPress={handleSubmit} />
+                  <MaterialButton title={strings.yes} titleColor="#fff" style={{ width: "48%" }} onPress={handleSubmit} />
                </View>
             </View>
          </ActionSheet>
