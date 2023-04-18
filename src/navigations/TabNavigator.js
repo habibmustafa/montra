@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screen/home/Home";
@@ -7,6 +7,7 @@ import Budget from "../screen/budget/Budget";
 import Profile from "../screen/profile/Profile";
 import AddButton from "../screen/operation/AddButton";
 import Svg, { Path } from "react-native-svg";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +16,7 @@ const getIconColor = (focused) => ({
 });
 
 const TabNavigator = () => {
+
    return (
       <Tab.Navigator
          initialRouteName="Home"

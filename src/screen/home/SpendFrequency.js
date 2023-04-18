@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { prettyPrint } from "../../prettyPrint";
 import Chart from "../../components/Chart";
 import { lastSpendFilter } from "../../utils/filter";
+import { l } from "../../localication";
 
 const SpendFrequency = () => {
    const [button, setButton] = useState({
       elements: [
-         { id: 1, label: "Short", value: 8 },
-         { id: 2, label: "Wide", value: 12 },
+         { id: 1, label: 'short', value: 8 },
+         { id: 2, label: 'wide', value: 12 },
       ],
       isActive: 1,
    });
@@ -33,7 +34,7 @@ const SpendFrequency = () => {
    return (
       <View>
          <Text className="px-4 font-semibold text-lg text-dark-100 mb-1">
-            Spend Frequency
+            {l('spendfrequency')}
          </Text>
 
          {/* Chart */}
@@ -60,7 +61,7 @@ const SpendFrequency = () => {
                         "font-bold text-yellow-100"
                      }`}
                   >
-                     {element.label}
+                     {l(element.label)}
                   </Text>
                </TouchableHighlight>
             ))}
@@ -69,4 +70,4 @@ const SpendFrequency = () => {
    );
 };
 
-export default memo(SpendFrequency);
+export default (SpendFrequency);

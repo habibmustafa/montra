@@ -151,6 +151,7 @@ export default function MainNavigator() {
                      options={{
                         animation: "slide_from_right",
                         headerRight: NotificationRight,
+                        headerTitle: l('notification')
                      }}
                   />
                   <Stack.Screen

@@ -3,7 +3,6 @@ import { store } from "../store";
 export const l = ( option ) => {
    const language = store.getState().local.language;
 
-   console.log("Language: ",language);
    let strings = {}
 
    if(language === "en") {
@@ -40,6 +39,19 @@ export const l = ( option ) => {
          errorpassword: `Enter a password of 6-16 characters`,
          errorname: `Enter a name of 3-16 letters [A-Z]-[a-z]`,
          incorrect: `Incorrect email or password`,
+         loading: `Loading`,
+         totalbalance: `Total Balance`,
+         income: `Income`,
+         expense: `Expense`,
+         spendfrequency: `Spend Frequency`,
+         short: `Short`,
+         wide: `Wide`,
+         recenttransactions: `Recent Transactions`,
+         seeall: `See All`,
+         notification: `Notification`,
+         nonotification: `There is no notification for now`,
+         markallread: `Mark all read`,
+         removeall: `Remove all`,
       }
    }
    else if (language === "az") {
@@ -76,6 +88,19 @@ export const l = ( option ) => {
          errorpassword: `6-16 simvoldan ibarət parol daxil edin`,
          errorname: `3-16 hərfdən ibarət ad daxil edin [A-Z]-[a-z]`,
          incorrect: `Yanlış e-poçt və ya parol`,
+         loading: `Gözləyin`,
+         totalbalance: `Toplam Balans`,
+         income: `Gəlir`,
+         expense: `Xərc`,
+         spendfrequency: `Xərcləmə Tezliyi`,
+         short: `Qısa`,
+         wide: `Geniş`,
+         recenttransactions: `Son Əməliyyatlar`,
+         seeall: `Hamısını gör`,
+         notification: `Bildirişlər`,
+         nonotification: `Hələlik bildiriş yoxdur`,
+         markallread: `Hamısını oxu`,
+         removeall: `Hamısını sil`,
       }
    }
 

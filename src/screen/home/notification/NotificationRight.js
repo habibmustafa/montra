@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableWithoutFeedback, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { Menu, Divider } from "react-native-paper";
+import { l } from "../../../localication";
 
 export default NotificationRight = () => {
    const [visible, setVisible] = React.useState(false);
@@ -51,7 +52,7 @@ export default NotificationRight = () => {
                onPress={() => {
                   closeMenu();
                }}
-               title="Mark all read"
+               title={l('markallread')}
             />
             <Divider style={{backgroundColor: '#91919F', opacity: 0.2, height: 1}} />
             <Menu.Item
@@ -59,7 +60,7 @@ export default NotificationRight = () => {
                onPress={() => {
                   closeMenu();
                }}
-               title="Remove all"
+               title={l('removeall')}
             />
          </View>
       </Menu>

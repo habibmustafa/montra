@@ -18,15 +18,9 @@ import RecentTransaction from "./RecentTransaction";
 import Amount from "./Amount";
 import { useFocusEffect } from "@react-navigation/native";
 import {PermissionsAndroid} from 'react-native';
+import { l } from "../../localication";
 
-function getMonthName(monthNumber) {
-   const date = new Date();
-   date.setMonth(monthNumber - 1);
 
-   return date.toLocaleString("en-US", {
-      month: "long",
-   });
-}
 
 const Home = ({ navigation }) => {
    const [modal, setModal] = useState(false);
@@ -34,7 +28,17 @@ const Home = ({ navigation }) => {
       new Date().toISOString().slice(0, 7).split("-").join(" ")
    );
    const { userDb } = useSelector((state) => state.user);
-   const { user } = useSelector((state) => state.local);
+   const { user, language } = useSelector((state) => state.local);
+
+   function getMonthName(monthNumber) {
+      const date = new Date();
+      date.setMonth(monthNumber - 1);
+
+      const monthName = date.toLocaleString(language, {
+         month: "long",
+      })
+      return monthName.charAt(0).toUpperCase() + monthName.slice(1).toLowerCase();
+   }
 
    useFocusEffect(
       React.useCallback(() => {
@@ -67,7 +71,7 @@ const Home = ({ navigation }) => {
       return (
          <View className="h-full pb-[70px] bg-[#F7F7F7] justify-center items-center flex-row gap-x-2">
             <ActivityIndicator animating={true} color="#7F3DFF" size="small" />
-            <Text className="text-base">Loading</Text>
+            <Text className="text-base">{l('loading')}</Text>
          </View>
       );
    } else
@@ -164,6 +168,7 @@ const Home = ({ navigation }) => {
                         }}
                      >
                         <DatePicker
+                           language={language}
                            mode="monthYear"
                            minimumDate={new Date(
                               JSON.parse(user).metadata.creationTime
