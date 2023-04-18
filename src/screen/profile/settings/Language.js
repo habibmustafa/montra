@@ -3,7 +3,6 @@ import { Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../../store/localSlice";
-import { l } from "../../../localication";
 
 const Language = () => {
    const { language } = useSelector(state => state.local)

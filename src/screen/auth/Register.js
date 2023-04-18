@@ -29,19 +29,19 @@ const Register = ({ navigation }) => {
          validate={(values) => {
             const errors = {};
             if (!values.name) {
-               errors.name = "Required";
+               errors.name = l('required');
             } else if (!/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(values.name.trim())) {
-               errors.name = "Enter a name of 3-16 letters [A-Z]-[a-z]";
+               errors.name = l('errorname');
             }
             if (!values.email) {
-               errors.email = "Required";
+               errors.email = l('required');
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email.trim())) {
-               errors.email = "Enter a valid email address";
+               errors.email = l('erroremail');
             }
             if (!values.password) {
-               errors.password = "Required";
+               errors.password = l('required');
             } else if (!/^.{6,16}$/.test(values.password)) {
-               errors.password = "Enter a password of 6-16 characters";
+               errors.password = l('errorpassword');
             }
 
             if (!values.checked) {

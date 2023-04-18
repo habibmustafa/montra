@@ -21,8 +21,8 @@ const Login = ({ navigation }) => {
                   resetForm();
                } else {
                   setErrors({
-                     email: "Incorrect email or password",
-                     password: "Incorrect email or password",
+                     email: l('incorrect'),
+                     password: l('incorrect'),
                   });
                }
             }}
@@ -30,16 +30,16 @@ const Login = ({ navigation }) => {
             validate={(values) => {
                const errors = {};
                if (!values.email) {
-                  errors.email = "Required";
+                  errors.email = l('required');
                } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                ) {
-                  errors.email = "Enter a valid email address";
+                  errors.email = l('erroremail');
                }
                if (!values.password) {
-                  errors.password = "Required";
+                  errors.password = l('required');
                } else if (!/^.{6,16}$/.test(values.password)) {
-                  errors.password = "Enter a password of 6-16 characters";
+                  errors.password = l('errorpassword');
                }
 
                return errors;

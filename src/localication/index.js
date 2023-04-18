@@ -35,9 +35,14 @@ export const l = ( option ) => {
          enterpin: `Enter PIN`,
          mismatchedpin: `The entered PINs do not match. Please try again`,
          incorrectpin: `PIN code is incorrect`,
+         required: `Required`,
+         erroremail: `Enter a valid email address`,
+         errorpassword: `Enter a password of 6-16 characters`,
+         errorname: `Enter a name of 3-16 letters [A-Z]-[a-z]`,
+         incorrect: `Incorrect email or password`,
       }
    }
-   else if (language === "en") {
+   else if (language === "az") {
       strings = {
          onboarding1title: `Pulunuza tam\nnəzarət edin`,
          onboarding1text: `Öz pul meneceriniz olun və hər\nqəpiyin hesabını yaradın`,
@@ -56,7 +61,7 @@ export const l = ( option ) => {
          name: `Ad`,
          termsofservices1: `Qeydiyyatdan keçməklə siz`,
          termsofservices2: `Xidmət Şərtləri və Məxfilik Siyasəti ilə razılaşırsınız`,
-         dontworry: `Narahat olmayın. E-poçtunuzu daxil edin və biz sizə parolunuzu sıfırlamaq üçün link göndərəcəyik.`,
+         dontworry: `Narahat olmayın.\nE-poçtunuzu daxil edin və biz sizə parolunuzu sıfırlamaq üçün link göndərəcəyik.`,
          continue: `Davam et`,
          emailway: `E-poçtunuz yoldadır`,
          emailwaytext: `test@test.com e-poçtunuzu yoxlayın və parolunuzu sıfırlamaq üçün təlimatlara əməl edin`,
@@ -66,6 +71,11 @@ export const l = ( option ) => {
          enterpin: `PIN kodu daxil edin`,
          mismatchedpin: `Daxil edilmiş PIN-lər uyğun gəlmir. Zəhmət olmasa bir daha cəhd edin`,
          incorrectpin: `PIN kodu səhvdir`,
+         required: `Zəruri`,
+         erroremail: `Etibarlı e-poçt ünvanı daxil edin`,
+         errorpassword: `6-16 simvoldan ibarət parol daxil edin`,
+         errorname: `3-16 hərfdən ibarət ad daxil edin [A-Z]-[a-z]`,
+         incorrect: `Yanlış e-poçt və ya parol`,
       }
    }
 
