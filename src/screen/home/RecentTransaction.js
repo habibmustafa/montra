@@ -57,4 +57,4 @@ const RecentTransaction = () => {
    );
 };
 
-export default memo(RecentTransaction);
+export default (RecentTransaction);
