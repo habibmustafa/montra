@@ -5,10 +5,9 @@ import { Checkbox } from "react-native-paper";
 import MaterialButton from "../../components/MaterialButton";
 import { register, signInWithGoogle } from "../../firebaseConfig/auth";
 import { Formik } from "formik";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const Register = ({ navigation }) => {
-   const [checked, setChecked] = useState(false);
 
    return (<ScrollView keyboardShouldPersistTaps="handled" className="px-4 bg-white h-full">
       {/* Inputs */}
@@ -29,19 +28,19 @@ const Register = ({ navigation }) => {
          validate={(values) => {
             const errors = {};
             if (!values.name) {
-               errors.name = l('required');
+               errors.name = strings.required;
             } else if (!/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(values.name.trim())) {
-               errors.name = l('errorname');
+               errors.name = strings.errorname;
             }
             if (!values.email) {
-               errors.email = l('required');
+               errors.email = strings.required;
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email.trim())) {
-               errors.email = l('erroremail');
+               errors.email = strings.erroremail;
             }
             if (!values.password) {
-               errors.password = l('required');
+               errors.password = strings.required;
             } else if (!/^.{6,16}$/.test(values.password)) {
-               errors.password = l('errorpassword');
+               errors.password = strings.errorpassword;
             }
 
             if (!values.checked) {
@@ -54,7 +53,7 @@ const Register = ({ navigation }) => {
          {({ handleSubmit, setFieldValue, handleChange, handleBlur, values, errors }) => (
             <View className="inputs pt-14 mini:pt-8">
                <Input
-                  label={l('name')}
+                  label={strings.name}
                   textContentType="name"
                   value={values.name}
                   onChangeText={handleChange("name")}
@@ -71,7 +70,7 @@ const Register = ({ navigation }) => {
                   error={errors.email}
                />
                <Input
-                  label={l('password')}
+                  label={strings.password}
                   textContentType="password"
                   style={{ marginTop: Dimensions.get("window").width < 385 ? 20 : 24 }}
                   value={values.password}
@@ -92,18 +91,18 @@ const Register = ({ navigation }) => {
                      }}
                   />
                   <Text className="ml-2.5 mr-4 text-sm font-medium mini:text-[13px]">
-                     {l('termsofservices1')}{" "}
+                     {strings.termsofservices1}{" "}
                      <Text onPress={async () => {
                         await Linking.openURL("https://habibmustafa.netlify.app/");
                      }} className="text-[#7F3DFF]">
-                        {l('termsofservices2')}
+                        {strings.termsofservices2}
                      </Text>
                   </Text>
                </View>
 
                <MaterialButton
                   onPress={handleSubmit}
-                  title={l('signup')}
+                  title={strings.signup}
                   titleColor="#fff"
                />
             </View>)}
@@ -112,14 +111,14 @@ const Register = ({ navigation }) => {
       {/* Sign up with Google */}
       <View>
          <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
-            {l('orwith')}
+            {strings.orwith}
          </Text>
          <MaterialButton
             leading={<Image
                style={{ width: 32, height: 32 }}
                source={require("../../assets/google.png")}
             />}
-            title={l('signupwithgoogle')}
+            title={strings.signupwithgoogle}
             titleColor="#212325"
             color="#fff"
             style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
@@ -128,14 +127,14 @@ const Register = ({ navigation }) => {
             }}
          />
          <Text className="font-medium text-base text-light-20 text-center mt-8 mb-6 mini:mt-6 mini:text-sm mini:mb-6">
-            {l('haveaccount')}{" "}
+            {strings.haveaccount}{" "}
             <Text
                onPress={() => {
                   navigation.navigate("Login");
                }}
                className="underline text-violet-100"
             >
-               {l('login')}
+               {strings.login}
             </Text>
          </Text>
       </View>

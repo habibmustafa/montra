@@ -1,10 +1,9 @@
-import React, { memo, useState } from "react";
+import { useState } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
-import { prettyPrint } from "../../prettyPrint";
 import Chart from "../../components/Chart";
 import { lastSpendFilter } from "../../utils/filter";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const SpendFrequency = () => {
    const [button, setButton] = useState({
@@ -34,7 +33,7 @@ const SpendFrequency = () => {
    return (
       <View>
          <Text className="px-4 font-semibold text-lg text-dark-100 mb-1">
-            {l('spendfrequency')}
+            {strings.spendfrequency}
          </Text>
 
          {/* Chart */}
@@ -61,7 +60,7 @@ const SpendFrequency = () => {
                         "font-bold text-yellow-100"
                      }`}
                   >
-                     {l(element.label)}
+                     {strings[element.label]}
                   </Text>
                </TouchableHighlight>
             ))}

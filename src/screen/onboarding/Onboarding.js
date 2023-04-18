@@ -10,7 +10,7 @@ import {
 import Swiper from "react-native-swiper";
 import MaterialButton from "../../components/MaterialButton";
 import { useFocusEffect } from "@react-navigation/native";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const Onboarding = ({ navigation }) => {
    const beforeRemove = (e) => {
@@ -52,10 +52,10 @@ const Onboarding = ({ navigation }) => {
                      source={require("../../assets/onboarding1.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
-                     {l("onboarding1title")}
+                     {strings.onboarding1title}
                   </Text>
                   <Text className="font-medium text-base text-center text-light-20 mini:text-sm">
-                     {l("onboarding1text")}
+                     {strings.onboarding1text}
                   </Text>
                </View>
                <View>
@@ -64,10 +64,10 @@ const Onboarding = ({ navigation }) => {
                      source={require("../../assets/onboarding2.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
-                     {l("onboarding2title")}
+                     {strings.onboarding2title}
                   </Text>
                   <Text className="font-medium text-base text-center text-light-20 mini:text-sm">
-                     {l("onboarding2text")}
+                     {strings.onboarding2text}
                   </Text>
                </View>
                <View>
@@ -76,17 +76,17 @@ const Onboarding = ({ navigation }) => {
                      source={require("../../assets/onboarding3.png")}
                   />
                   <Text className="font-bold text-[32px] mb-4 text-dark-50 text-center mini:text-2xl mini:mb-2.5">
-                     {l("onboarding3title")}
+                     {strings.onboarding3title}
                   </Text>
                   <Text className="font-medium text-base text-center text-light-20 mini:text-sm">
-                     {l("onboarding3text")}
+                     {strings.onboarding3text}
                   </Text>
                </View>
             </Swiper>
          </View>
          <View className="buttons mb-5 justify-between mini:mb-4">
             <MaterialButton
-               title={l("signup")}
+               title={strings.signup}
                size={18}
                style={{ marginBottom: 16 }}
                titleColor="#fff"
@@ -95,7 +95,7 @@ const Onboarding = ({ navigation }) => {
                }}
             />
             <MaterialButton
-               title={l("login")}
+               title={strings.login}
                size={18}
                color="#EEE5FF"
                titleColor="#7F3DFF"

@@ -1,6 +1,6 @@
-import { Text, View, StatusBar, ScrollView, Dimensions } from "react-native";
+import { Text, View, ScrollView, Dimensions } from "react-native";
 import React from "react";
-import { l } from "../../../localication";
+import strings from "../../../utils/Localization";
 
 const Notification = () => {
    return (
@@ -9,7 +9,7 @@ const Notification = () => {
             style={{ height: Dimensions.get("screen").height - 160 }}
             className="justify-center items-center"
          >
-            <Text className="font-medium text-sm text-light-20">{l('nonotification')}</Text>
+            <Text className="font-medium text-sm text-light-20">{strings.nonotification}</Text>
          </View>
       </ScrollView>
    );

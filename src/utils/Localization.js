@@ -1,12 +1,8 @@
 import { store } from "../store";
+import LocalizedStrings from "react-native-localization";
 
-export const l = ( option ) => {
-   const language = store.getState().local.language;
-
-   let strings = {}
-
-   if(language === "en") {
-      strings = {
+let strings = new LocalizedStrings({
+      en: {
          onboarding1title: `Gain total control\nof your money`,
          onboarding1text: `Become your own money manager\nand make every cent count`,
          onboarding2title: `Know where your\nmoney goes`,
@@ -52,10 +48,24 @@ export const l = ( option ) => {
          nonotification: `There is no notification for now`,
          markallread: `Mark all read`,
          removeall: `Remove all`,
-      }
-   }
-   else if (language === "az") {
-      strings = {
+         foodanddrink: `Food and Drink`,
+         transportation: `Transportation`,
+         shopping: `Shopping`,
+         entertainment: `Entertainment`,
+         personalcareandhealth: `Personal care and Health`,
+         housing: `Housing`,
+         creditanddept: `Credit and Dept`,
+         education: `Education`,
+         savingsandinvestments: `Savings and Investments`,
+         salary: `Salary`,
+         sales: `Sales`,
+         scholarship: `Scholarship`,
+         refunds: `Refunds`,
+         prizeoraward: `Prize or Award`,
+         passiveincome: `Passive Income`,
+         transfer: `Transfer`,
+      },
+      az: {
          onboarding1title: `Pulunuza tam\nnəzarət edin`,
          onboarding1text: `Öz pul meneceriniz olun və hər\nqəpiyin hesabını yaradın`,
          onboarding2title: `Pulunuzun hara\ngetdiyini bilin`,
@@ -101,9 +111,26 @@ export const l = ( option ) => {
          nonotification: `Hələlik bildiriş yoxdur`,
          markallread: `Hamısını oxu`,
          removeall: `Hamısını sil`,
+         foodanddrink: `Qida və içki`,
+         transportation: `Nəqliyyat`,
+         shopping: `Alış-veriş`,
+         entertainment: `Əyləncə`,
+         personalcareandhealth: `Şəxsi qayğı və Sağlamlıq`,
+         housing: `Mənzil`,
+         creditanddebt: `Kredit və borc`,
+         education: `Təhsil`,
+         savingsandinvestments: `Əmanətlər və İnvestisiyalar`,
+         salary: `Maaş`,
+         sales: `Satış`,
+         scholarship: `Təqaüd`,
+         refunds: `Geri ödənişlər`,
+         prizeoraward: `Hədiyyə və ya Mükafat`,
+         passiveincome: `Passiv gəlir`,
+         transfer: `Transfer`,
       }
-   }
+   },
+);
 
-   return strings[option];
-}
+export default strings;
+
 

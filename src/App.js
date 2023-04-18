@@ -10,11 +10,12 @@ import NetInfo from "@react-native-community/netinfo";
 import { ToastProvider } from "react-native-toast-notifications";
 import { Alert, Dimensions, StatusBar, Text, View } from "react-native";
 import messaging from "@react-native-firebase/messaging";
+import strings from "./utils/Localization";
 
 export default function App() {
    const dispatch = useDispatch();
 
-   let { isLoggedIn, user } = useSelector((state) => state.local);
+   let { isLoggedIn, user, language } = useSelector((state) => state.local);
 
    user = JSON.parse(user);
 
@@ -32,6 +33,7 @@ export default function App() {
    }, [isLoggedIn]);
 
    useEffect(() => {
+      strings.setLanguage(language);
       SplashScreen.hide();
       const unsubscribe = NetInfo.addEventListener(async state => {
          console.log("Connection type", state.type);
@@ -46,7 +48,6 @@ export default function App() {
       messaging().onMessage(async remoteMessage => {
          Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
       });
-
       return () => {
          unsubscribe();
       };

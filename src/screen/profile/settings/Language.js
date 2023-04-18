@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, TouchableNativeFeedback, View } from "react-native";
+import { Alert, Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../../store/localSlice";
+import strings from "../../../utils/Localization";
 
 const Language = () => {
    const { language } = useSelector(state => state.local)
@@ -24,6 +25,7 @@ const Language = () => {
                onPress={() => {
                   setData({ ...data, isActive: item.key });
                   dispatch(setLanguage(item.key))
+                  strings.setLanguage(item.key);
                }}>
                <View className="flex-row items-center justify-between h-14 px-4 ">
                   <Text className="font-medium text-sm text-dark-100">{item.name}</Text>

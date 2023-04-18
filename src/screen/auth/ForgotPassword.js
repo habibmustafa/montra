@@ -4,7 +4,7 @@ import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { Formik } from "formik";
 import { passwordReset } from "../../firebaseConfig/auth";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const ForgotPassword = ({ navigation }) => {
 
@@ -13,7 +13,7 @@ const ForgotPassword = ({ navigation }) => {
          {/* Text */}
          <View className="pt-16 mini:pt-10">
             <Text className="font-semibold text-[28px] text-dark-25 mini:text-xl">
-               {l('dontworry')}
+               {strings.dontworry}
             </Text>
          </View>
 
@@ -31,11 +31,11 @@ const ForgotPassword = ({ navigation }) => {
             validate={(values) => {
                const errors = {};
                if (!values.email) {
-                  errors.email = l('required');
+                  errors.email = strings.required;
                } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                ) {
-                  errors.email = l('erroremail');
+                  errors.email = strings.erroremail;
                }
                return errors;
             }}
@@ -54,7 +54,7 @@ const ForgotPassword = ({ navigation }) => {
                   <View className="mt-12 mini:mt-10">
                      <MaterialButton
                         onPress={handleSubmit}
-                        title={l("continue")}
+                        title={strings.continue}
                         titleColor="#fff"
                      />
                   </View>

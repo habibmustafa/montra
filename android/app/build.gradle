@@ -39,7 +39,7 @@ react {
     //   The name of the generated asset file containing your JS bundle
     // bundleAssetName = "MyApplication.android.bundle"
     //
-    //   The entry file for bundle generation. Default is 'index.android.js' or 'index.js'
+    //   The entry file for bundle generation. Default is 'index.android.js' or 'Localization.js'
     // entryFile = file("../js/MyApplication.android.js")
     //
     //   A list of extra flags to pass to the 'bundle' commands.
@@ -158,6 +158,8 @@ dependencies {
     implementation project(':react-native-linear-gradient')
     implementation project(path: ":@react-native-firebase_messaging")
     implementation project(':react-native-vector-icons')
+    implementation project(':react-native-restart')
+    implementation project(':react-native-localization')
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 

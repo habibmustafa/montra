@@ -14,7 +14,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.List;
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
-
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -33,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           new LinearGradientPackage();
           new ReactNativeFirebaseMessagingPackage();
           new VectorIconsPackage();
+          new ReactNativeLocalizationPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;

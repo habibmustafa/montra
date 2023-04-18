@@ -1,9 +1,8 @@
-import React from "react";
 import { View, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
 import { transactionsBalanceFilter } from "../../utils/filter";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const Amount = ({ month, year }) => {
    const { transactions, userDb } = useSelector(
@@ -15,7 +14,7 @@ const Amount = ({ month, year }) => {
          {/* total */}
          <View className="items-center mb-8">
             <Text className="font-medium text-sm text-light-20 mb-2.5">
-               {l('totalbalance')}
+               {strings.totalbalance}
             </Text>
             <Text className="font-semibold text-[40px] text-dark-75">
                ₼
@@ -55,7 +54,7 @@ const Amount = ({ month, year }) => {
                {/* text */}
                <View className="items-start">
                   <Text className="font-medium text-sm text-light-80">
-                     {l('income')}
+                     {strings.income}
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
                      ₼
@@ -99,7 +98,7 @@ const Amount = ({ month, year }) => {
                {/* text */}
                <View className="items-start">
                   <Text className="font-medium text-sm text-light-80">
-                     {l('expense')}
+                     {strings.expense}
                   </Text>
                   <Text className="font-semibold text-[22px] text-light-80">
                      ₼

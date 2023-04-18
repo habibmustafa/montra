@@ -28,7 +28,7 @@ import NotificationSettings from "../screen/profile/settings/NotificationSetting
 import ExportData from "../screen/profile/exportData/ExportData";
 import ReportIntro from "../screen/financial_report/ReportIntro";
 import FinancialReport from "../screen/financial_report/FinancialReport";
-import { l } from "../localication";
+import strings from "../utils/Localization"
 
 export default function MainNavigator() {
    // Router stack
@@ -37,6 +37,7 @@ export default function MainNavigator() {
    const { isLoggedIn } = useSelector((state) => state.local);
 
    console.log("IsLoggedIn: ", isLoggedIn);
+
 
    return (
       <NavigationContainer>
@@ -151,7 +152,7 @@ export default function MainNavigator() {
                      options={{
                         animation: "slide_from_right",
                         headerRight: NotificationRight,
-                        headerTitle: l('notification')
+                        headerTitle: strings.notification
                      }}
                   />
                   <Stack.Screen
@@ -212,21 +213,21 @@ export default function MainNavigator() {
                      name="Register"
                      component={Register}
                      options={{
-                        headerTitle: l('signup'),
+                        headerTitle: strings.signup,
                      }}
                   />
                   <Stack.Screen
                      name="Login"
                      component={Login}
                      options={{
-                        headerTitle: l('login'),
+                        headerTitle: strings.login,
                      }}
                   />
                   <Stack.Screen
                      name="ForgotPassword"
                      component={ForgotPassword}
                      options={{
-                        headerTitle: l('forgotpassword'),
+                        headerTitle: strings.forgotpassword,
                      }}
                   />
                   <Stack.Screen

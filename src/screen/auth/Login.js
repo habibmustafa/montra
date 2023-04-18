@@ -5,7 +5,7 @@ import Input from "../../components/Input";
 import MaterialButton from "../../components/MaterialButton";
 import { login } from "../../firebaseConfig/auth";
 import { signInWithGoogle } from "../../firebaseConfig/auth";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const Login = ({ navigation }) => {
 
@@ -21,8 +21,8 @@ const Login = ({ navigation }) => {
                   resetForm();
                } else {
                   setErrors({
-                     email: l('incorrect'),
-                     password: l('incorrect'),
+                     email: strings.incorrect,
+                     password: strings.incorrect,
                   });
                }
             }}
@@ -30,16 +30,16 @@ const Login = ({ navigation }) => {
             validate={(values) => {
                const errors = {};
                if (!values.email) {
-                  errors.email = l('required');
+                  errors.email = strings.required;
                } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                ) {
-                  errors.email = l('erroremail');
+                  errors.email = strings.erroremail;
                }
                if (!values.password) {
-                  errors.password = l('required');
+                  errors.password = strings.required;
                } else if (!/^.{6,16}$/.test(values.password)) {
-                  errors.password = l('errorpassword');
+                  errors.password = strings.errorpassword;
                }
 
                return errors;
@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
                      error={errors.email}
                   />
                   <Input
-                     label={l('password')}
+                     label={strings.password}
                      textContentType="password"
                      style={{
                         marginTop:
@@ -70,7 +70,7 @@ const Login = ({ navigation }) => {
                   />
                   <MaterialButton
                      onPress={handleSubmit}
-                     title={l("login")}
+                     title={strings.login}
                      titleColor="#fff"
                      style={{
                         marginTop:
@@ -80,7 +80,7 @@ const Login = ({ navigation }) => {
 
                   {/* Google */}
                   <Text className="my-4 text-center font-bold text-light-20 mini:text-xs">
-                     {l("orwith")}
+                     {strings.orwith}
                   </Text>
                   <MaterialButton
                      leading={
@@ -89,7 +89,7 @@ const Login = ({ navigation }) => {
                            source={require("../../assets/google.png")}
                         />
                      }
-                     title={l('signupwithgoogle')}
+                     title={strings.signupwithgoogle}
                      titleColor="#212325"
                      color="#fff"
                      style={{ borderWidth: 1, borderColor: "#F1F1FA" }}
@@ -110,17 +110,17 @@ const Login = ({ navigation }) => {
                }}
                className="my-10 text-center font-semibold text-lg text-violet-100 mini:my-8 mini:text-base"
             >
-               {l("forgotpassword")}?
+               {strings.forgotpassword}?
             </Text>
             <Text className="font-medium text-base text-light-20 text-center mini:text-sm">
-               {l("dontaccount")}{" "}
+               {strings.dontaccount}{" "}
                <Text
                   onPress={() => {
                      navigation.navigate("Register");
                   }}
                   className="underline text-violet-100"
                >
-                  {l("signup")}
+                  {strings.signup}
                </Text>
             </Text>
          </View>

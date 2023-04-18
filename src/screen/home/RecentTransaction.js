@@ -1,9 +1,8 @@
-import React, { memo } from "react";
 import { View, Text, TouchableHighlight } from "react-native";
 import TransactionItem from "../../components/TransactionItem";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const date = (params = new Date().getTime()) => {
    const dateTime = new Date(params).getDate();
@@ -19,7 +18,7 @@ const RecentTransaction = () => {
          {/* header */}
          <View className="flex-row justify-between mb-3">
             <Text className="font-semibold text-lg text-dark-25">
-               {l('recenttransactions')}
+               {strings.recenttransactions}
             </Text>
             <TouchableHighlight
                activeOpacity={0.99}
@@ -30,7 +29,7 @@ const RecentTransaction = () => {
                }}
                className="px-4 py-2 bg-violet-20 rounded-[40px]"
             >
-               <Text className="font-medium text-violet-100">{l('seeall')}</Text>
+               <Text className="font-medium text-violet-100">{strings.seeall}</Text>
             </TouchableHighlight>
          </View>
 

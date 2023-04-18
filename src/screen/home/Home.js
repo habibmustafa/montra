@@ -18,7 +18,7 @@ import RecentTransaction from "./RecentTransaction";
 import Amount from "./Amount";
 import { useFocusEffect } from "@react-navigation/native";
 import {PermissionsAndroid} from 'react-native';
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 
 
@@ -71,7 +71,7 @@ const Home = ({ navigation }) => {
       return (
          <View className="h-full pb-[70px] bg-[#F7F7F7] justify-center items-center flex-row gap-x-2">
             <ActivityIndicator animating={true} color="#7F3DFF" size="small" />
-            <Text className="text-base">{l('loading')}</Text>
+            <Text className="text-base">{strings.loading}</Text>
          </View>
       );
    } else

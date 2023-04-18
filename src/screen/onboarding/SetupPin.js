@@ -7,7 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from "react-redux";
 import { setPin } from "../../store/localSlice";
 import { useFocusEffect } from "@react-navigation/native";
-import { l } from "../../localication";
+import strings from "../../utils/Localization";
 
 const SetupPin = ({ navigation }) => {
    const [enteredPin, setEnteredPin] = useState("");
@@ -41,7 +41,7 @@ const SetupPin = ({ navigation }) => {
                      }
                   } else {
                      setRegisterPin("");
-                     toast.show(l("mismatchedpin"));
+                     toast.show(strings.mismatchedpin);
                   }
                }
             } else {
@@ -52,7 +52,7 @@ const SetupPin = ({ navigation }) => {
                      navigation.navigate("Tab");
                   }
                } else {
-                  toast.show(l("incorrectpin"));
+                  toast.show(strings.incorrectpin);
                }
             }
             setEnteredPin("");
@@ -76,9 +76,9 @@ const SetupPin = ({ navigation }) => {
       <>
          <View className="bg-violet-100 flex-1 items-center" style={{ paddingTop: StatusBar.currentHeight }}>
             <Text className="pt-20 pb-16 text-light-100 font-semibold text-xl mini:pt-12 mini:pb-12 mini:text-lg">
-               {!pin && !registerPin && l("setuppin")}
-               {registerPin && l("resetuppin")}
-               {pin && l("enterpin")}
+               {!pin && !registerPin && strings.setuppin}
+               {registerPin && strings.resetuppin}
+               {pin && strings.enterpin}
             </Text>
 
             {/* Input */}

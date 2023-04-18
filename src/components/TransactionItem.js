@@ -4,7 +4,7 @@ import { View, Text, TouchableHighlight } from "react-native";
 import SvgIcons from "../utils/SvgIcons";
 
 const TransactionItem = (props) => {
-   const {category, description, type, amount, timestamp, id} = props
+   const {category, description, type, amount, timestamp} = props
 
    const colors = {
       "Food and Drink": "bg-red-20",
@@ -13,7 +13,7 @@ const TransactionItem = (props) => {
       "Entertainment": 'bg-yellow-20',
       "Personal care and Health": 'bg-blue-20',
       "Housing": 'bg-violet-20',
-      "Credit and Dept": 'bg-red-20',
+      "Credit and Debt": 'bg-red-20',
       "Education": 'bg-blue-20',
       "Savings and Investments": 'bg-green-20',
       "Salary": 'bg-green-20',
@@ -44,7 +44,7 @@ const TransactionItem = (props) => {
             {/* Content */}
             <View className="flex-1">
                <Text className="font-semibold text-base text-dark-25 mb-3">
-                  {category}
+                  {/*{l(category.replace(/\s+/g, "").toLowerCase())}*/}
                </Text>
                <Text className="font-medium text-[13px] text-light-20">
                   {description}
