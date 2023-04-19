@@ -14,6 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import Dialog from "../../components/Dialog";
 import { useToast } from "react-native-toast-notifications";
 import { setUser } from "../../store/localSlice";
+import strings from "../../utils/Localization";
 
 const Profile = ({ navigation }) => {
    const actionSheetRef = useRef(null);
@@ -39,7 +40,7 @@ const Profile = ({ navigation }) => {
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
             <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />
             <View className="flex-1 ml-5">
-               <Text className="font-medium text-sm text-light-20">Username</Text>
+               <Text className="font-medium text-sm text-light-20">{strings.username}</Text>
                {!activeInput ? (
                   <Text className="font-semibold text-2xl text-dark-75">
                      {user.displayName}
@@ -48,7 +49,7 @@ const Profile = ({ navigation }) => {
                   <TextInput
                      value={username}
                      autoFocus={true}
-                     
+
                      onChangeText={(val) => {
                         setUsername(val);
                      }}
@@ -105,14 +106,14 @@ const Profile = ({ navigation }) => {
                   }}
                   onPress={async () => {
                      if (!/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(username.trim())) {
-                        toast.show("Enter a name of 3-16 letters [A-Z]-[a-z]");
+                        toast.show(strings.errorname);
                      } else if (username === user.displayName) {
                         setActiveInput(false);
                      } else {
                         await updateUsername(username);
                         dispatch(setUser({ ...user, displayName: username }));
                         setActiveInput(false);
-                        toast.show("Username has been successfully updated", {
+                        toast.show(strings.usernameupdated, {
                            type: "success",
                         });
                      }
@@ -165,7 +166,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">Account</Text>
+                  <Text className="font-medium text-base text-dark-25">{strings.account}</Text>
                </View>
             </TouchableHighlight>
 
@@ -199,7 +200,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">Settings</Text>
+                  <Text className="font-medium text-base text-dark-25">{strings.settings}</Text>
                </View>
             </TouchableHighlight>
 
@@ -247,7 +248,7 @@ const Profile = ({ navigation }) => {
 
                   {/* text */}
                   <Text className="font-medium text-base text-dark-25">
-                     Export Data
+                     {strings.exportdata}
                   </Text>
                </View>
             </TouchableHighlight>
@@ -295,7 +296,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">Logout</Text>
+                  <Text className="font-medium text-base text-dark-25">{strings.logout}</Text>
                </View>
             </TouchableHighlight>
          </View>
@@ -304,8 +305,8 @@ const Profile = ({ navigation }) => {
          <Dialog
             ref={actionSheetRef}
             id="logout"
-            title="Logout?"
-            description={`Are you sure do you wanna logout?`}
+            title={`${strings.logout}?`}
+            description={strings.logoutdescription}
          />
       </View>
    );

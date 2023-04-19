@@ -78,7 +78,6 @@ export default function MainNavigator() {
                      name="AddAccount"
                      component={AddAccount}
                      options={{
-                        headerTitle: "Add new account",
                         headerStyle: { backgroundColor: "#7F3DFF" },
                         headerTintColor: "#FFF",
                      }}
@@ -93,23 +92,15 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="Account"
                      component={Account}
-                     options={{
-                        // animation: "fade_from_bottom",
-                     }}
                   />
                   <Stack.Screen
                      name="DetailAccount"
                      component={DetailAccount}
-                     options={{
-                        headerTitle: "Detail account",
-                        // animation: "fade_from_bottom",
-                     }}
                   />
                   <Stack.Screen
                      name="EditAccount"
                      component={EditAccount}
                      options={{
-                        headerTitle: "Edit account",
                         headerStyle: { backgroundColor: "#7F3DFF" },
                         headerTintColor: "#FFF",
                      }}

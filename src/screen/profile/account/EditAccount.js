@@ -16,6 +16,7 @@ import Svg, { Path } from "react-native-svg";
 import Modal from "../../../components/Modal";
 import { useFocusEffect } from "@react-navigation/native";
 import Dropdown from "../../../components/Dropdown";
+import strings from "../../../utils/Localization";
 
 export const EditAccountRight = () => {
    return (
@@ -85,12 +86,12 @@ const EditAccount = ({ navigation, route }) => {
    }, [visible]);
 
    const items = [
-      { label: "Cash", value: "Cash" },
-      { label: "Credit card", value: "Credit card" },
-      { label: "Savings", value: "Savings" },
-      { label: "Investment", value: "Investment" },
-      { label: "Business", value: "Business" },
-      { label: "Other/miscellaneous", value: "Other/miscellaneous" },
+      { label: strings.cash, value: "Cash" },
+      { label: strings.creditcard, value: "Credit card" },
+      { label: strings.savings, value: "Savings" },
+      { label: strings.investment, value: "Investment" },
+      { label: strings.business, value: "Business" },
+      { label: strings.othermiscellaneous, value: "Other/miscellaneous" },
    ];
 
    React.useLayoutEffect(() => {
@@ -102,21 +103,25 @@ const EditAccount = ({ navigation, route }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
+         navigation.setOptions({
+            title: strings.editaccount
+         })
       }, []),
    );
 
    return (
       <View className="h-full bg-red-20">
          <NewScreen
+            editable={false}
             color="#7F3DFF"
-            text="Balance"
+            text={strings.balance}
             input={(value) => {
                setAmount(value);
             }}
             value={route.params.props.balance.toFixed(2).toString()}
          >
             <Input
-               label="Name"
+               label={strings.name}
                textContentType="name"
                value={name}
                text
@@ -134,7 +139,7 @@ const EditAccount = ({ navigation, route }) => {
                }}
             >
                <Dropdown
-                  placeholder="Account Type"
+                  placeholder={strings.accounttype}
                   position="top"
                   data={items}
                   value={selectedList}
@@ -155,7 +160,7 @@ const EditAccount = ({ navigation, route }) => {
 
          <Modal
             visible={visible}
-            text="Account has been successfully updated"
+            text={`${strings.accountsuccess} ${strings.updated}`}
          />
       </View>
    );

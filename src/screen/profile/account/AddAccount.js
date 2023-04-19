@@ -14,6 +14,7 @@ import { useToast } from "react-native-toast-notifications";
 import uuid from "react-native-uuid";
 import { useFocusEffect } from "@react-navigation/native";
 import Dropdown from "../../../components/Dropdown";
+import strings from "../../../utils/Localization";
 
 const AddAccount = ({ navigation }) => {
    const [selectedList, setSelectedList] = React.useState("");
@@ -48,29 +49,32 @@ const AddAccount = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
+         navigation.setOptions({
+            title: strings.addnewaccount
+         })
       }, []),
    );
 
    const items = [
-      { label: "Cash", value: "Cash" },
-      { label: "Credit card", value: "Credit card" },
-      { label: "Savings", value: "Savings" },
-      { label: "Investment", value: "Investment" },
-      { label: "Business", value: "Business" },
-      { label: "Other/miscellaneous", value: "Other/miscellaneous" },
+      { label: strings.cash, value: "Cash" },
+      { label: strings.creditcard, value: "Credit card" },
+      { label: strings.savings, value: "Savings" },
+      { label: strings.investment, value: "Investment" },
+      { label: strings.business, value: "Business" },
+      { label: strings.othermiscellaneous, value: "Other/miscellaneous" },
    ];
    return (
       <View className="h-full bg-red-20">
          <NewScreen
             color="#7F3DFF"
-            text="Balance"
+            text={strings.balance}
             input={(value) => {
                setAmount(value);
             }}
             // value="67"
          >
             <Input
-               label="Name"
+               label={strings.name}
                textContentType="name"
                value={name}
                text
@@ -88,7 +92,7 @@ const AddAccount = ({ navigation }) => {
                }}
             >
                <Dropdown
-                  placeholder="Account Type"
+                  placeholder={strings.accounttype}
                   position="top"
                   data={items}
                   value={selectedList}
@@ -100,7 +104,7 @@ const AddAccount = ({ navigation }) => {
             </View>
             <MaterialButton
                onPress={handleAddAccount}
-               title="Continue"
+               title={strings.continue}
                titleColor="#FCFCFC"
                style={{
                   marginTop: Dimensions.get("window").width < 385 ? 24 : 36,

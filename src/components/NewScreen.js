@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import { Text, View, TextInput } from "react-native";
 
-const NewScreen = ({ color, text, children, input, value="" }) => {
+const NewScreen = ({ color, text, children, input, value="", editable=true }) => {
    const [amount, setAmount] = useState(value);
    const dotIndexRef = React.useRef(-1);
    const commaIndexRef = React.useRef(-1);
@@ -62,6 +62,7 @@ const NewScreen = ({ color, text, children, input, value="" }) => {
                   placeholder="0"
                   placeholderTextColor="#F2F4F5AA"
                   value={amount}
+                  editable={editable}
                   onChangeText={handleAmountChange}
                   // caretHidden
                   cursorColor="#FCAC12"

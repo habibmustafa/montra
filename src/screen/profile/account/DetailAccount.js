@@ -14,21 +14,7 @@ import Modal from "../../../components/Modal";
 import { useSelector } from "react-redux";
 import { accountTransactions } from "../../../utils/filter";
 import SvgIcons from "../../../utils/SvgIcons";
-
-const date = (params = false, render = false) => {
-   const dateTime = new Date(params).getDate();
-   if (render) {
-      if (dateTime === new Date().getDate()) {
-         return "Today";
-      } else if (dateTime === new Date().getDate() - 1) {
-         return "Yesterday";
-      } else {
-         return new Date(params).toDateString();
-      }
-   } else {
-      return dateTime;
-   }
-};
+import strings from "../../../utils/Localization";
 
 export const DetailAccountRight = (props) => {
    const navigation = useNavigation();
@@ -61,8 +47,29 @@ export const DetailAccountRight = (props) => {
 const DetailAccount = ({ route, navigation }) => {
    let { id } = route.params;
    const { userDb } = useSelector(state => state.user);
+   const { language } = useSelector(state => state.local);
 
    const { name, balance, type } = userDb.accounts[id]
+
+   const date = (params = false, render = false) => {
+      const dateTime = new Date(params).getDate();
+      if (render) {
+         if (dateTime === new Date().getDate()) {
+            return strings.today;
+         } else if (dateTime === new Date().getDate() - 1) {
+            return strings.yesterday;
+         } else {
+            return new Date(params).toLocaleString( language, {
+               weekday: "short",
+               day: "numeric",
+               month: "long",
+               year: 'numeric'
+            });
+         }
+      } else {
+         return dateTime;
+      }
+   };
 
    React.useLayoutEffect(() => {
       navigation.setOptions({
@@ -80,6 +87,9 @@ const DetailAccount = ({ route, navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
+         navigation.setOptions({
+            title: strings.detailaccount
+         })
       }, []),
    );
 

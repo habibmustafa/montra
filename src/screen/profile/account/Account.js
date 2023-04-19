@@ -13,6 +13,7 @@ import MaterialButton from "../../../components/MaterialButton";
 import SvgIcons from "../../../utils/SvgIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import { transactionsBalanceFilter } from "../../../utils/filter";
+import strings from "../../../utils/Localization";
 
 const Account = ({ navigation }) => {
    const { userDb, transactions } = useSelector((state) => state.user);
@@ -20,6 +21,9 @@ const Account = ({ navigation }) => {
    useFocusEffect(
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
+         navigation.setOptions({
+            title: strings.account
+         })
       }, []),
    );
 
@@ -42,7 +46,7 @@ const Account = ({ navigation }) => {
             />
             <View className="items-center">
                <Text className="font-medium text-sm text-light-20">
-                  Account Balance
+                  {strings.totalbalance}
                </Text>
                <Text className="font-semibold text-[40px] text-dark-75">
                   ₼
@@ -85,7 +89,7 @@ const Account = ({ navigation }) => {
 
          {/* Add account */}
          <MaterialButton
-            title="+ Add new account"
+            title={`+ ${strings.addnewaccount}`}
             titleColor="#FFF"
             style={{ marginHorizontal: 16 }}
             onPress={() => {
