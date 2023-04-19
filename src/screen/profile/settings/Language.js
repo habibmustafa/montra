@@ -4,18 +4,27 @@ import { SvgXml } from "react-native-svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../../store/localSlice";
 import strings from "../../../utils/Localization";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
+import { useFocusEffect } from "@react-navigation/native";
 
-const Language = () => {
-   const { language } = useSelector(state => state.local)
+const Language = ({ navigation }) => {
+   const { language } = useSelector(state => state.local);
    const [data, setData] = React.useState({
       value: [
          { id: 1, name: "English (EN)", key: "en" },
-         { id: 2, name: "Azerbaijan (AZ)", key: "az" },
+         { id: 2, name: "Azərbaycanca (AZ)", key: "az" },
       ],
       isActive: language,
    });
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
+
+   useFocusEffect(
+      React.useCallback(() => {
+         navigation.setOptions({
+            title: strings.language,
+         });
+      }, []),
+   );
 
    return (
       <View className="h-full bg-white">
@@ -25,19 +34,19 @@ const Language = () => {
                background={TouchableNativeFeedback.Ripple("#eee")}
                onPress={() => {
                   setData({ ...data, isActive: item.key });
-                  dispatch(setLanguage(item.key))
+                  dispatch(setLanguage(item.key));
                   strings.setLanguage(item.key);
                   Alert.alert(
-                     'Language Changed',
-                     'Language settings have been changed. The application needs to be restarted.',
+                     "Language Changed",
+                     "Language settings have been changed. The application needs to be restarted.",
                      [
                         {
-                           text: 'OK',
+                           text: "OK",
                            onPress: () => {
                               RNRestart.restart();
-                           }
-                        }
-                     ]
+                           },
+                        },
+                     ],
                   );
                }}>
                <View className="flex-row items-center justify-between h-14 px-4 ">

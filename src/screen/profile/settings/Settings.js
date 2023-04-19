@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { Linking, Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
+import strings from "../../../utils/Localization";
 
 const Settings = ({ navigation }) => {
    const { language } = useSelector(state => state.local)
 
    const data = [
-      { name: "Currency", value: "AZN", navigate: "Currency" },
-      { name: "Language", value: language === "en" ? "English" : "Azərbaycanca", navigate: "Language" },
-      { name: "Theme", value: "Light", navigate: "Theme" },
-      { name: "Notification", value: "", navigate: "NotificationSettings" },
-      { name: "About", value: "", navigate: false },
-      { name: "Help", value: "", navigate: false },
+      { name: strings.currency, value: "AZN", navigate: "Currency" },
+      { name: strings.language, value: language === "en" ? "English" : "Azərbaycanca", navigate: "Language" },
+      { name: strings.theme, value: strings.light, navigate: "Theme" },
+      { name: strings.notification, value: "", navigate: "NotificationSettings" },
+      { name: strings.about, value: "", navigate: false },
+      { name: strings.help, value: "", navigate: false },
    ]
+   useFocusEffect(
+      React.useCallback(() => {
+         navigation.setOptions({
+            title: strings.settings
+         })
+      }, []),
+   );
    return (
       <View className="bg-white h-full">
          {data.map(item => (
@@ -27,7 +36,7 @@ const Settings = ({ navigation }) => {
                      await Linking.openURL("https://habibmustafa.netlify.app/");
                   }
                }}>
-               <View className={`flex-row justify-between py-4 px-4 ${item.name === "About" && "mt-8"}`}>
+               <View className={`flex-row justify-between py-4 px-4 ${item.name === strings.about && "mt-8"}`}>
                   <Text className="font-medium text-base text-dark-25">{item.name}</Text>
                   <View className="flex-row items-center">
                      <Text className="font-medium text-sm text-light-20">{item.value}</Text>

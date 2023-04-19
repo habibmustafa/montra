@@ -1,8 +1,10 @@
 import React from "react";
 import { Text, TouchableNativeFeedback, View } from "react-native";
 import { SvgXml } from "react-native-svg";
+import { useFocusEffect } from "@react-navigation/native";
+import strings from "../../../utils/Localization";
 
-const Currency = () => {
+const Currency = ({ navigation }) => {
    const [data, setData] = React.useState({
       value: [
          { id: 1, name: "Azerbaijan (AZN)", key: "AZN" },
@@ -11,13 +13,22 @@ const Currency = () => {
       isActive: 1,
    });
 
+   useFocusEffect(
+      React.useCallback(() => {
+         navigation.setOptions({
+            title: strings.currency,
+         });
+      }, []),
+   );
+
    return (
       <View className="h-full bg-white">
          {data.value.map(item => (
-            <TouchableNativeFeedback key={item.id} background={TouchableNativeFeedback.Ripple("#eee")}
-                                     onPress={() => {
-                                        setData({ ...data, isActive: item.id });
-                                     }}>
+            <TouchableNativeFeedback
+               key={item.id} background={TouchableNativeFeedback.Ripple("#eee")}
+               onPress={() => {
+                  setData({ ...data, isActive: item.id });
+               }}>
                <View className="flex-row items-center justify-between h-14 px-4 ">
                   <Text className="font-medium text-sm text-dark-100">{item.name}</Text>
                   {item.id === data.isActive && <SvgXml xml={`<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

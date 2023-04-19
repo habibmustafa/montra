@@ -163,9 +163,6 @@ export default function MainNavigator() {
                   <Stack.Screen
                      name="NotificationSettings"
                      component={NotificationSettings}
-                     options={{
-                        headerTitle: "Notification"
-                     }}
                   />
                   <Stack.Screen
                      name="ExportData"
