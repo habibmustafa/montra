@@ -7,7 +7,7 @@ import Budget from "../screen/budget/Budget";
 import Profile from "../screen/profile/Profile";
 import AddButton from "../screen/operation/AddButton";
 import Svg, { Path } from "react-native-svg";
-import { useSelector } from "react-redux";
+import strings from "../utils/Localization";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +58,7 @@ const TabNavigator = () => {
                            !focused ? "text-[#C6C6C6]" : "text-violet-100"
                         }`}
                      >
-                        Home
+                        {strings.home}
                      </Text>
                   </View>
                ),
@@ -99,7 +99,7 @@ const TabNavigator = () => {
                            !focused ? "text-[#C6C6C6]" : "text-violet-100"
                         }`}
                      >
-                        Transaction
+                        {strings.transaction}
                      </Text>
                   </View>
                ),
@@ -146,7 +146,7 @@ const TabNavigator = () => {
                            !focused ? "text-[#C6C6C6]" : "text-violet-100"
                         }`}
                      >
-                        Budget
+                        {strings.budget}
                      </Text>
                   </View>
                ),
@@ -183,7 +183,7 @@ const TabNavigator = () => {
                            !focused ? "text-[#C6C6C6]" : "text-violet-100"
                         }`}
                      >
-                        Profile
+                        {strings.profile}
                      </Text>
                   </View>
                ),
