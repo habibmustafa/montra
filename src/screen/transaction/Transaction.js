@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import {
-   ScrollView,
    Text,
    View,
    StatusBar,
@@ -32,11 +31,11 @@ const Transaction = ({ navigation }) => {
          } else if (dateTime === new Date().getDate() - 1) {
             return strings.yesterday;
          } else {
-            return new Date(params).toLocaleString( language, {
+            return new Date(params).toLocaleString(language, {
                weekday: "short",
                day: "numeric",
                month: "long",
-               year: 'numeric'
+               year: "numeric",
             });
          }
       } else {
@@ -147,7 +146,7 @@ const Transaction = ({ navigation }) => {
             {/* transactions */}
             {transactions && (
                <FlatList
-                  data={transactionFilter(transactions, filter, sort)}
+                  data={transactionFilter(transactions, filter, sort, datex)}
                   keyExtractor={(item) => item.id}
                   initialNumToRender={7}
                   className="mb-[70px] px-4"
@@ -172,11 +171,15 @@ const Transaction = ({ navigation }) => {
                   )}
                />
             )}
-            <FilterDialog ref={actionSheetRef} getFilter={(e) => {
-               setFilter(e);
-            }} getSort={(e) => {
-               setSort(e);
-            }} />
+            <FilterDialog
+               ref={actionSheetRef}
+               getFilter={(e) => {
+                  setFilter(e);
+               }}
+               getSort={(e) => {
+                  setSort(e);
+               }}
+            />
          </View>
       </>
    );

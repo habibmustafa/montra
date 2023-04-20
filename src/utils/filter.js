@@ -1,20 +1,22 @@
-import transaction from "../screen/transaction/Transaction";
-import account from "../screen/profile/account/Account";
+import { getWeek } from "date-fns";
 
 const date = (time, timestamp = new Date().getTime()) => {
-   if (time == "DATE") {
+   if (time === "DATE") {
       const dateTime = new Date(timestamp).getDate();
       return dateTime;
-   } else if (time == "MONTH") {
+   } else if (time === "MONTH") {
       const dateTime = new Date(timestamp).getMonth();
-      return dateTime+1;
-   } else if (time == "YEAR") {
+      return dateTime + 1;
+   } else if (time === "YEAR") {
       const dateTime = new Date(timestamp).getFullYear();
+      return dateTime;
+   } else if (time === "WEEK") {
+      const dateTime = getWeek(timestamp, { weekStartsOn: 1 });
       return dateTime;
    }
 };
 
-// Transaction filter
+// Transaction balance filter
 export const transactionsBalanceFilter = (transactions, type, month = date("MONTH"), year = date("YEAR"), accounts = false) => {
    if (type == "expense" || type == "income") {
       let value = transactions
@@ -40,7 +42,7 @@ export const transactionsBalanceFilter = (transactions, type, month = date("MONT
       let startingBalance = Object.values(accounts).filter(account => date("MONTH", account.timestamp) <= month && date("YEAR", account.timestamp) <= year)
          .map(account => account.startingBalance).reduce((acc, curr) => acc + curr, 0);
 
-      let value = startingBalance + detucted
+      let value = startingBalance + detucted;
       return value.toFixed(2);
    }
 };
@@ -63,8 +65,10 @@ export const accountTransactions = (user, id) => {
    return value;
 };
 
-export const transactionFilter = (transactions, filter = ["expense", "income", "transfer"], sort = "Newest") => {
-   let value = transactions.filter(transaction => filter.includes(transaction.type));
+// Transaction filter
+export const transactionFilter = (transactions, filter = ["expense", "income", "transfer"], sort = "Newest", filterDate = "Month") => {
+
+   let value = transactions.filter(transaction => filter.includes(transaction.type) && date(filterDate.toUpperCase()) === date(filterDate.toUpperCase(), transaction.timestamp));
 
    if (sort === "Highest") {
       value = value.sort((a, b) => b.amount - a.amount);
