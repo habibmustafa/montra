@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+   Image,
    StatusBar,
    Text,
    TextInput,
@@ -31,6 +32,8 @@ const Profile = ({ navigation }) => {
       }, []),
    );
 
+   console.log(user.photoURL);
+
    return (
       <View
          className="h-full px-4 bg-[#F7F7F7]"
@@ -38,9 +41,27 @@ const Profile = ({ navigation }) => {
       >
          {/* Header */}
          <View className="header mt-8 mb-10 flex-row justify-between items-center">
-            <Avatar.Text label="HM" className="w-20 h-20 ml-2 rounded-full" />
+            {user.photoURL ? (
+               <Image
+                  className="w-20 h-20 ml-2 rounded-full"
+                  source={{
+                     uri: user.photoURL,
+                  }}
+               />
+            ) : (
+               <Avatar.Text
+                  label={user.displayName
+                     .split(" ")
+                     .map((name) => name.charAt(0).toUpperCase())
+                     .join("")}
+                  className="w-20 h-20 ml-2 rounded-full"
+               />
+            )}
+
             <View className="flex-1 ml-5">
-               <Text className="font-medium text-sm text-light-20">{strings.username}</Text>
+               <Text className="font-medium text-sm text-light-20">
+                  {strings.username}
+               </Text>
                {!activeInput ? (
                   <Text className="font-semibold text-2xl text-dark-75">
                      {user.displayName}
@@ -49,7 +70,6 @@ const Profile = ({ navigation }) => {
                   <TextInput
                      value={username}
                      autoFocus={true}
-
                      onChangeText={(val) => {
                         setUsername(val);
                      }}
@@ -60,7 +80,8 @@ const Profile = ({ navigation }) => {
                   />
                )}
             </View>
-            {!activeInput ? <TouchableHighlight
+            {!activeInput ? (
+               <TouchableHighlight
                   activeOpacity={0.99}
                   underlayColor="#eee"
                   style={{ borderRadius: 8 }}
@@ -91,7 +112,8 @@ const Profile = ({ navigation }) => {
                         stroke="#F1F1FA"
                      />
                   </Svg>
-               </TouchableHighlight> :
+               </TouchableHighlight>
+            ) : (
                <TouchableHighlight
                   activeOpacity={0.99}
                   underlayColor="#eee"
@@ -105,7 +127,9 @@ const Profile = ({ navigation }) => {
                      alignItems: "center",
                   }}
                   onPress={async () => {
-                     if (!/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(username.trim())) {
+                     if (
+                        !/^(?=.{3,16}$)[\p{L}\s]*\S[\p{L}\s]*$/u.test(username.trim())
+                     ) {
                         toast.show(strings.errorname);
                      } else if (username === user.displayName) {
                         setActiveInput(false);
@@ -131,7 +155,8 @@ const Profile = ({ navigation }) => {
                         fill="#00A86B"
                      />
                   </Svg>
-               </TouchableHighlight>}
+               </TouchableHighlight>
+            )}
          </View>
 
          {/* Content */}
@@ -166,7 +191,9 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">{strings.account}</Text>
+                  <Text className="font-medium text-base text-dark-25">
+                     {strings.account}
+                  </Text>
                </View>
             </TouchableHighlight>
 
@@ -200,7 +227,9 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">{strings.settings}</Text>
+                  <Text className="font-medium text-base text-dark-25">
+                     {strings.settings}
+                  </Text>
                </View>
             </TouchableHighlight>
 
@@ -296,7 +325,9 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   {/* text */}
-                  <Text className="font-medium text-base text-dark-25">{strings.logout}</Text>
+                  <Text className="font-medium text-base text-dark-25">
+                     {strings.logout}
+                  </Text>
                </View>
             </TouchableHighlight>
          </View>

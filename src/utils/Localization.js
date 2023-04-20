@@ -172,7 +172,7 @@ let strings = new LocalizedStrings({
          resetuppin: `PİN kodunuzu yenidən daxil edin`,
          enterpin: `PIN kodu daxil edin`,
          mismatchedpin: `Daxil edilmiş PIN-lər uyğun gəlmir. Zəhmət olmasa bir daha cəhd edin`,
-         incorrectpin: `PIN kodu səhvdir`,
+         incorrectpin: `PIN kod səhvdir`,
          required: `Zəruri`,
          erroremail: `Etibarlı e-poçt ünvanı daxil edin`,
          errorpassword: `6-16 simvoldan ibarət parol daxil edin`,

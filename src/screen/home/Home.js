@@ -6,7 +6,7 @@ import {
    StatusBar,
    BackHandler,
    TouchableHighlight,
-   TouchableWithoutFeedback,
+   TouchableWithoutFeedback, Image,
 } from "react-native";
 import { ActivityIndicator, Avatar, Modal, Portal } from "react-native-paper";
 import Svg, { Path } from "react-native-svg";
@@ -28,7 +28,8 @@ const Home = ({ navigation }) => {
       new Date().toISOString().slice(0, 7).split("-").join(" ")
    );
    const { userDb } = useSelector((state) => state.user);
-   const { user, language } = useSelector((state) => state.local);
+   let { user, language } = useSelector((state) => state.local);
+   user = JSON.parse(user)
 
    function getMonthName(monthNumber) {
       const date = new Date();
@@ -93,7 +94,20 @@ const Home = ({ navigation }) => {
                            }}
                         >
                            <View className="border border-violet-80 rounded-full p-[1px]">
-                              <Avatar.Text size={31} label="HM" />
+                              {user.photoURL ? (
+                                 <Image
+                                    className="w-[31px] h-[31px] rounded-full"
+                                    source={{
+                                       uri: user.photoURL,
+                                    }}
+                                 />
+                              ) : (
+                                 <Avatar.Text
+                                    label={user.displayName.split(" ").map(name => name.charAt(0).toUpperCase()).join("")}
+                                    size={31}
+                                 />
+                              )}
+
                            </View>
                         </TouchableWithoutFeedback>
 
@@ -173,7 +187,7 @@ const Home = ({ navigation }) => {
                            language={language}
                            mode="monthYear"
                            minimumDate={new Date(
-                              JSON.parse(user).metadata.creationTime
+                              user.metadata.creationTime
                            )
                               .toISOString()
                               .slice(0, 10)}

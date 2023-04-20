@@ -5,14 +5,14 @@ import {
    ScrollView,
    Text,
    TouchableWithoutFeedback,
-   Dimensions, StatusBar,
+   Dimensions, StatusBar, FlatList,
 } from "react-native";
 import TransactionItem from "../../../components/TransactionItem";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Divider } from "react-native-paper";
 import Modal from "../../../components/Modal";
 import { useSelector } from "react-redux";
-import { accountTransactions } from "../../../utils/filter";
+import { accountTransactions, transactionFilter } from "../../../utils/filter";
 import SvgIcons from "../../../utils/SvgIcons";
 import strings from "../../../utils/Localization";
 
@@ -49,7 +49,7 @@ const DetailAccount = ({ route, navigation }) => {
    const { userDb } = useSelector(state => state.user);
    const { language } = useSelector(state => state.local);
 
-   const { name, balance, type } = userDb.accounts[id]
+   const { name, balance, type } = userDb.accounts[id];
 
    const date = (params = false, render = false) => {
       const dateTime = new Date(params).getDate();
@@ -59,11 +59,11 @@ const DetailAccount = ({ route, navigation }) => {
          } else if (dateTime === new Date().getDate() - 1) {
             return strings.yesterday;
          } else {
-            return new Date(params).toLocaleString( language, {
+            return new Date(params).toLocaleString(language, {
                weekday: "short",
                day: "numeric",
                month: "long",
-               year: 'numeric'
+               year: "numeric",
             });
          }
       } else {
@@ -88,15 +88,15 @@ const DetailAccount = ({ route, navigation }) => {
       React.useCallback(() => {
          StatusBar.setBarStyle("dark-content");
          navigation.setOptions({
-            title: strings.detailaccount
-         })
+            title: strings.detailaccount,
+         });
       }, []),
    );
 
    return (
-      <ScrollView className="bg-white px-4">
+      <View className="bg-white h-full">
          {/* Header */}
-         <View className="header mt-12 pb-5 items-center">
+         <View className="header mt-12 pb-5 items-center px-4">
             {/* svg */}
             <View className="p-2 bg-light-60 rounded-2xl mb-2">
                <SvgIcons icon={type} />
@@ -114,30 +114,37 @@ const DetailAccount = ({ route, navigation }) => {
          />
 
          {/* transactions */}
-         <View className="pt-7 pb-3">
-            {accountTransactions(userDb, id).length ? (
-               accountTransactions(userDb, id).map((transaction, index) => (
-                  <View key={transaction.id}>
+         <View className="pt-7">
+            {accountTransactions(userDb, id).length && <FlatList
+               data={accountTransactions(userDb, id)}
+               keyExtractor={(item) => item.id}
+               initialNumToRender={7}
+               className="px-4"
+               style={{ height: Dimensions.get("window").height - 314 }}
+               ListEmptyComponent={
+                  <Text className="font-medium text-sm text-light-20 self-center mt-48">
+                     {strings.nomoneytransaction}
+                  </Text>}
+               renderItem={({ item, index }) => (
+                  <View>
                      {/* Time */}
                      {(index === 0 ||
                         date(accountTransactions(userDb, id)[index - 1].timestamp) !==
-                        date(transaction.timestamp)) && (
+                        date(item.timestamp)) && (
                         <View className="time pt-1.5 pb-3.5">
                            <Text className="font-semibold text-lg text-dark-100">
-                              {date(transaction.timestamp, true)}
+                              {date(item.timestamp, true)}
                            </Text>
                         </View>
                      )}
-                     <TransactionItem {...transaction} />
+                     <TransactionItem {...item} />
                   </View>
-               ))
-            ) : (
-               <Text className="font-medium text-sm text-light-20 self-center mt-56">
-                  No money transaction
-               </Text>
-            )}
+               )}
+            />}
+
+
          </View>
-      </ScrollView>
+      </View>
    );
 };
 
