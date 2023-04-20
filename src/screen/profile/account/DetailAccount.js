@@ -115,7 +115,7 @@ const DetailAccount = ({ route, navigation }) => {
 
          {/* transactions */}
          <View className="pt-7">
-            {accountTransactions(userDb, id).length && <FlatList
+            {userDb.accounts[id] && <FlatList
                data={accountTransactions(userDb, id)}
                keyExtractor={(item) => item.id}
                initialNumToRender={7}
@@ -145,7 +145,7 @@ const DetailAccount = ({ route, navigation }) => {
 
          </View>
       </View>
-   );
+   )
 };
 
 export default DetailAccount;

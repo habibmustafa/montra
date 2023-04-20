@@ -32,11 +32,12 @@ export const DetailTransactionRight = (params) => {
                />
             </Svg>
          </TouchableWithoutFeedback>
-         <Dialog ref={actionSheetRef} data={params}
-                 id="transaction"
-                 title={strings.removetransactiontitle}
-                 description={strings.removetransactiondescription}
-                 modalDescription={`${strings.transactionsuccess} ${strings.removed}`}
+         <Dialog
+            ref={actionSheetRef} data={params}
+            id="transaction"
+            title={strings.removetransactiontitle}
+            description={strings.removetransactiondescription}
+            modalDescription={`${strings.transactionsuccess} ${strings.removed}`}
          />
       </>
    );
@@ -83,8 +84,8 @@ const DetailTransaction = ({ navigation, route }) => {
       React.useCallback(() => {
          StatusBar.setBarStyle("light-content");
          navigation.setOptions({
-            title: strings.detailtransaction
-         })
+            title: strings.detailtransaction,
+         });
       }, []),
    );
 

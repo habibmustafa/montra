@@ -43,6 +43,14 @@ export const editAccount = (data) => {
 
 };
 
+// Remove Account
+export const removeAccount = (id) => {
+   database().ref(`users/${user_uid}/accounts/${id}`).remove()
+      .then(() => {
+      console.log("Success");
+   }).catch(err => console.log(err.code));
+}
+
 // !Add Transaction
 export const addTransaction = (data, balance) => {
    if (data.type !== "transfer") {
@@ -85,7 +93,7 @@ export const editTransaction = (data, balance) => {
       const updates = {};
 
       updates[accountRef + `transactions/${data.id}`] = {
-         ...data, timestamp: new Date().getTime(),
+         ...data
       };
 
       const change = balance.transactionAmount - data.amount;
@@ -97,7 +105,7 @@ export const editTransaction = (data, balance) => {
    } else {
       const updates = {};
       updates[`users/${user_uid}/transfers/${data.id}`] = {
-         ...data, timestamp: new Date().getTime(),
+         ...data
       };
       // updates[`users/${user_uid}/accounts/${data.from}/balance`] = database.ServerValue.increment(balance - data.amount);
       // updates[`users/${user_uid}/accounts/${data.to}/balance`] = database.ServerValue.increment(data.amount - balance);
