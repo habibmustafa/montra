@@ -43,7 +43,7 @@ const Transfer = ({ navigation, route }) => {
             transactionAmount: route.params?.amount,
          };
          if (route.params?.amount) {
-            editTransaction(data, balance);
+            editTransaction({ ...data, timestamp: route.params.timestamp }, balance);
          } else {
             addTransaction(data, balance);
          }
