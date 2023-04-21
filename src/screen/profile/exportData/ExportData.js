@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import DropdownPicker from "../../../components/DropdownPicker";
 import MaterialButton from "../../../components/MaterialButton";
 import { SvgXml } from "react-native-svg";
+import strings from "../../../utils/Localization";
+import Dropdown from "../../../components/Dropdown";
+import { useToast } from "react-native-toast-notifications";
 
 const ExportData = () => {
    const [data, setData] = useState("All");
    const [date, setDate] = useState("Last 30 days");
    const [format, setFormat] = useState("CSV");
+
+   const toast = useToast()
+
+   useEffect(() => {
+      toast.show(strings.availablesoon)
+   }, [])
 
    return (
       <View className="h-full bg-white pt-10 px-4">
@@ -15,17 +23,17 @@ const ExportData = () => {
             <Text className="font-medium text-base text-dark-75 mb-3">
                What data do your want to export?
             </Text>
-            <DropdownPicker
-               label="All"
-               items={[
+            <Dropdown
+               placeholder="All"
+               data={[
                   { label: "All", value: "All" },
                   { label: "Expense", value: "Expense" },
                   { label: "Income", value: "Income" },
                   { label: "Transfer", value: "Transfer" },
                ]}
-               selectedList={data}
-               setSelectedList={(val) => {
-                  setData(val);
+               value={data}
+               onChange={(val) => {
+                  setData(val.value);
                }}
             />
          </View>
@@ -34,16 +42,16 @@ const ExportData = () => {
             <Text className="font-medium text-base text-dark-75 mb-3">
                When date range?
             </Text>
-            <DropdownPicker
-               label="All"
-               items={[
+            <Dropdown
+               placeholder="All"
+               data={[
                   { label: "Last 30 days", value: "Last 30 days" },
                   { label: "Last 3 months", value: "Last 3 months" },
                   { label: "Last 6 months", value: "Last 6 months" },
                   { label: "Last year", value: "Last year" },
                ]}
-               selectedList={date}
-               setSelectedList={(val) => {
+               value={date}
+               onChange={(val) => {
                   setDate(val);
                }}
             />
@@ -53,19 +61,18 @@ const ExportData = () => {
             <Text className="font-medium text-base text-dark-75 mb-3">
                What format do you want to export?
             </Text>
-            <DropdownPicker
-               label="CSV"
-               items={[
+            <Dropdown
+               placeholder="CSV"
+               data={[
                   { label: "CSV", value: "CSV" },
                   { label: "JSON", value: "JSON" },
                   { label: "PDF", value: "PDF" },
                   { label: "Google Drive", value: "Google Drive", disabled: true },
                ]}
-               selectedList={format}
-               setSelectedList={(val) => {
+               value={format}
+               onChange={(val) => {
                   setFormat(val);
                }}
-               dropDownDirection="BOTTOM"
             />
          </View>
 
@@ -73,9 +80,7 @@ const ExportData = () => {
             <MaterialButton
                title="Export Data"
                titleColor="#FCFCFC"
-               onPress={() => {
-                  console.log(1);
-               }}
+               color="#ccc"
                leading={
                   <SvgXml
                      className="mr-2.5"

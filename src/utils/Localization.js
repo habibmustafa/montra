@@ -146,6 +146,7 @@ let strings = new LocalizedStrings({
          transaction: `Transaction`,
          budget: `Budget`,
          profile: `Profile`,
+         availablesoon: `This feature will be available soon`,
       },
       az: {
          onboarding1title: `Pulunuza tam\nnəzarət edin`,
@@ -292,6 +293,7 @@ let strings = new LocalizedStrings({
          transaction: `Əməliyyat`,
          budget: `Büdcə`,
          profile: `Profil`,
+         availablesoon: `Bu funksiya tezliklə əlçatan olacaq`,
       }
    },
 );

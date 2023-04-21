@@ -32,8 +32,6 @@ const Profile = ({ navigation }) => {
       }, []),
    );
 
-   console.log(user.photoURL);
-
    return (
       <View
          className="h-full px-4 bg-[#F7F7F7]"

@@ -8,7 +8,6 @@ const Currency = ({ navigation }) => {
    const [data, setData] = React.useState({
       value: [
          { id: 1, name: "Azerbaijan (AZN)", key: "AZN" },
-         { id: 2, name: "United States (USD)", key: "USD" },
       ],
       isActive: 1,
    });
