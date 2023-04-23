@@ -61,12 +61,13 @@ export default function App() {
 
    return (
       <PaperProvider>
-         <ToastProvider animationType="zoom-in" placement="top" duration={2500}
-                        renderToast={(toast) => Toast(toast)}>
+         <ToastProvider
+            animationType="zoom-in" placement="top" duration={2500}
+            renderToast={(toast) => Toast(toast)}>
             <View className="h-full">
-            <MainNavigator />
+               <MainNavigator />
             </View>
          </ToastProvider>
       </PaperProvider>
-   )
+   );
 }
